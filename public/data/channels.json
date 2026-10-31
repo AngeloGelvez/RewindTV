@@ -1,0 +1,5 @@
+[
+  { "id": "c1", "number": 1, "name": "Canal Rewind", "logo": "/placeholder.svg", "category": "general", "stream": "/streams/rewind.m3u8" },
+  { "id": "c2", "number": 2, "name": "Medianoche TV", "logo": "/placeholder.svg", "category": "terror", "stream": "/streams/medianoche.m3u8" },
+  { "id": "c3", "number": 3, "name": "Risas 24", "logo": "/placeholder.svg", "category": "comedia", "stream": "/streams/risas.m3u8" }
+]

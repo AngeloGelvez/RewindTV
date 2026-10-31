@@ -1,0 +1,24 @@
+/*
+ * Design tokens. Fuente unica de verdad para color/espaciado/tipografia.
+ * Tailwind v4 los expone como utilidades (bg-surface-0, text-ink-1, ...).
+ */
+@theme {
+  --color-surface-0: #0b0b0f;
+  --color-surface-1: #13131a;
+  --color-surface-2: #1c1c26;
+  --color-surface-3: #262633;
+
+  --color-ink-0: #f4f4f7;
+  --color-ink-1: #a8a8b8;
+  --color-ink-2: #6e6e80;
+
+  --color-accent: #ff4d6d;
+  --color-accent-soft: #ff8fa3;
+  --color-live: #2ee6a8;
+
+  --font-display: 'Bebas Neue', system-ui, sans-serif;
+  --font-sans: system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --radius-card: 0.625rem;
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+}

@@ -1,0 +1,43 @@
+@import 'tailwindcss';
+@import './tokens.css';
+
+/* Capa base: todo lo global vive aqui, nunca en estilos inline por componente. */
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    scrollbar-gutter: stable;
+  }
+
+  /* Las listas virtualizadas dependen de esto para no disparar reflows. */
+  .v-scroller {
+    contain: strict;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .v-item {
+    position: absolute;
+    left: 0;
+    right: 0;
+    contain: layout paint style;
+  }
+
+  /* Aisla cada tarjeta del calculo de layout del resto del carrusel. */
+  .card-surface {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 260px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}

@@ -1,0 +1,46 @@
+[
+  {
+    "id": "t1",
+    "slug": "noche-de-cintas",
+    "name": "Noche de Cintas",
+    "year": 1987,
+    "kind": "serie",
+    "runtime": 45,
+    "seasons": 3,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "Un videoclub de barrio y las historias que salen de sus estanterias.",
+    "rating": "TV-14",
+    "genres": ["misterio", "drama"],
+    "network": "Canal Rewind"
+  },
+  {
+    "id": "t2",
+    "slug": "estatica",
+    "name": "Estatica",
+    "year": 1994,
+    "kind": "pelicula",
+    "runtime": 102,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "Una senal de television que no deberia existir.",
+    "rating": "R",
+    "genres": ["terror", "misterio"],
+    "network": "Medianoche TV"
+  },
+  {
+    "id": "t3",
+    "slug": "verano-del-78",
+    "name": "Verano del 78",
+    "year": 1978,
+    "kind": "serie",
+    "runtime": 30,
+    "seasons": 5,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "Comedia familiar grabada frente a publico en vivo.",
+    "rating": "TV-G",
+    "genres": ["comedia"],
+    "network": "Canal Rewind"
+  }
+]
