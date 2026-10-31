@@ -1,0 +1,101 @@
+[
+  {
+    "slug": "halloween",
+    "label": "Halloween",
+    "emoji": "🎃",
+    "color": "#ff7518",
+    "priority": 90,
+    "tagline": "Especiales de terror y episodios embrujados",
+    "rule": { "type": "fixed-range", "from": "10-18", "to": "10-31" }
+  },
+  {
+    "slug": "dia-de-muertos",
+    "label": "Día de Muertos",
+    "emoji": "💀",
+    "color": "#c026d3",
+    "priority": 85,
+    "tagline": "Ofrendas, calaveras y visitas del más allá",
+    "rule": { "type": "fixed-range", "from": "11-01", "to": "11-02" }
+  },
+  {
+    "slug": "accion-de-gracias",
+    "label": "Acción de Gracias",
+    "emoji": "🦃",
+    "color": "#b45309",
+    "priority": 60,
+    "tagline": "Cenas familiares que salen mal",
+    "rule": { "type": "nth-weekday", "month": 11, "weekday": 4, "nth": 4, "window": 3 }
+  },
+  {
+    "slug": "navidad",
+    "label": "Navidad",
+    "emoji": "🎄",
+    "color": "#dc2626",
+    "priority": 95,
+    "tagline": "Especiales navideños de toda la vida",
+    "rule": { "type": "fixed-range", "from": "12-01", "to": "12-26" }
+  },
+  {
+    "slug": "ano-nuevo",
+    "label": "Año Nuevo",
+    "emoji": "🎆",
+    "color": "#fbbf24",
+    "priority": 80,
+    "tagline": "Cuenta regresiva y propósitos imposibles",
+    "rule": { "type": "fixed-range", "from": "12-27", "to": "01-06" }
+  },
+  {
+    "slug": "san-valentin",
+    "label": "San Valentín",
+    "emoji": "❤️",
+    "color": "#ec4899",
+    "priority": 70,
+    "tagline": "Amor, desamor y triángulos animados",
+    "rule": { "type": "fixed-day", "month": 2, "day": 14, "window": 6 }
+  },
+  {
+    "slug": "carnaval",
+    "label": "Carnaval",
+    "emoji": "🎭",
+    "color": "#8b5cf6",
+    "priority": 50,
+    "tagline": "Disfraces, desfiles y caos",
+    "rule": { "type": "easter-offset", "offset": -47, "window": 3, "span": 2 }
+  },
+  {
+    "slug": "pascua",
+    "label": "Pascua",
+    "emoji": "🐰",
+    "color": "#a3e635",
+    "priority": 55,
+    "tagline": "Conejos, huevos y búsquedas del tesoro",
+    "rule": { "type": "easter-offset", "offset": 0, "window": 6 }
+  },
+  {
+    "slug": "dia-de-las-madres",
+    "label": "Día de las Madres",
+    "emoji": "💐",
+    "color": "#f472b6",
+    "priority": 45,
+    "tagline": "Episodios dedicados a mamá",
+    "rule": { "type": "fixed-day", "month": 5, "day": 10, "window": 2 }
+  },
+  {
+    "slug": "verano",
+    "label": "Verano",
+    "emoji": "☀️",
+    "color": "#06b6d4",
+    "priority": 20,
+    "tagline": "Playa, campamento y vacaciones sin fin",
+    "rule": { "type": "fixed-range", "from": "06-21", "to": "08-20" }
+  },
+  {
+    "slug": "regreso-a-clases",
+    "label": "Regreso a Clases",
+    "emoji": "🎒",
+    "color": "#3b82f6",
+    "priority": 40,
+    "tagline": "El primer día nunca sale bien",
+    "rule": { "type": "fixed-range", "from": "08-21", "to": "09-10" }
+  }
+]

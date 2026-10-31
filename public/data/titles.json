@@ -1,18 +1,20 @@
 [
   {
     "id": "t1",
-    "slug": "noche-de-cintas",
-    "name": "Noche de Cintas",
-    "year": 1987,
+    "slug": "2-perros-tontos",
+    "name": "2 Perros Tontos",
+    "year": 1993,
     "kind": "serie",
-    "runtime": 45,
-    "seasons": 3,
+    "runtime": 22,
+    "seasonCount": 1,
+    "episodeCount": 2,
+    "score": 7,
     "poster": "/placeholder.svg",
     "backdrop": "/placeholder.svg",
-    "synopsis": "Un videoclub de barrio y las historias que salen de sus estanterias.",
-    "rating": "TV-14",
-    "genres": ["misterio", "drama"],
-    "network": "Canal Rewind"
+    "synopsis": "Dos perros callejeros sin nombre vagan por la ciudad metiendose en problemas.",
+    "rating": "TV-Y7",
+    "genres": ["comedia", "animacion"],
+    "network": "Cartoon Network"
   },
   {
     "id": "t2",
@@ -21,12 +23,13 @@
     "year": 1994,
     "kind": "pelicula",
     "runtime": 102,
+    "score": 8,
     "poster": "/placeholder.svg",
     "backdrop": "/placeholder.svg",
     "synopsis": "Una senal de television que no deberia existir.",
     "rating": "R",
     "genres": ["terror", "misterio"],
-    "network": "Medianoche TV"
+    "network": "Otros"
   },
   {
     "id": "t3",
@@ -35,12 +38,14 @@
     "year": 1978,
     "kind": "serie",
     "runtime": 30,
-    "seasons": 5,
+    "seasonCount": 1,
+    "episodeCount": 1,
+    "score": 6,
     "poster": "/placeholder.svg",
     "backdrop": "/placeholder.svg",
     "synopsis": "Comedia familiar grabada frente a publico en vivo.",
     "rating": "TV-G",
     "genres": ["comedia"],
-    "network": "Canal Rewind"
+    "network": "Nickelodeon"
   }
 ]

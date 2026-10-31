@@ -14,6 +14,9 @@ const routes = [
   { name: 'explore', pattern: '/explorar', load: () => import('../views/explore.js') },
   { name: 'search', pattern: '/buscar', load: () => import('../views/search.js') },
   { name: 'detail', pattern: '/titulo/:id', load: () => import('../views/detail.js') },
+  // El matcher solo admite parametros de segmento completo, asi que la
+  // temporada y el capitulo llegan como 't1' y 'c2' y se parsean en la vista.
+  { name: 'watch', pattern: '/ver/:id/:season/:episode', load: () => import('../views/watch.js') },
   { name: 'watch', pattern: '/ver/:id', load: () => import('../views/watch.js') },
   { name: 'live', pattern: '/en-vivo', load: () => import('../views/live.js') },
   { name: 'guide', pattern: '/guia', load: () => import('../views/guide.js') },

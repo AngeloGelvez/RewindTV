@@ -1,0 +1,18 @@
+{
+  "titleId": "t3",
+  "seasons": [
+    {
+      "number": 1,
+      "episodes": [
+        { "n": 1, "name": "Piloto", "src": ["mp4", "/media/demo.mp4"], "min": 30 },
+        {
+          "n": 2,
+          "name": "Nochebuena en el 78",
+          "src": ["mp4", "/media/demo.mp4"],
+          "min": 30,
+          "fest": ["navidad"]
+        }
+      ]
+    }
+  ]
+}

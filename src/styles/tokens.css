@@ -1,24 +1,44 @@
 /*
- * Design tokens. Fuente unica de verdad para color/espaciado/tipografia.
- * Tailwind v4 los expone como utilidades (bg-surface-0, text-ink-1, ...).
+ * Design tokens. Fuente unica de verdad.
+ * Tailwind v4 los expone como utilidades: bg-surface-1, text-ink-1, etc.
  */
 @theme {
-  --color-surface-0: #0b0b0f;
-  --color-surface-1: #13131a;
-  --color-surface-2: #1c1c26;
-  --color-surface-3: #262633;
+  /* Superficies: casi negro con un tinte violeta muy leve, no gris puro.
+     El tinte es lo que separa visualmente un dark "moderno" de uno plano. */
+  --color-surface-0: #08080c;
+  --color-surface-1: #101018;
+  --color-surface-2: #181824;
+  --color-surface-3: #232334;
+  --color-surface-4: #2e2e42;
 
-  --color-ink-0: #f4f4f7;
-  --color-ink-1: #a8a8b8;
-  --color-ink-2: #6e6e80;
+  --color-ink-0: #f5f5fa;
+  --color-ink-1: #a5a5bd;
+  --color-ink-2: #6b6b85;
 
-  --color-accent: #ff4d6d;
-  --color-accent-soft: #ff8fa3;
-  --color-live: #2ee6a8;
+  --color-accent: #7c5cff;
+  --color-accent-2: #c084fc;
+  --color-accent-ink: #ffffff;
+  --color-live: #ff3b5c;
+  --color-ok: #2ee6a8;
 
   --font-display: 'Bebas Neue', system-ui, sans-serif;
-  --font-sans: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-sans: 'Outfit', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
-  --radius-card: 0.625rem;
+  --radius-card: 1rem;
+  --radius-pill: 999px;
+
   --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.4), 0 8px 24px -8px rgb(0 0 0 / 0.6);
+  --shadow-pop: 0 12px 40px -8px rgb(124 92 255 / 0.45);
+}
+
+/*
+ * Color de acento contextual. La portada lo reescribe segun la festividad del
+ * dia (naranja en Halloween, rojo en Navidad...) y toda la UI se tine sola,
+ * sin que ningun componente tenga que saber que hay festividades.
+ */
+:root {
+  --fest: var(--color-accent);
+  --fest-soft: color-mix(in oklab, var(--fest) 22%, transparent);
 }

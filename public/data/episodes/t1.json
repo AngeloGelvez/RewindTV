@@ -1,0 +1,23 @@
+{
+  "titleId": "t1",
+  "seasons": [
+    {
+      "number": 1,
+      "episodes": [
+        {
+          "n": 1,
+          "name": "El problema de la puerta / Dientes de oro / ¿Dónde está el hueso?",
+          "src": ["mp4", "/media/demo.mp4"],
+          "min": 22
+        },
+        {
+          "n": 2,
+          "name": "La casa embrujada",
+          "src": ["mp4", "/media/demo.mp4"],
+          "min": 22,
+          "fest": ["halloween"]
+        }
+      ]
+    }
+  ]
+}

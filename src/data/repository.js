@@ -1,26 +1,28 @@
 /**
  * Capa de datos. Las vistas solo hablan con este modulo; el adaptador decide
- * de donde salen los datos (mock local hoy, API real manana) sin tocar la UI.
+ * de donde salen los datos (JSON estatico hoy, API real manana) sin tocar la UI.
  *
  * Indices construidos una sola vez al cargar:
- *   byId, bySlug, byGenre, byDecade  -> las consultas son O(1)/O(n filtrado)
- *   en vez de recorrer el catalogo completo en cada render.
+ *   byId, bySlug, byGenre, byDecade, byFestivity
+ * Las consultas pasan a ser O(1) o un filtrado sobre un subconjunto, en vez de
+ * recorrer el catalogo entero en cada render.
  */
 import { adapter } from './adapters/mockAdapter.js';
 import { memoize } from '../patterns/memoize.js';
 import { idle } from '../core/scheduler.js';
+import { isActive, daysUntil } from './models/festivity.js';
 
 let bootstrapped = null;
+
 const index = {
   titles: [],
   byId: new Map(),
   bySlug: new Map(),
   byGenre: new Map(),
   byDecade: new Map(),
-  channels: [],
-  channelById: new Map(),
-  programs: [],
-  programsByChannel: new Map(),
+  festivities: [],
+  festivityBySlug: new Map(),
+  picks: {}, // slug -> [{ t: titleId, s: season, n: number, name }]
 };
 
 function pushTo(map, key, value) {
@@ -32,7 +34,7 @@ function pushTo(map, key, value) {
 export function bootstrap() {
   if (bootstrapped) return bootstrapped;
   bootstrapped = (async () => {
-    const { titles, channels, programs } = await adapter.loadAll();
+    const { titles, festivities, picks } = await adapter.loadAll();
 
     index.titles = titles;
     for (const title of titles) {
@@ -42,13 +44,10 @@ export function bootstrap() {
       pushTo(index.byDecade, title.decade.slug, title);
     }
 
-    index.channels = channels;
-    for (const channel of channels) index.channelById.set(channel.id, channel);
+    index.festivities = festivities;
+    for (const festivity of festivities) index.festivityBySlug.set(festivity.slug, festivity);
+    index.picks = picks ?? {};
 
-    index.programs = programs;
-    for (const program of programs) pushTo(index.programsByChannel, program.channelId, program);
-
-    // El indice de busqueda es caro: se construye cuando el hilo esta libre.
     idle(buildSearchIndex);
     return index;
   })();
@@ -57,11 +56,91 @@ export function bootstrap() {
 
 export const getTitleById = (id) => index.byId.get(id);
 export const getTitleBySlug = (slug) => index.bySlug.get(slug);
-export const getChannels = () => index.channels;
-export const getProgramsFor = (channelId) => index.programsByChannel.get(channelId) ?? [];
-
 export const getByGenre = memoize((slug) => index.byGenre.get(slug) ?? []);
 export const getByDecade = memoize((slug) => index.byDecade.get(slug) ?? []);
+
+// ---------------------------------------------------------------- festividades
+
+/**
+ * Festividad de hoy. Si caen varias (ej. 31-oct Halloween y vispera de Dia de
+ * Muertos) gana la de mayor `priority`. Si no hay ninguna, devuelve null y la
+ * portada cae al orden normal.
+ */
+export function activeFestivity(date = new Date()) {
+  let best = null;
+  for (const festivity of index.festivities) {
+    if (!isActive(festivity, date)) continue;
+    if (!best || festivity.priority > best.priority) best = festivity;
+  }
+  return best;
+}
+
+/** La siguiente en el calendario, para el modulo "proximamente". */
+export function upcomingFestivity(date = new Date()) {
+  let best = null;
+  let bestDays = Infinity;
+  for (const festivity of index.festivities) {
+    const days = daysUntil(festivity, date);
+    if (days > 0 && days < bestDays) {
+      best = festivity;
+      bestDays = days;
+    }
+  }
+  return best ? { festivity: best, days: bestDays } : null;
+}
+
+/**
+ * Episodios de una festividad, ya resueltos en `picks.json` en tiempo de build.
+ * La portada NO necesita la base de episodios para armar la fila de Halloween.
+ */
+export function festivityPicks(slug) {
+  const entries = index.picks[slug] ?? [];
+  return entries
+    .map((entry) => {
+      const title = index.byId.get(entry.t);
+      return title ? { title, season: entry.s, number: entry.n, name: entry.name } : null;
+    })
+    .filter(Boolean);
+}
+
+export const getFestivity = (slug) => index.festivityBySlug.get(slug);
+export const allFestivities = () => index.festivities;
+
+// ------------------------------------------------------------------ episodios
+
+const episodesInFlight = new Map();
+
+/**
+ * Carga diferida de capitulos. Con 500 series en el catalogo, traerlos todos
+ * serian decenas de miles de objetos que la grilla nunca mira.
+ * Deduplica: si dos componentes piden a la vez, sale una sola peticion.
+ */
+export function loadEpisodes(title) {
+  if (title.seasons) return Promise.resolve(title.seasons);
+  let pending = episodesInFlight.get(title.id);
+  if (pending) return pending;
+  pending = adapter.loadEpisodes(title).then((seasons) => {
+    title.seasons = seasons;
+    episodesInFlight.delete(title.id);
+    return seasons;
+  });
+  episodesInFlight.set(title.id, pending);
+  return pending;
+}
+
+export function getEpisode(title, season, number) {
+  return title.seasons?.get(season)?.find((e) => e.number === number) ?? null;
+}
+
+/** Siguiente capitulo, saltando al inicio de la temporada siguiente si toca. */
+export function nextEpisode(title, episode) {
+  const current = title.seasons?.get(episode.season) ?? [];
+  const i = current.findIndex((e) => e.number === episode.number);
+  if (i >= 0 && i < current.length - 1) return current[i + 1];
+  return title.seasons?.get(episode.season + 1)?.[0] ?? null;
+}
+
+// -------------------------------------------------------------------- queries
 
 export const query = memoize(
   ({ genre, decade, kind, sort = 'year-desc' }) => {
@@ -72,12 +151,12 @@ export const query = memoize(
     if (sort === 'year-desc') sorted.sort((a, b) => b.year - a.year);
     else if (sort === 'year-asc') sorted.sort((a, b) => a.year - b.year);
     else if (sort === 'name') sorted.sort((a, b) => a.name.localeCompare(b.name));
+    else if (sort === 'score') sorted.sort((a, b) => (b.score ?? 0) - (a.score ?? 0));
     return sorted;
   },
   { keyOf: (f) => `${f.genre}|${f.decade}|${f.kind}|${f.sort}` },
 );
 
-// --- busqueda ---
 let searchIndex = null;
 
 function buildSearchIndex() {
@@ -101,3 +180,27 @@ export const search = memoize(
   },
   { limit: 32 },
 );
+
+// -------------------------------------------------------------------- canales
+
+let channelsPromise = null;
+const channelIndex = { all: [], byId: new Map(), byCategory: new Map() };
+
+/** Canales en vivo. Carga diferida: la portada no los necesita. */
+export function loadChannels() {
+  if (channelsPromise) return channelsPromise;
+  channelsPromise = adapter.loadChannels().then((channels) => {
+    channelIndex.all = channels;
+    for (const channel of channels) {
+      channelIndex.byId.set(channel.id, channel);
+      pushTo(channelIndex.byCategory, channel.category, channel);
+    }
+    return channels;
+  });
+  return channelsPromise;
+}
+
+export const getChannel = (id) => channelIndex.byId.get(id);
+export const getChannels = () => channelIndex.all;
+export const getChannelsByCategory = (category) => channelIndex.byCategory.get(category) ?? [];
+export const channelCategories = () => [...channelIndex.byCategory.keys()];

@@ -1,0 +1,17 @@
+{
+  "titleId": "t2",
+  "seasons": [
+    {
+      "number": 1,
+      "episodes": [
+        {
+          "n": 1,
+          "name": "Estática",
+          "src": ["mp4", "/media/demo.mp4"],
+          "min": 102,
+          "fest": ["halloween"]
+        }
+      ]
+    }
+  ]
+}

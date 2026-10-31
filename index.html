@@ -3,11 +3,20 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#0b0b0f" />
+    <meta name="theme-color" content="#08080c" />
     <meta name="description" content="RewindTv: catalogo retro, canal en vivo y guia de programacion." />
     <title>RewindTv</title>
 
-    <link rel="preload" href="/data/titles.json" as="fetch" crossorigin />
+    <!-- Mismo origen y sin credenciales: debe coincidir con el fetch() del adaptador. -->
+    <link rel="preload" href="/data/titles.json" as="fetch" />
+    <link rel="preload" href="/data/festivities.json" as="fetch" />
+    <link rel="preload" href="/data/picks.json" as="fetch" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap"
+    />
     <link rel="stylesheet" href="/src/styles/main.css" />
   </head>
   <body class="bg-surface-0 text-ink-0 antialiased">

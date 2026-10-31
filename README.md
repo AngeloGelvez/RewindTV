@@ -96,11 +96,76 @@ src/
 5. **Las vistas solo hablan con `repository.js`**, nunca con `fetch`.
 6. **Los flyweights son inmutables.** Si hay que mutar algo, no es flyweight.
 
+
+## Diseno
+
+Dark con tinte violeta —no gris puro: el tinte es lo que separa un dark moderno
+de uno plano—, tarjetas redondeadas, Bebas Neue para titulares y Outfit para
+texto.
+
+### Acento contextual por festividad
+
+El color de acento vive en la variable CSS `--fest`, que se reescribe en `:root`
+segun la festividad del dia. Toda la UI (botones, foco, anillos, badges,
+seleccion de texto) se tine sola.
+
+**Ningun componente sabe que existen las festividades**: solo leen `var(--fest)`.
+Hoy, 31 de octubre, la app entera esta en naranja Halloween.
+
+### Pantallas
+
+| Ruta | Que hay |
+| --- | --- |
+| `/` | Hero de la festividad + filas virtualizadas: tematica, recientes, mejor valorado y los canales en vivo por categoria |
+| `/explorar` | Filtros de tipo y orden + grilla virtualizada |
+| `/titulo/:slug` | Ficha con poster, badge de cadena, tabs de temporada y rejilla de episodios |
+| `/ver/:slug/tN/cN` | Reproductor + lista de la temporada con el capitulo activo marcado + Anterior/Siguiente |
+| `/en-vivo` | 55 canales verificados, chips por categoria, reproductor HLS |
+| `/buscar` | Busqueda con debounce sobre el indice construido en idle |
+| `/guia` | Programacion del canal propio |
+
+Cambiar de capitulo **no recarga la pagina**: solo se reemplaza el reproductor y
+se mueve la marca de activo. El sitio de referencia hace una recarga completa en
+cada "Siguiente".
+
+### El reproductor usa facade
+
+Al entrar a un capitulo **no se carga nada**: se pinta un poster con un boton.
+Solo al pulsar se inserta el iframe o se importa hls.js (123 KB gzip, en su
+propio chunk). Si venias a leer la sinopsis, no pagas ese coste.
+
+Es lo contrario de lo que hace el sitio de referencia, que monta el iframe de
+ok.ru de entrada.
+
+## Peso real
+
+Arranque medido sobre `dist/` con gzip:
+
+```
+index.html     0.79 KB
+CSS            5.99 KB
+runtime        3.84 KB
+repository     3.30 KB
+app            1.34 KB
+-------------------------
+TOTAL         15.25 KB gzip
+```
+
+Cada vista pesa entre 1 y 2.2 KB gzip y baja solo al visitarla. hls.js (123 KB)
+solo baja si pulsas play en un canal.
+
+## Datos
+
+- `npm run data` regenera el indice de festividades (`picks.json`).
+- `npm run channels` revalida los 55 canales en vivo.
+
+Detalle completo en [docs/esquema-datos.md](docs/esquema-datos.md) y
+[docs/canales.md](docs/canales.md).
+
 ## Estado
 
-Fase 1 (esta): estructura, runtime, capa de datos, TitleCard y VirtualGrid
-funcionales. Las vistas son esqueletos y `Carousel`, `Player` y `Epg` estan
-declarados pero sin implementar (lanzan error a proposito, para que no pasen
-inadvertidos).
+Funcional: el runtime completo, la capa de datos con festividades, las 7 vistas,
+el reproductor con HLS en vivo verificado y 55 canales reales.
 
-Fase 2: implementar vistas, carrusel, reproductor y EPG sobre este runtime.
+Pendiente: la grilla EPG en dos ejes, el historial de "continuar viendo"
+(el slice ya existe en el store) y poblar el catalogo de series.
