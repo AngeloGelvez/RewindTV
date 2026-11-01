@@ -11,7 +11,7 @@ portada se carga al inicio; todo lo demas, bajo demanda.**
 
 | Fichero | Cuando se carga | Tamano esperado |
 | --- | --- | --- |
-| `titles.json` | al arrancar | ~200 bytes por titulo (500 series ≈ 100 KB, ~25 KB gzip) |
+| `titles.json` | al arrancar | ~260 bytes por titulo (503 series = 129 KB reales) |
 | `festivities.json` | al arrancar | ~2 KB, fijo |
 | `picks.json` | al arrancar | pocos KB — **generado**, no se escribe a mano |
 | `episodes/<titleId>.json` | al abrir una serie | ~80 bytes por capitulo |
@@ -95,7 +95,12 @@ que reescribir miles de registros.
 
 Guardando `["okru", "1392690399817"]`, la URL se construye en
 `src/data/models/embed.js` y cambiar de proveedor es tocar una funcion.
-Proveedores soportados: `okru`, `vk`, `dailymotion`, `mp4`.
+Proveedores soportados: `okru`, `vk`, `dailymotion`, `rpmvid`, `cubeembed`,
+`dhtpre`, `sendvid`, `yourupload`, `mp4`.
+
+`rpmvid` y `cubeembed` son el mismo servicio con dos formas de URL (el id va en
+el fragmento o en el path). Son dos entradas del registro porque lo que cambia
+es como se construye la URL, que es justo lo que el registro guarda.
 
 Un proveedor que no este en ese registro **no rompe la vista**: la fuente se
 descarta al parsear, el capitulo cae a la siguiente y la consola avisa una vez.
@@ -244,3 +249,58 @@ la vez.
 2. Episodio tematico -> anade `"fest": ["navidad"]` a ese capitulo.
 3. Festividad nueva -> una entrada en `festivities.json` con su regla.
 4. `npm run data` para regenerar el indice.
+
+## El catalogo actual: importado, no escrito a mano
+
+`titles.json` y los 503 ficheros de `episodes/` salen de un volcado CSV del
+catalogo de lacartoons.com (una fila por capitulo, 29.199 filas) convertido por:
+
+```bash
+node scripts/import-lacartoons.mjs <ruta-del-csv>        # escribe
+node scripts/import-lacartoons.mjs <ruta-del-csv> --dry  # solo reporta
+npm run data                                             # regenera picks.json
+```
+
+El script existe en vez de una conversion a mano porque el volcado se va a
+repetir: la fuente crece y los enlaces se caen. Ademas valida lo que el CSV no
+garantiza.
+
+| | |
+| --- | ---: |
+| Titulos | 503 |
+| Capitulos | 29.199 |
+| `titles.json` | 129 KB |
+| Capitulos sin fuente usable | 8 |
+| Capitulos renumerados | 6 |
+
+Reparto de fuentes: `okru` 15.904, `rpmvid` 9.770, `dhtpre` 1.856,
+`sendvid` 1.033, `cubeembed` 379, `yourupload` 249.
+
+### Las tres decisiones que no son obvias
+
+**Capitulos repetidos.** Seis pares `(serie, temporada, capitulo)` vienen
+duplicados con titulos distintos: son dos capitulos reales compartiendo numero.
+Si se dejan, el id derivado (`t20-2-1`) colisiona y la vista de detalle pierde
+uno. Se corren al final de su temporada, y eso se hace **despues** de leer el
+CSV entero: moverlos sobre la marcha le roba el numero a un capitulo que aun no
+ha llegado y el desplazamiento se propaga en cascada (19 capitulos movidos en
+vez de 6, comprobado).
+
+**Lo que el CSV no trae no se inventa.** No hay duracion por capitulo, ni
+sinopsis, ni poster, ni clasificacion por edad: `min` se omite (la UI ya pinta
+vacio), `synopsis` queda en blanco, las imagenes van a `/placeholder.svg` — la
+tarjeta pinta las iniciales — y el modelo cae a `NR`. Tampoco hay generos: lo
+unico afirmable de la fuente entera es que es animacion, asi que todos los
+titulos entran con `animacion` y nada mas. Generos finos requieren otra pasada
+con una fuente que los tenga.
+
+**Festividades por palabra clave.** El CSV no las trae, pero el titulo del
+capitulo las delata ("Especial Del Dia De Accion De Gracias"). Las reglas son
+estrictas a proposito — solo el nombre de la fiesta — porque un falso positivo
+mete un capitulo cualquiera en la portada de Halloween: un patron amplio como
+`/terror|fantasma|monstruo/` daba 632 aciertos, la mayoria basura; el estricto
+da 84 reales. Quedan 305 capitulos etiquetados y las once festividades con
+contenido.
+
+`openload.co` no esta en el registro de proveedores: el servicio cerro en 2020.
+Sus 5 enlaces entran como capitulo sin fuente, no como fuente muerta.

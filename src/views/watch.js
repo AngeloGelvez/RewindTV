@@ -56,7 +56,9 @@ export default async function watchView({ outlet, params }) {
   if (episode) {
     const player = Player({
       sources: episode.sources,
-      poster: title.backdrop ?? title.poster,
+      // Solo arte real: el marcador de posicion generico detras del boton de
+      // reproducir no aporta nada y se ve como una imagen rota a medio cargar.
+      poster: [title.backdrop, title.poster].find((p) => p && !p.includes('placeholder')) ?? null,
       label: `${title.name} T${episode.season}E${episode.number}`,
     });
     piezas.push(player);
@@ -64,7 +66,7 @@ export default async function watchView({ outlet, params }) {
     escenario.replaceChildren(
       player.node,
       el('div', { class: 'space-y-3' }, [
-        el('p', { class: 'text-xs font-semibold uppercase tracking-wider', style: 'color: var(--fest)' },
+        el('p', { class: 'text-xs font-semibold uppercase tracking-wider', style: 'color: var(--fest-text)' },
           `Temporada ${episode.season} · Episodio ${episode.number}`),
         el('h1', { class: 'text-2xl font-semibold leading-tight' }, episode.name),
         episode.synopsis ? el('p', { class: 'text-sm text-ink-1' }, episode.synopsis) : null,

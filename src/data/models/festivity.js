@@ -27,6 +27,7 @@ export const Festivity = createFlyweightFactory(
     label: def.label,
     emoji: def.emoji ?? '',
     color: def.color ?? '#6e6e80',
+    accent2: def.accent2 ?? null,
     priority: def.priority ?? 0,
     rule: def.rule,
     tagline: def.tagline ?? '',

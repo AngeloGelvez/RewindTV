@@ -1,5 +1,5 @@
 [
-  { "id": "p1", "channelId": "c1", "titleId": "t1", "name": "Noche de Cintas S01E01", "startsAt": "2026-10-31T20:00:00Z", "durationMin": 45 },
-  { "id": "p2", "channelId": "c1", "titleId": "t3", "name": "Verano del 78 S02E04", "startsAt": "2026-10-31T20:45:00Z", "durationMin": 30 },
-  { "id": "p3", "channelId": "c2", "titleId": "t2", "name": "Estatica", "startsAt": "2026-10-31T21:00:00Z", "durationMin": 102 }
+  { "id": "p1", "channelId": "c1", "titleId": "t1", "name": "2 Perros Tontos S01E01", "startsAt": "2026-10-31T20:00:00Z", "durationMin": 45 },
+  { "id": "p2", "channelId": "c1", "titleId": "t3", "name": "El Capitán Planeta S01E04", "startsAt": "2026-10-31T20:45:00Z", "durationMin": 30 },
+  { "id": "p3", "channelId": "c2", "titleId": "t2", "name": "Caballeros del Zodiaco S01E01", "startsAt": "2026-10-31T21:00:00Z", "durationMin": 102 }
 ]

@@ -1,178 +1,250 @@
 /**
- * Hero de portada.
+ * Hero de portada: un escaparate a pantalla completa con varios titulos y
+ * puntos para pasar de uno a otro.
  *
- * Se tine con el color de la festividad escribiendo `--fest` en :root: el resto
- * de la UI (acentos, foco, anillos, seleccion) cambia sola sin que ningun otro
- * componente sepa que existen las festividades.
+ * Tres decisiones:
  *
- * Composicion: texto a la izquierda y arte a la derecha. Con el arte dentro del
- * flujo, el hero sigue teniendo cuerpo aunque el titulo no traiga backdrop;
- * apoyarlo todo en una imagen de fondo deja un bloque vacio cuando falta.
+ * 1. UN SOLO NODO para todas las diapositivas. Cambiar de titulo reescribe
+ *    textos y la capa de arte, no reconstruye la seccion: ni parpadeo, ni
+ *    salto de layout, ni perder el foco del teclado a mitad de rotacion.
+ *
+ * 2. EL FONDO NO DEPENDE DE QUE HAYA IMAGEN. El catalogo no trae arte todavia,
+ *    asi que el lienzo se dibuja con los dos colores de la festividad y, si el
+ *    titulo tiene backdrop, se monta encima. Un hero que se apoya solo en una
+ *    foto deja un bloque negro cuando falta.
+ *
+ * 3. EL TEXTO SE APOYA EN UN VELO (.scrim-side), no en la suerte de la imagen.
+ *    Con foto clara o con foto oscura, el titulo se lee igual.
+ *
+ * La rotacion automatica se detiene al pasar el raton, al entrar el foco y
+ * con `prefers-reduced-motion`: un carrusel que se mueve mientras intentas
+ * leerlo o pulsarlo es una trampa, no una gracia.
  */
 import { el } from '../../core/dom.js';
 import { defineComponent } from '../base/Component.js';
 import { icon } from '../ui/icons.js';
 import { hydrateImage, initials } from '../ui/LazyImage.js';
-import { runtime } from '../../utils/format.js';
+import { applyTheme, inkFor, shade } from '../../core/theme.js';
 
-export function applyFestivityTheme(festivity) {
-  document.documentElement.style.setProperty('--fest', festivity?.color ?? '#7c5cff');
-}
+/** Alias historico: el tema completo vive en core/theme.js. */
+export const applyFestivityTheme = applyTheme;
 
-function estrellas(score) {
-  const llenas = Math.round(score / 2);
-  const fila = el('span', { class: 'flex items-center gap-0.5' });
-  for (let i = 0; i < 5; i++) {
-    fila.appendChild(
-      el('span', { class: i < llenas ? '' : 'opacity-25', style: 'color: var(--fest)' }, [icon('star', 'size-3.5')]),
-    );
-  }
-  fila.appendChild(el('span', { class: 'pl-1 text-xs font-semibold text-ink-1' }, score.toFixed(1)));
-  return fila;
-}
+const INTERVALO = 7000;
+const MAX = 5;
 
 export const Hero = defineComponent({
-  setup({ festivity, title, upcoming }) {
-    const fondo = el('div', { class: 'absolute inset-0 -z-10 overflow-hidden' }, [
+  setup({ festivity, items = [], upcoming }, { onDispose }) {
+    const slides = items.filter(Boolean).slice(0, MAX);
+    let i = 0;
+
+    // --- lienzo -------------------------------------------------------------
+    const arte = el('div', { class: 'absolute inset-0 -z-10' });
+    const foto = el('img', {
+      class: 'absolute inset-0 size-full object-cover opacity-0 transition-opacity duration-700',
+      alt: '',
+      'aria-hidden': 'true',
+      decoding: 'async',
+    });
+
+    const lienzo = el('div', { class: 'absolute inset-0 -z-10 overflow-hidden' }, [
+      arte,
+      foto,
+      el('div', { class: 'absolute inset-0 scrim-side' }),
+      // Remate inferior: funde el hero con la pagina sin una linea dura.
       el('div', {
-        class: 'absolute inset-0',
-        style:
-          'background:' +
-          'radial-gradient(110% 80% at 15% 0%, var(--fest-soft), transparent 62%),' +
-          'linear-gradient(to bottom, var(--color-surface-1), var(--color-surface-0))',
-      }),
-      // Rejilla muy sutil: da textura sin competir con el contenido.
-      el('div', {
-        class: 'absolute inset-0 opacity-[0.035]',
-        style:
-          'background-image: linear-gradient(var(--color-ink-0) 1px, transparent 1px),' +
-          'linear-gradient(90deg, var(--color-ink-0) 1px, transparent 1px);' +
-          'background-size: 56px 56px',
+        class: 'absolute inset-x-0 bottom-0 h-28',
+        style: 'background: linear-gradient(to top, var(--color-surface-0), transparent)',
       }),
     ]);
 
-    const etiqueta = festivity
-      ? el(
-          'span',
-          {
-            class:
-              'inline-flex items-center gap-2 rounded-pill px-3 py-1 text-xs font-bold uppercase tracking-[0.12em] text-white',
-            style: 'background: var(--fest)',
-          },
-          `${festivity.emoji} ${festivity.label}`,
-        )
-      : el(
-          'span',
-          { class: 'text-xs font-bold uppercase tracking-[0.12em]', style: 'color: var(--fest)' },
-          'Destacado',
-        );
+    // --- piezas de texto ----------------------------------------------------
+    const insignia = el('span', {
+      class: 'inline-flex items-center gap-2 rounded-pill px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.14em]',
+    });
 
-    const meta = title
-      ? el('div', { class: 'flex flex-wrap items-center gap-x-3 gap-y-2 text-xs text-ink-1' }, [
-          title.score ? estrellas(title.score) : null,
-          el('span', { class: 'text-ink-2' }, String(title.year)),
-          el(
-            'span',
-            { class: 'rounded border border-surface-3 px-1.5 py-0.5 text-[11px] text-ink-1' },
-            title.rating,
-          ),
-          el(
-            'span',
-            { class: 'text-ink-2' },
-            title.kind === 'serie' ? `${title.seasonCount ?? 1} temporada(s)` : runtime(title.runtime),
-          ),
-          title.network
-            ? el(
-                'span',
-                {
-                  class: 'rounded-pill px-2 py-0.5 text-[11px] font-semibold text-white',
-                  style: `background: ${title.network.color}`,
-                },
-                title.network.name,
-              )
-            : null,
-        ])
-      : null;
+    const dato = el('span', {
+      class: 'inline-flex items-center gap-1.5 rounded-pill chip-glass px-3 py-1.5 text-[11px] font-semibold',
+    });
 
-    const acciones = title
-      ? el('div', { class: 'flex flex-wrap items-center gap-3 pt-1' }, [
-          el(
-            'a',
-            {
-              href: `/ver/${title.slug}/t1/c1`,
-              class:
-                'inline-flex items-center gap-2 rounded-pill bg-ink-0 px-6 py-3 text-sm font-semibold text-surface-0 transition hover:opacity-90 active:scale-[0.98]',
-            },
-            [icon('play', 'size-4'), 'Reproducir'],
-          ),
-          el(
-            'a',
-            {
-              href: `/titulo/${title.slug}`,
-              class:
-                'inline-flex items-center gap-2 rounded-pill border border-surface-3 bg-surface-1/60 px-6 py-3 text-sm font-medium text-ink-0 backdrop-blur transition hover:border-[var(--fest)]',
-            },
-            [icon('info', 'size-4'), 'Mas informacion'],
-          ),
-        ])
-      : null;
+    const titulo = el('h1', {
+      class:
+        'max-w-[15ch] text-balance font-display text-[2.1rem] font-extrabold leading-[1.03] text-white ' +
+        'sm:text-5xl md:text-6xl lg:text-[4.25rem]',
+    });
 
-    // Arte: poster con el backdrop difuminado detras, para dar profundidad.
-    let arte = null;
-    if (title) {
-      const poster = el('img', {
-        class: 'relative w-44 rounded-card shadow-[var(--shadow-pop)] md:w-56',
-        alt: '',
-        'aria-hidden': 'true',
-        decoding: 'async',
-      });
-      poster.dataset.src = title.poster;
-      hydrateImage(poster);
+    const bajada = el('p', {
+      class: 'hidden max-w-[46ch] text-sm leading-relaxed text-white/80 sm:block md:text-base',
+    });
 
-      arte = el('div', { class: 'relative hidden shrink-0 place-items-center sm:grid' }, [
-        el('span', {
-          class: 'absolute size-56 rounded-full blur-3xl md:size-72',
-          style: 'background: var(--fest); opacity: .22',
-        }),
-        el('span', {
-          class: 'absolute inset-0 grid place-items-center font-display text-5xl text-ink-2/40',
-        }, initials(title.name)),
-        poster,
-      ]);
+    const avatar = el('span', {
+      class: 'grid size-7 shrink-0 place-items-center rounded-full text-[10px] font-bold',
+    });
+    const autor = el('span', { class: 'text-sm font-medium text-white/90' });
+    const firma = el('div', { class: 'flex items-center gap-2.5' }, [avatar, autor]);
+
+    const ver = el(
+      'a',
+      {
+        // Primer destino del foco con mando: lo natural es darle a OK y ver.
+        'data-autofocus': '',
+        class:
+          'inline-flex items-center gap-2 rounded-pill bg-white px-6 py-3.5 text-sm font-semibold text-[#111115] ' +
+          'transition hover:bg-white/90 active:scale-[0.98]',
+      },
+      [icon('play', 'size-4'), el('span', {}, 'Ver ahora'), icon('chevron', 'size-4 opacity-60')],
+    );
+
+    const ficha = el(
+      'a',
+      {
+        class:
+          'inline-flex items-center gap-2 rounded-pill border border-white/25 bg-white/10 px-6 py-3.5 text-sm ' +
+          'font-medium text-white backdrop-blur-[6px] transition hover:border-white/50',
+      },
+      [icon('info', 'size-4'), 'Mas informacion'],
+    );
+
+    // --- puntos -------------------------------------------------------------
+    const puntos = slides.map((t, n) =>
+      el('button', {
+        type: 'button',
+        class: 'h-1.5 rounded-pill transition-all duration-300',
+        'aria-label': `Ver ${t.name}`,
+        'data-nav-skip': '',
+        onClick: () => {
+          mostrar(n);
+          parar();
+        },
+      }),
+    );
+
+    const navegador =
+      puntos.length > 1
+        ? el(
+            'div',
+            { class: 'absolute inset-x-0 bottom-5 flex justify-center gap-2', role: 'tablist', 'aria-label': 'Destacados' },
+            puntos,
+          )
+        : null;
+
+    // --- pintado ------------------------------------------------------------
+    function mostrar(n) {
+      i = (n + slides.length) % slides.length;
+      const t = slides[i];
+      if (!t) return;
+
+      const color = t.network?.color ?? 'var(--fest)';
+
+      titulo.textContent = t.name;
+      bajada.textContent =
+        t.synopsis?.trim() ||
+        festivity?.tagline ||
+        `${t.year} · ${t.kind === 'serie' ? `${t.seasonCount ?? 1} temporada(s), ${t.episodeCount ?? 0} capitulos` : 'Pelicula'}`;
+
+      avatar.textContent = initials(t.network?.name ?? t.name);
+      avatar.style.background = color;
+      avatar.style.color = inkFor(t.network?.color ?? '#6e6e80');
+      autor.textContent = t.network?.name ?? 'RewindTv';
+
+      ver.href = `/ver/${t.slug}/t1/c1`;
+      ficha.href = `/titulo/${t.slug}`;
+
+      dato.replaceChildren(
+        icon('eye', 'size-3.5'),
+        document.createTextNode(
+          t.kind === 'serie' ? `${t.episodeCount ?? 0} capitulos` : `${t.year}`,
+        ),
+      );
+
+      // El arte: degradado propio por titulo (sale del color de su cadena) con
+      // el de la festividad por encima, para que la portada sea una sola cosa.
+      //
+      // Los dos colores van OSCURECIDOS y el lienzo se mantiene oscuro tambien
+      // en modo claro: encima va texto blanco, y un hero que cambia de luz con
+      // el modo obligaria a cambiar tambien el color del texto y del velo. Aqui
+      // la foto manda, como en cualquier portada de television.
+      const base = festivity?.color ?? t.network?.color ?? '#4b4b63';
+      arte.style.background =
+        `radial-gradient(95% 125% at 10% 6%, ${shade(color, 0.42)}, transparent 62%),` +
+        `radial-gradient(75% 95% at 92% 0%, ${shade(base, 0.52)}, transparent 64%),` +
+        'linear-gradient(118deg, #16161d, #0a0a0c)';
+
+      const backdrop = t.backdrop && !t.backdrop.includes('placeholder') ? t.backdrop : null;
+      if (backdrop) {
+        foto.dataset.src = backdrop;
+        hydrateImage(foto);
+      } else {
+        foto.removeAttribute('src');
+        foto.style.opacity = '0';
+      }
+
+      for (let p = 0; p < puntos.length; p++) {
+        const activo = p === i;
+        puntos[p].classList.toggle('w-7', activo);
+        puntos[p].classList.toggle('w-1.5', !activo);
+        puntos[p].style.background = activo ? '#fff' : 'rgb(255 255 255 / .4)';
+        puntos[p].setAttribute('aria-selected', String(activo));
+      }
+    }
+
+    // --- rotacion -----------------------------------------------------------
+    let timer = null;
+    const quieto = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function arrancar() {
+      if (timer || quieto || slides.length < 2) return;
+      timer = setInterval(() => mostrar(i + 1), INTERVALO);
+    }
+    function parar() {
+      clearInterval(timer);
+      timer = null;
+    }
+
+    if (festivity) {
+      insignia.textContent = `${festivity.emoji} ${festivity.label}`;
+      insignia.style.background = 'var(--fest)';
+      insignia.style.color = 'var(--fest-ink)';
+    } else {
+      insignia.textContent = 'Destacado';
+      insignia.style.background = 'rgb(255 255 255 / .16)';
+      insignia.style.color = '#fff';
     }
 
     const node = el(
       'section',
-      { class: 'relative isolate overflow-hidden px-4 py-12 md:px-8 md:py-16' },
+      {
+        class:
+          'relative isolate flex min-h-[26rem] flex-col justify-end overflow-hidden px-4 pb-12 pt-24 ' +
+          'sm:min-h-[30rem] md:min-h-[34rem] md:px-10 md:pb-16 lg:min-h-[36rem] lg:px-14',
+        'aria-roledescription': 'carrusel',
+        'aria-label': 'Destacados',
+        onMouseenter: parar,
+        onMouseleave: arrancar,
+        onFocusin: parar,
+      },
       [
-        fondo,
-        el('div', { class: 'flex items-center gap-10' }, [
-          el('div', { class: 'max-w-2xl space-y-4' }, [
-            etiqueta,
-            el(
-              'h1',
-              { class: 'font-display text-5xl leading-[0.95] tracking-wide md:text-7xl' },
-              title?.name ?? 'RewindTv',
-            ),
-            meta,
-            el(
-              'p',
-              { class: 'max-w-xl text-balance text-sm leading-relaxed text-ink-1 md:text-base' },
-              festivity?.tagline ?? title?.synopsis ?? 'Lo mejor del catalogo, listo para ver.',
-            ),
-            acciones,
-            !festivity && upcoming
-              ? el(
-                  'p',
-                  { class: 'pt-2 text-xs text-ink-2' },
-                  `Proxima temporada tematica: ${upcoming.festivity.emoji} ${upcoming.festivity.label}, en ${upcoming.days} dias`,
-                )
-              : null,
-          ]),
-          arte,
+        lienzo,
+        el('div', { class: 'space-y-5' }, [
+          el('div', { class: 'flex flex-wrap items-center gap-2' }, [insignia, dato]),
+          titulo,
+          firma,
+          bajada,
+          el('div', { class: 'flex flex-wrap items-center gap-3 pt-1' }, [ver, ficha]),
+          !festivity && upcoming
+            ? el(
+                'p',
+                { class: 'pt-1 text-xs text-white/60' },
+                `Proxima temporada tematica: ${upcoming.festivity.emoji} ${upcoming.festivity.label}, en ${upcoming.days} dias`,
+              )
+            : null,
         ]),
+        navegador,
       ],
     );
+
+    if (slides.length) mostrar(0);
+    arrancar();
+    onDispose(parar);
 
     return { node };
   },

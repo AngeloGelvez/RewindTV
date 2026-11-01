@@ -28,7 +28,7 @@ export default async function exploreView({ outlet }) {
 
   const grid = VirtualGrid({
     items: query(filtros),
-    minColumnWidth: 180,
+    minColumnWidth: 250,
     onSelect: (id) => {
       const t = getTitleById(id);
       if (t) navigate(`/titulo/${t.slug}`);
@@ -41,16 +41,17 @@ export default async function exploreView({ outlet }) {
       {
         type: 'button',
         class:
-          'rounded-pill border border-surface-3 px-4 py-1.5 text-sm font-medium transition hover:border-[var(--fest)] hover:text-ink-0 ' +
+          'rounded-pill border border-surface-3 px-4 py-1.5 text-sm font-medium transition hover:border-[var(--fest-text)] hover:text-ink-0 ' +
           (activo ? 'bg-surface-2 text-ink-0 ring-fest' : 'text-ink-1'),
         dataset: { grupo, valor: valor ?? '' },
+        'aria-pressed': String(Boolean(activo)),
       },
       texto,
     );
 
-  const barraTipo = el('div', { class: 'flex flex-wrap gap-2' },
+  const barraTipo = el('div', { class: 'flex flex-wrap gap-2', role: 'group', 'aria-label': 'Tipo' },
     TIPOS.map((t) => chip(t.label, 'kind', t.key, filtros.kind === t.key)));
-  const barraOrden = el('div', { class: 'flex flex-wrap gap-2' },
+  const barraOrden = el('div', { class: 'flex flex-wrap gap-2', role: 'group', 'aria-label': 'Ordenar' },
     ORDEN.map((o) => chip(o.label, 'sort', o.key, filtros.sort === o.key)));
 
   function refrescar() {
@@ -61,17 +62,18 @@ export default async function exploreView({ outlet }) {
         boton.classList.toggle('text-ink-0', activo);
         boton.classList.toggle('ring-fest', activo);
         boton.classList.toggle('text-ink-1', !activo);
+        boton.setAttribute('aria-pressed', String(activo));
       }
     }
     grid.update({ items: query(filtros) });
   }
 
-  const node = el('div', { class: 'px-4 py-8 md:px-8' }, [
-    el('header', { class: 'mb-5 space-y-3' }, [
-      el('h1', { class: 'font-display text-4xl tracking-wide md:text-5xl' }, 'Explorar'),
+  const node = el('div', { class: 'px-4 py-7 md:px-6 md:py-9 lg:px-8' }, [
+    el('header', { class: 'mb-5 space-y-4' }, [
+      el('h1', { class: 'font-display text-3xl font-extrabold tracking-tight md:text-4xl' }, 'Explorar'),
       el('div', { class: 'flex flex-wrap items-center gap-x-6 gap-y-3' }, [barraTipo, barraOrden]),
     ]),
-    grid.node,
+    el('div', { class: 'panel p-4 md:p-5' }, [grid.node]),
   ]);
 
   const quitar = delegate(node, '[data-grupo]', 'click', (_e, target) => {

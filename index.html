@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="es" class="dark">
+<html lang="es">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#08080c" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0a0a0c" />
     <meta name="description" content="RewindTv: catalogo retro, canal en vivo y guia de programacion." />
     <title>RewindTv</title>
 
@@ -13,17 +13,42 @@
     <link rel="preload" href="/data/picks.json" as="fetch" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!--
+      Inter para texto e Inter Tight para titulares: la misma familia en dos
+      anchos. Es la tipografia mas legible a tamano pequeno y en pantalla
+      lejana (altura de x grande, cifras claras, acentos castellanos
+      completos), que es justo lo que la anterior (Bebas Neue, mayusculas
+      condensadas) hacia peor.
+    -->
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@600;700;800&display=swap"
     />
     <link rel="stylesheet" href="/src/styles/main.css" />
+
+    <!--
+      Modo claro/oscuro ANTES del primer pintado. Si esto se dejara al modulo,
+      la pagina arrancaria oscura y saltaria a clara en el primer frame.
+      Minusculo y sincrono a proposito.
+    -->
+    <script>
+      (function () {
+        try {
+          var guardado = localStorage.getItem('rewind:mode:v1');
+          var modo = guardado || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+          document.documentElement.dataset.theme = modo;
+          document.documentElement.style.colorScheme = modo;
+        } catch (e) {
+          document.documentElement.dataset.theme = 'dark';
+        }
+      })();
+    </script>
   </head>
   <body class="bg-surface-0 text-ink-0 antialiased">
     <!-- Shell estatico: se pinta antes de que el JS arranque (sin FOUC ni layout shift). -->
     <div id="app" class="min-h-dvh flex flex-col">
       <div id="app-skeleton" class="flex-1 grid place-items-center">
-        <div class="h-10 w-28 rounded bg-surface-2 animate-pulse"></div>
+        <div class="h-10 w-28 rounded-card bg-surface-2 animate-pulse"></div>
       </div>
     </div>
     <script type="module" src="/src/main.js"></script>

@@ -5,47 +5,8549 @@
     "name": "2 Perros Tontos",
     "year": 1993,
     "kind": "serie",
-    "runtime": 22,
     "seasonCount": 1,
-    "episodeCount": 2,
+    "episodeCount": 12,
     "score": 7,
     "poster": "/placeholder.svg",
     "backdrop": "/placeholder.svg",
-    "synopsis": "Dos perros callejeros sin nombre vagan por la ciudad metiendose en problemas.",
-    "rating": "TV-Y7",
-    "genres": ["comedia", "animacion"],
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
     "network": "Cartoon Network"
   },
   {
     "id": "t2",
-    "slug": "estatica",
-    "name": "Estatica",
-    "year": 1994,
-    "kind": "pelicula",
-    "runtime": 102,
+    "slug": "caballeros-del-zodiaco",
+    "name": "Caballeros del Zodiaco",
+    "year": 1986,
+    "kind": "serie",
+    "seasonCount": 4,
+    "episodeCount": 144,
     "score": 8,
     "poster": "/placeholder.svg",
     "backdrop": "/placeholder.svg",
-    "synopsis": "Una senal de television que no deberia existir.",
-    "rating": "R",
-    "genres": ["terror", "misterio"],
-    "network": "Otros"
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
   },
   {
     "id": "t3",
-    "slug": "verano-del-78",
-    "name": "Verano del 78",
-    "year": 1978,
+    "slug": "el-capitan-planeta-y-los-planetarios",
+    "name": "El Capitán Planeta y los planetarios",
+    "year": 1990,
     "kind": "serie",
-    "runtime": 30,
+    "seasonCount": 3,
+    "episodeCount": 65,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t4",
+    "slug": "code-lyoko",
+    "name": "Code Lyoko",
+    "year": 2003,
+    "kind": "serie",
+    "seasonCount": 4,
+    "episodeCount": 95,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t5",
+    "slug": "coraje-el-perro-cobarde",
+    "name": "Coraje El Perro Cobarde",
+    "year": 1996,
+    "kind": "serie",
+    "seasonCount": 4,
+    "episodeCount": 52,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t6",
+    "slug": "duck-dodgers",
+    "name": "Duck Dodgers",
+    "year": 2003,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 39,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t7",
+    "slug": "static-shock",
+    "name": "Static Shock",
+    "year": 2000,
+    "kind": "serie",
+    "seasonCount": 4,
+    "episodeCount": 52,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t8",
+    "slug": "garfield",
+    "name": "Garfield",
+    "year": 1988,
+    "kind": "serie",
+    "seasonCount": 5,
+    "episodeCount": 121,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t9",
+    "slug": "gasparin-y-sus-amigos",
+    "name": "Gasparin y sus amigos",
+    "year": 1950,
+    "kind": "serie",
     "seasonCount": 1,
-    "episodeCount": 1,
+    "episodeCount": 52,
     "score": 6,
     "poster": "/placeholder.svg",
     "backdrop": "/placeholder.svg",
-    "synopsis": "Comedia familiar grabada frente a publico en vivo.",
-    "rating": "TV-G",
-    "genres": ["comedia"],
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t10",
+    "slug": "generador-rex",
+    "name": "Generador Rex",
+    "year": 2010,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 59,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t11",
+    "slug": "la-mascara-serie-animada",
+    "name": "La Mascara Serie Animada",
+    "year": 1995,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 54,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t12",
+    "slug": "la-pequena-lulu",
+    "name": "La Pequeña Lulú",
+    "year": 1995,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 77,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t13",
+    "slug": "las-aventuras-de-tintin",
+    "name": "Las Aventuras de TinTin",
+    "year": 1991,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 39,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t14",
+    "slug": "las-chicas-super-poderosas",
+    "name": "Las Chicas Super Poderosas",
+    "year": 1998,
+    "kind": "serie",
+    "seasonCount": 7,
+    "episodeCount": 80,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t15",
+    "slug": "las-maravillosas-desventuras-de-flapjack",
+    "name": "Las Maravillosas Desventuras de FlapJack",
+    "year": 2008,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 46,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t16",
+    "slug": "las-sombrias-aventuras-de-billy-y-mandy",
+    "name": "Las Sombrias Aventuras de Billy Y Mandy",
+    "year": 2003,
+    "kind": "serie",
+    "seasonCount": 6,
+    "episodeCount": 76,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t17",
+    "slug": "la-vaca-y-el-pollito",
+    "name": "La Vaca y El Pollito",
+    "year": 1997,
+    "kind": "serie",
+    "seasonCount": 4,
+    "episodeCount": 52,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t18",
+    "slug": "looney-tunes",
+    "name": "Looney Tunes",
+    "year": 1940,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 150,
+    "score": 9,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t19",
+    "slug": "los-cazafantasmas",
+    "name": "Los Cazafantasmas",
+    "year": 1986,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 65,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t20",
+    "slug": "los-pequenos-picapiedras",
+    "name": "Los Pequeños Picapiedras",
+    "year": 1986,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 37,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t21",
+    "slug": "los-picapiedras",
+    "name": "Los Picapiedras",
+    "year": 1960,
+    "kind": "serie",
+    "seasonCount": 6,
+    "episodeCount": 166,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t22",
+    "slug": "los-supersonicos",
+    "name": "Los Supersónicos",
+    "year": 1962,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 75,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t23",
+    "slug": "godzilla-la-serie-animada",
+    "name": "Godzilla La Serie Animada",
+    "year": 1999,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 40,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t24",
+    "slug": "hombres-de-negro",
+    "name": "Hombres de Negro",
+    "year": 1997,
+    "kind": "serie",
+    "seasonCount": 4,
+    "episodeCount": 53,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t25",
+    "slug": "meteoro",
+    "name": "Meteoro",
+    "year": 1966,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 52,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t26",
+    "slug": "sakura-card-captors",
+    "name": "Sakura Card Captors",
+    "year": 1998,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 70,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t27",
+    "slug": "samurai-jack",
+    "name": "Samurai Jack",
+    "year": 2001,
+    "kind": "serie",
+    "seasonCount": 4,
+    "episodeCount": 52,
+    "score": 9,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t28",
+    "slug": "samurai-x",
+    "name": "Samurai X",
+    "year": 1994,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 95,
+    "score": 9,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t29",
+    "slug": "samurai-champloo",
+    "name": "Samurai Champloo",
+    "year": 2004,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 26,
+    "score": 9,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t30",
+    "slug": "scooby-doo-misterios-s-a",
+    "name": "Scooby Doo Misterios S.A",
+    "year": 2009,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 52,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t31",
+    "slug": "ed-edd-y-eddy",
+    "name": "Ed, Edd y Eddy",
+    "year": 1999,
+    "kind": "serie",
+    "seasonCount": 5,
+    "episodeCount": 66,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t32",
+    "slug": "los-jovenes-titanes",
+    "name": "Los Jovenes Titanes",
+    "year": 2003,
+    "kind": "serie",
+    "seasonCount": 5,
+    "episodeCount": 66,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t33",
+    "slug": "spiderman-la-nueva-serie-animada",
+    "name": "Spiderman La nueva Serie Animada",
+    "year": 2003,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 13,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t34",
+    "slug": "titan-sim-bionico",
+    "name": "Titán Sim-Biónico",
+    "year": 2010,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 20,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t35",
+    "slug": "tom-y-jerry",
+    "name": "Tom y Jerry",
+    "year": 1940,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 161,
+    "score": 9,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t36",
+    "slug": "wolverine-y-los-x-men",
+    "name": "Wolverine y los X-men",
+    "year": 2008,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 26,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t37",
+    "slug": "xiaolin-chronicles",
+    "name": "Xiaolin Chronicles",
+    "year": 2013,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 26,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t38",
+    "slug": "x-men-evolucion",
+    "name": "X-men Evolucion",
+    "year": 2000,
+    "kind": "serie",
+    "seasonCount": 4,
+    "episodeCount": 52,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t39",
+    "slug": "pokemon",
+    "name": "Pokemon",
+    "year": 1997,
+    "kind": "serie",
+    "seasonCount": 5,
+    "episodeCount": 276,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t40",
+    "slug": "dragon-ball",
+    "name": "Dragon Ball",
+    "year": 1984,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 153,
+    "score": 9,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t41",
+    "slug": "dragon-ball-z",
+    "name": "Dragon Ball Z",
+    "year": 1989,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 291,
+    "score": 9,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t42",
+    "slug": "dragon-ball-gt",
+    "name": "Dragon Ball GT",
+    "year": 1996,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 64,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t43",
+    "slug": "trigun",
+    "name": "Trigun",
+    "year": 1998,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 26,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t44",
+    "slug": "droopy",
+    "name": "Droopy",
+    "year": 1943,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 22,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t45",
+    "slug": "johnny-test",
+    "name": "Johnny Test",
+    "year": 2005,
+    "kind": "serie",
+    "seasonCount": 4,
+    "episodeCount": 64,
+    "score": 5,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t46",
+    "slug": "liga-de-la-justicia",
+    "name": "Liga de La Justicia",
+    "year": 2001,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 52,
+    "score": 9,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t47",
+    "slug": "liga-de-la-justicia-ilimitada",
+    "name": "Liga de La Justicia Ilimitada",
+    "year": 2004,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 39,
+    "score": 9,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t51",
+    "slug": "beyblade",
+    "name": "BeyBlade",
+    "year": 2001,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 51,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t52",
+    "slug": "capitan-n",
+    "name": "Capitán N",
+    "year": 1989,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 12,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t53",
+    "slug": "digimon-digital-monsters",
+    "name": "Digimon: Digital Monsters",
+    "year": 1999,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 54,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t54",
+    "slug": "digimon-adventure-02",
+    "name": "Digimon Adventure 02",
+    "year": 2000,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 50,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t55",
+    "slug": "digimon-3-tamers",
+    "name": "Digimon 3 Tamers",
+    "year": 2001,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 51,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t56",
+    "slug": "digimon-4-frontier",
+    "name": "Digimon 4 Frontier",
+    "year": 2002,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 50,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t57",
+    "slug": "el-inspector-gadget",
+    "name": "El Inspector Gadget",
+    "year": 1983,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 86,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t58",
+    "slug": "el-pajaro-loco-y-amigos",
+    "name": "El Pájaro Loco y Amigos",
+    "year": 1957,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 79,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t59",
+    "slug": "donde-en-el-mundo-esta-carmen-sandiego",
+    "name": "¿Dónde en el mundo está Carmen Sandiego?",
+    "year": 1994,
+    "kind": "serie",
+    "seasonCount": 4,
+    "episodeCount": 40,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t60",
+    "slug": "gargolas-heroes-goticos",
+    "name": "Gargolas, Heroes Goticos",
+    "year": 1994,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 78,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t61",
+    "slug": "gundam-wing",
+    "name": "Gundam Wing",
+    "year": 1995,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 49,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t62",
+    "slug": "he-man-y-los-amos-del-universo",
+    "name": "He-Man y los Amos del Universo",
+    "year": 1983,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 130,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t63",
+    "slug": "las-tortugas-ninjas",
+    "name": "Las Tortugas Ninjas",
+    "year": 1987,
+    "kind": "serie",
+    "seasonCount": 10,
+    "episodeCount": 192,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t64",
+    "slug": "los-padrinos-magicos",
+    "name": "Los padrinos mágicos",
+    "year": 2001,
+    "kind": "serie",
+    "seasonCount": 9,
+    "episodeCount": 126,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t65",
+    "slug": "medabots",
+    "name": "Medabots",
+    "year": 1999,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 91,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t66",
+    "slug": "monster-rancher",
+    "name": "Monster Rancher",
+    "year": 1999,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 73,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t67",
+    "slug": "oggy-y-las-cucarachas",
+    "name": "Oggy Y Las Cucarachas",
+    "year": 1998,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 78,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t68",
+    "slug": "power-rangers",
+    "name": "Power Rangers",
+    "year": 1993,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 155,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t69",
+    "slug": "power-rangers-zeo",
+    "name": "Power Rangers Zeo",
+    "year": 1996,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 50,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t70",
+    "slug": "power-rangers-turbo",
+    "name": "Power Rangers Turbo",
+    "year": 1998,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 45,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t71",
+    "slug": "power-rangers-en-el-espacio",
+    "name": "Power Rangers En El Espacio",
+    "year": 1998,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 43,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t72",
+    "slug": "power-rangers-en-la-galaxia-perdida",
+    "name": "Power Rangers En La Galaxia Perdida",
+    "year": 1999,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 45,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t73",
+    "slug": "robocop-la-serie-animada",
+    "name": "Robocop: La Serie Animada",
+    "year": 1988,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 12,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t74",
+    "slug": "sailor-moon",
+    "name": "Sailor Moon",
+    "year": 1992,
+    "kind": "serie",
+    "seasonCount": 5,
+    "episodeCount": 200,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t75",
+    "slug": "shaman-king",
+    "name": "Shaman King",
+    "year": 1998,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 64,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t76",
+    "slug": "shuriken-school",
+    "name": "Shuriken School",
+    "year": 2006,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 22,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t77",
+    "slug": "spawn",
+    "name": "Spawn",
+    "year": 1997,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 18,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t78",
+    "slug": "spiderman-y-sus-sorprendentes-amigos",
+    "name": "Spiderman y Sus Sorprendentes Amigos",
+    "year": 1981,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 24,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t79",
+    "slug": "spider-man-la-serie-animada",
+    "name": "Spider-Man: La Serie Animada",
+    "year": 1994,
+    "kind": "serie",
+    "seasonCount": 5,
+    "episodeCount": 65,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t80",
+    "slug": "spiderman-sin-limites",
+    "name": "Spiderman Sin Limites",
+    "year": 1999,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 13,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t81",
+    "slug": "silver-surfer",
+    "name": "Silver Surfer",
+    "year": 1998,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 13,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t82",
+    "slug": "mujer-arana-spider-woman",
+    "name": "Mujer Araña (Spider Woman)",
+    "year": 1979,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 16,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t83",
+    "slug": "street-fighter-ii-v",
+    "name": "Street Fighter II-V",
+    "year": 1995,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 29,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t84",
+    "slug": "transformers-la-guerra-de-bestias",
+    "name": "Transformers La Guerra de Bestias",
+    "year": 1996,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 52,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t85",
+    "slug": "transformers-g1",
+    "name": "Transformers G1",
+    "year": 1984,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 98,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t86",
+    "slug": "los-3-chiflados",
+    "name": "Los 3 Chiflados",
+    "year": 1934,
+    "kind": "serie",
+    "seasonCount": 5,
+    "episodeCount": 190,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t87",
+    "slug": "canuto-y-canito",
+    "name": "Canuto y Canito",
+    "year": 1959,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 45,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t88",
+    "slug": "clue-club-buscando-pistas",
+    "name": "Clue Club: Buscando Pistas",
+    "year": 1977,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 13,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t89",
+    "slug": "dino-boy-en-el-valle-perdido",
+    "name": "Dino Boy: En El Valle Perdido",
+    "year": 1966,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 18,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t90",
+    "slug": "el-fantasma-del-espacio",
+    "name": "El Fantasma Del Espacio",
+    "year": 1966,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 42,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t91",
+    "slug": "drack-pack-el-grupo-increible",
+    "name": "Drack Pack: El Grupo Increible",
+    "year": 1980,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 16,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t92",
+    "slug": "el-inspector-ardilla",
+    "name": "El Inspector Ardilla",
+    "year": 1968,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 26,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t93",
+    "slug": "el-lagarto-juancho",
+    "name": "El Lagarto Juancho",
+    "year": 1962,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 52,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t94",
+    "slug": "las-nuevas-aventuras-del-oso-yogui",
+    "name": "Las Nuevas Aventuras Del Oso Yogui",
+    "year": 1988,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 45,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t95",
+    "slug": "el-oso-yogui",
+    "name": "El Oso Yogui",
+    "year": 1958,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 22,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t96",
+    "slug": "el-pulpo-manotas",
+    "name": "El Pulpo Manotas",
+    "year": 1965,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 26,
+    "score": 9,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t97",
+    "slug": "el-trio-galaxia",
+    "name": "El Trío Galaxia",
+    "year": 1967,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 20,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t98",
+    "slug": "dinamita-el-perro-maravilla",
+    "name": "Dinamita El Perro Maravilla",
+    "year": 1976,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 16,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t99",
+    "slug": "travesuras-de-los-picapiedras",
+    "name": "Travesuras De Los Picapiedras",
+    "year": 1980,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 54,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t100",
+    "slug": "hong-kong-phooey",
+    "name": "Hong Kong Phooey",
+    "year": 1974,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 16,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t101",
+    "slug": "huckleberry-hound",
+    "name": "Huckleberry Hound",
+    "year": 1958,
+    "kind": "serie",
+    "seasonCount": 4,
+    "episodeCount": 57,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t102",
+    "slug": "josie-y-sus-gatimelodicas",
+    "name": "Josie y sus gatimelódicas",
+    "year": 1970,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 16,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t103",
+    "slug": "la-bruja-tonta",
+    "name": "La bruja Tonta",
+    "year": 1965,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 26,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t104",
+    "slug": "la-hormiga-atomica",
+    "name": "La Hormiga Atomica",
+    "year": 1965,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 26,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t105",
+    "slug": "la-pantera-rosa",
+    "name": "La Pantera Rosa",
+    "year": 1964,
+    "kind": "serie",
+    "seasonCount": 4,
+    "episodeCount": 124,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t106",
+    "slug": "el-clan-chan",
+    "name": "El Clan Chan",
+    "year": 1972,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 16,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t107",
+    "slug": "los-13-fantasmas-de-sooby-doo",
+    "name": "Los 13 Fantasmas de Sooby Doo!",
+    "year": 1985,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 13,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t108",
+    "slug": "los-autos-locos",
+    "name": "Los Autos Locos",
+    "year": 1968,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 34,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t109",
+    "slug": "las-olimpiadas-de-la-risa",
+    "name": "Las Olimpiadas De La Risa",
+    "year": 1977,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 24,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t110",
+    "slug": "los-imposibles",
+    "name": "Los Imposibles",
+    "year": 1966,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 36,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t111",
+    "slug": "los-osos-montaneses",
+    "name": "Los Osos Montañeses",
+    "year": 1965,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 25,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t112",
+    "slug": "los-peligros-de-penelope-glamour",
+    "name": "Los peligros de Penélope Glamour",
+    "year": 1969,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 17,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t113",
+    "slug": "maguila-gorila",
+    "name": "Maguila Gorila",
+    "year": 1964,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 31,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t114",
+    "slug": "mandibulin",
+    "name": "Mandibulín",
+    "year": 1976,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 16,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t115",
+    "slug": "pepe-potamo-y-so-so",
+    "name": "Pepe Pótamo y So-So",
+    "year": 1964,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 27,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t116",
+    "slug": "el-escuadron-diabolico",
+    "name": "El Escuadrón Diabólico",
+    "year": 1969,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 17,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t117",
+    "slug": "punkin-puss-y-mush-mouse",
+    "name": "Punkin Puss y Mush Mouse",
+    "year": 1964,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 23,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t118",
+    "slug": "ruedas-magicas",
+    "name": "Ruedas Mágicas",
+    "year": 1977,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 15,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t119",
+    "slug": "scooby-doo-donde-estas",
+    "name": "Scooby-Doo, ¿Dónde estás?",
+    "year": 1969,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 25,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t120",
+    "slug": "el-show-de-scooby-doo-y-scrappy-doo",
+    "name": "El show de Scooby-Doo y Scrappy-Doo",
+    "year": 1979,
+    "kind": "serie",
+    "seasonCount": 6,
+    "episodeCount": 75,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t121",
+    "slug": "bravestarr",
+    "name": "BraveStarr",
+    "year": 1987,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 65,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t122",
+    "slug": "tiro-loco-mcgraw",
+    "name": "Tiro Loco Mcgraw",
+    "year": 1959,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 45,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t123",
+    "slug": "don-gato-y-su-pandilla",
+    "name": "Don Gato y Su Pandilla",
+    "year": 1961,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 30,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t124",
+    "slug": "batman-del-futuro",
+    "name": "Batman Del Futuro",
+    "year": 1999,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 52,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Warner Channel"
+  },
+  {
+    "id": "t125",
+    "slug": "batman-la-serie-animada",
+    "name": "Batman La Serie Animada",
+    "year": 1992,
+    "kind": "serie",
+    "seasonCount": 4,
+    "episodeCount": 109,
+    "score": 9,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Warner Channel"
+  },
+  {
+    "id": "t126",
+    "slug": "el-mundo-de-beakman",
+    "name": "El Mundo De Beakman",
+    "year": 1992,
+    "kind": "serie",
+    "seasonCount": 4,
+    "episodeCount": 91,
+    "score": 9,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Warner Channel"
+  },
+  {
+    "id": "t127",
+    "slug": "jumanji-la-serie-animada",
+    "name": "Jumanji La Serie Animada",
+    "year": 1996,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 40,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Warner Channel"
+  },
+  {
+    "id": "t128",
+    "slug": "pinky-elvira-y-cerebro",
+    "name": "Pinky, Elvira y Cerebro",
+    "year": 1998,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 13,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Warner Channel"
+  },
+  {
+    "id": "t129",
+    "slug": "pinky-y-cerebro",
+    "name": "Pinky y Cerebro",
+    "year": 1995,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 65,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Warner Channel"
+  },
+  {
+    "id": "t130",
+    "slug": "superman-la-serie-animada",
+    "name": "Superman La Serie Animada",
+    "year": 1996,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 54,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Warner Channel"
+  },
+  {
+    "id": "t131",
+    "slug": "tiny-toons",
+    "name": "Tiny Toons",
+    "year": 1995,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 98,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Warner Channel"
+  },
+  {
+    "id": "t132",
+    "slug": "the-batman",
+    "name": "The Batman",
+    "year": 2004,
+    "kind": "serie",
+    "seasonCount": 5,
+    "episodeCount": 65,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Warner Channel"
+  },
+  {
+    "id": "t133",
+    "slug": "animaniacs",
+    "name": "Animaniacs",
+    "year": 1993,
+    "kind": "serie",
+    "seasonCount": 5,
+    "episodeCount": 99,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Warner Channel"
+  },
+  {
+    "id": "t134",
+    "slug": "las-aventuras-de-silvestre-y-piolin",
+    "name": "Las Aventuras de Silvestre y Piolin",
+    "year": 1995,
+    "kind": "serie",
+    "seasonCount": 5,
+    "episodeCount": 52,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Warner Channel"
+  },
+  {
+    "id": "t135",
+    "slug": "50-clasicos-de-disney",
+    "name": "50 Clasicos de Disney",
+    "year": 1937,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 50,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Disney Channel"
+  },
+  {
+    "id": "t136",
+    "slug": "aladdin-la-serie-animada",
+    "name": "Aladdin La serie Animada",
+    "year": 1992,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 86,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Disney Channel"
+  },
+  {
+    "id": "t137",
+    "slug": "la-sirenita-serie-animada",
+    "name": "La Sirenita Serie Animada",
+    "year": 1992,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 31,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Disney Channel"
+  },
+  {
+    "id": "t138",
+    "slug": "alf",
+    "name": "Alf",
+    "year": 1986,
+    "kind": "serie",
+    "seasonCount": 4,
+    "episodeCount": 102,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
     "network": "Nickelodeon"
+  },
+  {
+    "id": "t139",
+    "slug": "avatar-la-leyenda-de-aang",
+    "name": "Avatar La Leyenda de Aang",
+    "year": 2005,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 61,
+    "score": 9,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t140",
+    "slug": "avatar-la-leyenda-de-korra",
+    "name": "Avatar La Leyenda de Korra",
+    "year": 2012,
+    "kind": "serie",
+    "seasonCount": 4,
+    "episodeCount": 52,
+    "score": 9,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t141",
+    "slug": "bob-esponja",
+    "name": "Bob Esponja",
+    "year": 1999,
+    "kind": "serie",
+    "seasonCount": 9,
+    "episodeCount": 351,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t142",
+    "slug": "catdog",
+    "name": "CatDog",
+    "year": 1998,
+    "kind": "serie",
+    "seasonCount": 4,
+    "episodeCount": 64,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t143",
+    "slug": "dave-el-barbaro",
+    "name": "Dave El Barbaro",
+    "year": 2004,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 21,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t144",
+    "slug": "drake-josh",
+    "name": "Drake & Josh",
+    "year": 2004,
+    "kind": "serie",
+    "seasonCount": 4,
+    "episodeCount": 57,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t145",
+    "slug": "danny-phantom",
+    "name": "Danny Phantom",
+    "year": 2004,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 49,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t146",
+    "slug": "doug",
+    "name": "Doug",
+    "year": 1991,
+    "kind": "serie",
+    "seasonCount": 4,
+    "episodeCount": 66,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t147",
+    "slug": "los-halcones-galacticos",
+    "name": "Los Halcones Galácticos",
+    "year": 1986,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 64,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Warner Channel"
+  },
+  {
+    "id": "t148",
+    "slug": "el-club-winx",
+    "name": "El Club Winx",
+    "year": 2004,
+    "kind": "serie",
+    "seasonCount": 6,
+    "episodeCount": 156,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t149",
+    "slug": "creepie",
+    "name": "Creepie",
+    "year": 2005,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 18,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t150",
+    "slug": "icarly",
+    "name": "ICarly",
+    "year": 2006,
+    "kind": "serie",
+    "seasonCount": 6,
+    "episodeCount": 97,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t151",
+    "slug": "las-aventuras-de-jimmy-neutron-el-nino-genio",
+    "name": "Las Aventuras de Jimmy Neutrón: El Niño Genio",
+    "year": 2002,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 56,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t152",
+    "slug": "kenan-kel",
+    "name": "Kenan & Kel",
+    "year": 1996,
+    "kind": "serie",
+    "seasonCount": 4,
+    "episodeCount": 61,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t153",
+    "slug": "la-robot-adolescente",
+    "name": "La Robot Adolescente",
+    "year": 2003,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 76,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t154",
+    "slug": "los-misterios-de-moville",
+    "name": "Los Misterios de Moville",
+    "year": 2002,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 26,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t155",
+    "slug": "le-temes-a-la-oscuridad",
+    "name": "Le Temes A La Oscuridad?",
+    "year": 1990,
+    "kind": "serie",
+    "seasonCount": 7,
+    "episodeCount": 91,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t156",
+    "slug": "la-vida-moderna-de-rocko",
+    "name": "La Vida Moderna de Rocko",
+    "year": 1993,
+    "kind": "serie",
+    "seasonCount": 4,
+    "episodeCount": 52,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t157",
+    "slug": "los-thornberrys",
+    "name": "Los Thornberrys",
+    "year": 1998,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 75,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t158",
+    "slug": "manual-de-supervivencia-escolar-de-ned",
+    "name": "Manual De Supervivencia Escolar De Ned",
+    "year": 2004,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 54,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t159",
+    "slug": "el-show-de-archie",
+    "name": "El Show De Archie",
+    "year": 1968,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 17,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t160",
+    "slug": "mighty-b-la-super-abeja",
+    "name": "Mighty B!, La Sùper Abeja",
+    "year": 2008,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 39,
+    "score": 5,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t161",
+    "slug": "rocket-power",
+    "name": "Rocket Power",
+    "year": 1999,
+    "kind": "serie",
+    "seasonCount": 4,
+    "episodeCount": 71,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t162",
+    "slug": "oye-arnold",
+    "name": "¡Oye, Arnold!",
+    "year": 1996,
+    "kind": "serie",
+    "seasonCount": 5,
+    "episodeCount": 101,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t163",
+    "slug": "sabrina-la-bruja-adolescente",
+    "name": "Sabrina La Bruja Adolescente",
+    "year": 1996,
+    "kind": "serie",
+    "seasonCount": 6,
+    "episodeCount": 141,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t164",
+    "slug": "sam-cat",
+    "name": "Sam & Cat",
+    "year": 2013,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 35,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t165",
+    "slug": "victorius",
+    "name": "Victorius",
+    "year": 2010,
+    "kind": "serie",
+    "seasonCount": 4,
+    "episodeCount": 57,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t166",
+    "slug": "zoey-101",
+    "name": "Zoey 101",
+    "year": 2005,
+    "kind": "serie",
+    "seasonCount": 4,
+    "episodeCount": 63,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t167",
+    "slug": "la-familia-addams",
+    "name": "La Familia Addams",
+    "year": 1964,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 64,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t168",
+    "slug": "los-munsters",
+    "name": "Los Munsters",
+    "year": 1964,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 70,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t169",
+    "slug": "hechizada",
+    "name": "Hechizada",
+    "year": 1964,
+    "kind": "serie",
+    "seasonCount": 8,
+    "episodeCount": 253,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t170",
+    "slug": "los-vengadores-los-heroes-mas-poderosos-del-planeta",
+    "name": "Los Vengadores: Los Héroes Más Poderosos Del Planeta",
+    "year": 2010,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 52,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Marvel"
+  },
+  {
+    "id": "t171",
+    "slug": "blade",
+    "name": "Blade",
+    "year": 2011,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 12,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Marvel"
+  },
+  {
+    "id": "t172",
+    "slug": "fenomenoide",
+    "name": "Fenomenoide",
+    "year": 1995,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 24,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Warner Channel"
+  },
+  {
+    "id": "t173",
+    "slug": "x-men-serie-animada",
+    "name": "X-Men Serie Animada",
+    "year": 1992,
+    "kind": "serie",
+    "seasonCount": 5,
+    "episodeCount": 76,
+    "score": 9,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t174",
+    "slug": "un-cachorro-llamado-scooby-doo",
+    "name": "Un Cachorro Llamado Scooby Doo",
+    "year": 1988,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 30,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t175",
+    "slug": "super-agente-86",
+    "name": "Super Agente 86",
+    "year": 1965,
+    "kind": "serie",
+    "seasonCount": 5,
+    "episodeCount": 138,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t176",
+    "slug": "jonny-quest",
+    "name": "Jonny Quest",
+    "year": 1964,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 26,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t177",
+    "slug": "cartoon-cartoons",
+    "name": "Cartoon Cartoons",
+    "year": 1999,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 33,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t178",
+    "slug": "transformers-beast-machine",
+    "name": "Transformers Beast Machine",
+    "year": 1999,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 26,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t179",
+    "slug": "el-leon-melquiades",
+    "name": "El León Melquíades",
+    "year": 1961,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 32,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t180",
+    "slug": "thundercats",
+    "name": "Thundercats",
+    "year": 1985,
+    "kind": "serie",
+    "seasonCount": 4,
+    "episodeCount": 130,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Warner Channel"
+  },
+  {
+    "id": "t181",
+    "slug": "aaahh-monstruos-de-verdad",
+    "name": "Aaahh!! Monstruos de Verdad",
+    "year": 1994,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 39,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t182",
+    "slug": "soy-la-comadreja",
+    "name": "Soy La Comadreja",
+    "year": 1997,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 79,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t183",
+    "slug": "las-aventuras-de-jackie-chang",
+    "name": "Las Aventuras de Jackie Chang",
+    "year": 2000,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 95,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t184",
+    "slug": "yu-gi-oh",
+    "name": "Yu-Gi-Oh!",
+    "year": 2000,
+    "kind": "serie",
+    "seasonCount": 5,
+    "episodeCount": 224,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t185",
+    "slug": "pato-aventuras",
+    "name": "Pato Aventuras",
+    "year": 1987,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 100,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Disney Channel"
+  },
+  {
+    "id": "t186",
+    "slug": "taz-mania",
+    "name": "Taz-Mania",
+    "year": 1991,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 65,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Warner Channel"
+  },
+  {
+    "id": "t187",
+    "slug": "x-men-anime",
+    "name": "X-Men Anime",
+    "year": 2011,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 12,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Marvel"
+  },
+  {
+    "id": "t188",
+    "slug": "transformers-prime",
+    "name": "Transformers: Prime",
+    "year": 2010,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 65,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t189",
+    "slug": "el-reto-de-los-super-amigos",
+    "name": "El Reto De Los Super Amigos",
+    "year": 1978,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 16,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t190",
+    "slug": "mi-bella-genio",
+    "name": "Mi Bella Genio",
+    "year": 1965,
+    "kind": "serie",
+    "seasonCount": 5,
+    "episodeCount": 139,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t191",
+    "slug": "martin-mystery",
+    "name": "Martin Mystery",
+    "year": 2003,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 52,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t192",
+    "slug": "transformers-armada",
+    "name": "Transformers Armada",
+    "year": 2002,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 52,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t193",
+    "slug": "kid-musculo",
+    "name": "Kid Músculo",
+    "year": 2002,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 77,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t194",
+    "slug": "yu-yu-hakusho",
+    "name": "Yu yu Hakusho",
+    "year": 2003,
+    "kind": "serie",
+    "seasonCount": 5,
+    "episodeCount": 113,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t195",
+    "slug": "megaman-nt-warriors",
+    "name": "Megaman NT Warriors",
+    "year": 2001,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 56,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t196",
+    "slug": "los-gatos-samurais",
+    "name": "Los Gatos Samurais",
+    "year": 1990,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 55,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t197",
+    "slug": "sonic-x",
+    "name": "Sonic X",
+    "year": 2003,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 78,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t198",
+    "slug": "invasor-zim",
+    "name": "Invasor Zim",
+    "year": 2001,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 27,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t199",
+    "slug": "el-show-de-charlie-brown-y-snoopy",
+    "name": "El Show De Charlie Brown y Snoopy",
+    "year": 1983,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 47,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t200",
+    "slug": "31-minutos",
+    "name": "31 Minutos",
+    "year": 2003,
+    "kind": "serie",
+    "seasonCount": 5,
+    "episodeCount": 69,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t201",
+    "slug": "ricky-ricon",
+    "name": "Ricky Ricón",
+    "year": 1980,
+    "kind": "serie",
+    "seasonCount": 4,
+    "episodeCount": 34,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t202",
+    "slug": "ranma-1-2",
+    "name": "Ranma 1/2",
+    "year": 1989,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 175,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t203",
+    "slug": "los-super-amigos",
+    "name": "Los Super Amigos",
+    "year": 1973,
+    "kind": "serie",
+    "seasonCount": 8,
+    "episodeCount": 136,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t204",
+    "slug": "iron-man-anime",
+    "name": "Iron Man: Anime",
+    "year": 2010,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 12,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Marvel"
+  },
+  {
+    "id": "t205",
+    "slug": "los-castores-cascarrabias",
+    "name": "Los Castores Cascarrabias",
+    "year": 1997,
+    "kind": "serie",
+    "seasonCount": 4,
+    "episodeCount": 55,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t206",
+    "slug": "johnny-bravo",
+    "name": "Johnny Bravo",
+    "year": 1997,
+    "kind": "serie",
+    "seasonCount": 5,
+    "episodeCount": 66,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t207",
+    "slug": "el-increible-hulk",
+    "name": "El Increible Hulk",
+    "year": 1996,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 21,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Marvel"
+  },
+  {
+    "id": "t208",
+    "slug": "los-4-fantasticos-la-serie-animada",
+    "name": "Los 4 Fantasticos La Serie Animada",
+    "year": 1994,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 26,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Marvel"
+  },
+  {
+    "id": "t209",
+    "slug": "los-4-fantasticos-los-heroes-mas-grandes-del-mundo",
+    "name": "Los 4 Fantásticos: Los Héroes más Grandes del Mundo",
+    "year": 2006,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 26,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Marvel"
+  },
+  {
+    "id": "t210",
+    "slug": "wolverine-anime",
+    "name": "Wolverine Anime",
+    "year": 2011,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 12,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Marvel"
+  },
+  {
+    "id": "t211",
+    "slug": "iron-man-aventuras-de-hierro",
+    "name": "Iron Man: Aventuras De Hierro",
+    "year": 2008,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 52,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Marvel"
+  },
+  {
+    "id": "t212",
+    "slug": "los-vengadores-united-they-stand",
+    "name": "Los Vengadores: United They Stand",
+    "year": 1999,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 13,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Marvel"
+  },
+  {
+    "id": "t213",
+    "slug": "los-vengadores-unidos",
+    "name": "Los Vengadores Unidos",
+    "year": 2013,
+    "kind": "serie",
+    "seasonCount": 4,
+    "episodeCount": 103,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Marvel"
+  },
+  {
+    "id": "t214",
+    "slug": "droopy-detective-maestro",
+    "name": "Droopy Detective Maestro",
+    "year": 1993,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 15,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t215",
+    "slug": "el-valle-de-los-dinosaurios",
+    "name": "El Valle de Los Dinosaurios",
+    "year": 1974,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 16,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t216",
+    "slug": "lindo-pulgoso",
+    "name": "Lindo Pulgoso",
+    "year": 1965,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 26,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t217",
+    "slug": "las-nuevas-aventuras-de-jonny-quest",
+    "name": "Las Nuevas Aventuras De Jonny Quest",
+    "year": 1986,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 13,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t218",
+    "slug": "cybersix",
+    "name": "Cybersix",
+    "year": 1999,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 13,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t219",
+    "slug": "super-mario-bros-3",
+    "name": "Super Mario Bros 3",
+    "year": 1990,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 26,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t220",
+    "slug": "super-mario-world",
+    "name": "Super Mario World",
+    "year": 1991,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 13,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t221",
+    "slug": "vr-troopers",
+    "name": "Vr Troopers",
+    "year": 1994,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 92,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t222",
+    "slug": "big-bad-beetleborgs",
+    "name": "Big Bad Beetleborgs",
+    "year": 1996,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 88,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t223",
+    "slug": "knd-los-chicos-del-barrio",
+    "name": "KND: Los Chicos Del Barrio",
+    "year": 2002,
+    "kind": "serie",
+    "seasonCount": 6,
+    "episodeCount": 78,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t224",
+    "slug": "super-campeones",
+    "name": "Super Campeones",
+    "year": 1983,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 128,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t225",
+    "slug": "el-laboratorio-de-dexter",
+    "name": "El Laboratorio de Dexter",
+    "year": 1996,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 93,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t226",
+    "slug": "megas-xlr",
+    "name": "Megas XLR",
+    "year": 2004,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 26,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t227",
+    "slug": "sonic-underground",
+    "name": "Sonic Underground",
+    "year": 1999,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 40,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t228",
+    "slug": "el-zorro-serie-animada",
+    "name": "El Zorro: Serie Animada",
+    "year": 1997,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 26,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Warner Channel"
+  },
+  {
+    "id": "t229",
+    "slug": "las-nuevas-aventuras-de-batman",
+    "name": "Las Nuevas Aventuras De Batman",
+    "year": 1997,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 24,
+    "score": 9,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Warner Channel"
+  },
+  {
+    "id": "t230",
+    "slug": "el-coyote-y-el-corre-caminos",
+    "name": "El Coyote y El Corre Caminos",
+    "year": 1949,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 44,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Warner Channel"
+  },
+  {
+    "id": "t231",
+    "slug": "birdman",
+    "name": "Birdman",
+    "year": 1967,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 40,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t232",
+    "slug": "el-fantasma-2040",
+    "name": "El Fantasma 2040",
+    "year": 1994,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 35,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t233",
+    "slug": "cyborg-009",
+    "name": "Cyborg 009",
+    "year": 2001,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 51,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t234",
+    "slug": "gi-joe",
+    "name": "Gi Joe",
+    "year": 1985,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 85,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t235",
+    "slug": "street-sharks",
+    "name": "Street Sharks",
+    "year": 1994,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 40,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t236",
+    "slug": "detective-conan",
+    "name": "Detective Conan",
+    "year": 1996,
+    "kind": "serie",
+    "seasonCount": 5,
+    "episodeCount": 123,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t237",
+    "slug": "heidi",
+    "name": "Heidi",
+    "year": 1974,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 52,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t238",
+    "slug": "candy-candy",
+    "name": "Candy Candy",
+    "year": 1976,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 115,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t239",
+    "slug": "voltron-leones",
+    "name": "Voltron Leones",
+    "year": 1984,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 72,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t240",
+    "slug": "voltron-vehiculos",
+    "name": "Voltron Vehiculos",
+    "year": 1984,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 52,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t241",
+    "slug": "el-jinete-de-sable-y-los-comisarios-estrellas",
+    "name": "El Jinete De Sable Y Los Comisarios Estrellas",
+    "year": 1987,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 52,
+    "score": 9,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t242",
+    "slug": "mazinger-z",
+    "name": "Mazinger Z",
+    "year": 1972,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 92,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t243",
+    "slug": "el-gladiador",
+    "name": "El Gladiador",
+    "year": 1976,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 38,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t244",
+    "slug": "super-magnetron",
+    "name": "Super Magnetrón",
+    "year": 1976,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 14,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t245",
+    "slug": "el-vengador",
+    "name": "El Vengador",
+    "year": 1975,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 24,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t246",
+    "slug": "el-galactico",
+    "name": "El Galáctico",
+    "year": 1978,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 24,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t247",
+    "slug": "capitan-centella",
+    "name": "Capitán Centella",
+    "year": 1972,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 32,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t248",
+    "slug": "capitan-futuro",
+    "name": "Capitán Futuro",
+    "year": 1978,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 52,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t249",
+    "slug": "arbegas-el-rayo-custodio",
+    "name": "Arbegas: El Rayo Custodio",
+    "year": 1983,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 45,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t250",
+    "slug": "fuerza-g",
+    "name": "Fuerza G",
+    "year": 1972,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 105,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t252",
+    "slug": "el-proyecto-zeta",
+    "name": "El Proyecto Zeta",
+    "year": 2001,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 26,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t253",
+    "slug": "oban-star-racers",
+    "name": "Oban Star Racers",
+    "year": 2006,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 26,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t254",
+    "slug": "la-casa-de-los-dibujos",
+    "name": "La Casa De Los Dibujos",
+    "year": 2004,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 36,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t255",
+    "slug": "el-principe-del-rap-en-bel-air",
+    "name": "El Principe Del Rap En Bel-Air",
+    "year": 1990,
+    "kind": "serie",
+    "seasonCount": 6,
+    "episodeCount": 148,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Warner Channel"
+  },
+  {
+    "id": "t256",
+    "slug": "full-house",
+    "name": "Full House",
+    "year": 1987,
+    "kind": "serie",
+    "seasonCount": 8,
+    "episodeCount": 192,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Warner Channel"
+  },
+  {
+    "id": "t257",
+    "slug": "el-show-de-scooby-doo",
+    "name": "El Show De Scooby Doo",
+    "year": 1976,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 40,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t258",
+    "slug": "el-clan-de-yogui",
+    "name": "El Clan De Yogui",
+    "year": 1973,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 15,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t259",
+    "slug": "yakky-doodle",
+    "name": "Yakky Doodle",
+    "year": 1961,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 32,
+    "score": 4,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t260",
+    "slug": "aquaman",
+    "name": "Aquaman",
+    "year": 1968,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 36,
+    "score": 5,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t261",
+    "slug": "los-centuriones",
+    "name": "Los Centuriones",
+    "year": 1986,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 65,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t262",
+    "slug": "pixie-dixie-y-el-gato-jinks",
+    "name": "Pixie, Dixie y El Gato Jinks",
+    "year": 1958,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 57,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t263",
+    "slug": "los-herculoides",
+    "name": "Los Herculoides",
+    "year": 1967,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 36,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t264",
+    "slug": "frankenstein-jr",
+    "name": "Frankenstein Jr.",
+    "year": 1966,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 18,
+    "score": 5,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t265",
+    "slug": "death-note",
+    "name": "Death Note",
+    "year": 2006,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 37,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t266",
+    "slug": "el-gallo-claudio",
+    "name": "El Gallo Claudio",
+    "year": 1946,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 28,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Warner Channel"
+  },
+  {
+    "id": "t267",
+    "slug": "101-dalmatas",
+    "name": "101 Dalmatas",
+    "year": 2018,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 65,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Disney Channel"
+  },
+  {
+    "id": "t268",
+    "slug": "dragon-quest",
+    "name": "Dragon Quest",
+    "year": 1991,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 46,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t269",
+    "slug": "wild-c-a-t-s",
+    "name": "Wild C.A.T.S",
+    "year": 1994,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 13,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t270",
+    "slug": "cowboy-bebop",
+    "name": "CowBoy Bebop",
+    "year": 1998,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 26,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t271",
+    "slug": "samurai-warriors",
+    "name": "Samurai Warriors",
+    "year": 1988,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 39,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t272",
+    "slug": "transformers-headmasters",
+    "name": "Transformers: Headmasters",
+    "year": 1987,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 35,
+    "score": 5,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t273",
+    "slug": "transformers-super-good-masterforce",
+    "name": "Transformers: Super-Good Masterforce",
+    "year": 1988,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 42,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t274",
+    "slug": "transformers-victory",
+    "name": "Transformers: Victory",
+    "year": 1989,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 38,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t275",
+    "slug": "super-agente-cobra",
+    "name": "Super Agente Cobra",
+    "year": 1982,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 31,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t276",
+    "slug": "zoids-chaotic-century",
+    "name": "Zoids: Chaotic Century",
+    "year": 1999,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 34,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t277",
+    "slug": "zoids-guardian-force",
+    "name": "Zoids: Guardian Force",
+    "year": 2000,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 33,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t278",
+    "slug": "los-pinguinos-de-madagascar",
+    "name": "Los Pingüinos De Madagascar",
+    "year": 2008,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 150,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t279",
+    "slug": "harvey-birdman-el-abogado",
+    "name": "Harvey Birdman El Abogado",
+    "year": 2000,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 34,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t280",
+    "slug": "ben-10",
+    "name": "Ben 10",
+    "year": 2005,
+    "kind": "serie",
+    "seasonCount": 4,
+    "episodeCount": 49,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t281",
+    "slug": "ben-10-fuerza-alienigena",
+    "name": "Ben 10: Fuerza Alienigena",
+    "year": 2008,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 46,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t282",
+    "slug": "ben-10-supremacia-alienigena",
+    "name": "Ben 10: Supremacia Alienigena",
+    "year": 2010,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 52,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t283",
+    "slug": "mucha-lucha",
+    "name": "Mucha Lucha",
+    "year": 2002,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 100,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t284",
+    "slug": "daniel-el-travieso",
+    "name": "Daniel El Travieso",
+    "year": 1986,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 78,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t285",
+    "slug": "el-autobus-magico",
+    "name": "El Autobús Mágico",
+    "year": 1994,
+    "kind": "serie",
+    "seasonCount": 4,
+    "episodeCount": 52,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t286",
+    "slug": "she-ra-la-princesa-del-poder",
+    "name": "She-Ra La Princesa Del Poder",
+    "year": 1985,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 89,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t287",
+    "slug": "robotech",
+    "name": "Robotech",
+    "year": 1985,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 85,
+    "score": 9,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t288",
+    "slug": "el-baron-rojo",
+    "name": "El Baron Rojo",
+    "year": 1973,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 49,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t289",
+    "slug": "el-conde-patula",
+    "name": "El Conde Pátula",
+    "year": 1988,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 65,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t290",
+    "slug": "las-nuevas-peliculas-de-scooby-doo",
+    "name": "Las Nuevas Peliculas De Scooby Doo",
+    "year": 1972,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 24,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t291",
+    "slug": "timon-y-pumba",
+    "name": "Timon y Pumba",
+    "year": 1995,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 83,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Disney Channel"
+  },
+  {
+    "id": "t292",
+    "slug": "iron-man-la-serie-animada",
+    "name": "Iron Man: La Serie Animada",
+    "year": 1994,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 26,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Marvel"
+  },
+  {
+    "id": "t293",
+    "slug": "las-nuevas-aventuras-de-winnie-the-pooh",
+    "name": "Las Nuevas Aventuras De Winnie The Pooh",
+    "year": 1988,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 50,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Disney Channel"
+  },
+  {
+    "id": "t294",
+    "slug": "jake-long-el-dragon-occidental",
+    "name": "Jake Long: El Dragón Occidental",
+    "year": 2005,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 52,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Disney Channel"
+  },
+  {
+    "id": "t295",
+    "slug": "astro-boy-1980",
+    "name": "Astro Boy 1980",
+    "year": 1980,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 52,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t296",
+    "slug": "astro-boy-2003",
+    "name": "Astro Boy 2003",
+    "year": 2003,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 50,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t297",
+    "slug": "mike-lu-y-og",
+    "name": "Mike, Lu y Og",
+    "year": 1999,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 26,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t298",
+    "slug": "reboot",
+    "name": "Reboot",
+    "year": 1994,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 39,
+    "score": 9,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t299",
+    "slug": "btx",
+    "name": "BTX",
+    "year": 1996,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 25,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t300",
+    "slug": "btx-neo",
+    "name": "BTX Neo",
+    "year": 1997,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 14,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t301",
+    "slug": "d-artacan-y-los-tres-mosqueperros",
+    "name": "D'Artacán y Los Tres Mosqueperros",
+    "year": 1981,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 26,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t302",
+    "slug": "sam-el-rey-del-judo",
+    "name": "Sam El Rey Del Judo",
+    "year": 1969,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 26,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t303",
+    "slug": "yu-gi-oh-gx",
+    "name": "Yu Gi Oh! GX",
+    "year": 2004,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 180,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t304",
+    "slug": "thundarr-el-barbaro",
+    "name": "Thundarr El Bárbaro",
+    "year": 1980,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 21,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t305",
+    "slug": "el-show-de-pebbles-y-bambam",
+    "name": "El Show de Pebbles y BamBam",
+    "year": 1971,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 20,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t306",
+    "slug": "el-nuevo-show-de-los-picapiedras",
+    "name": "El Nuevo Show De Los Picapiedras",
+    "year": 1979,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 17,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t307",
+    "slug": "los-caballeros-arabes",
+    "name": "Los Caballeros Arabes",
+    "year": 1968,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 18,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t308",
+    "slug": "escuadron-del-tiempo",
+    "name": "Escuadron Del Tiempo",
+    "year": 2001,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 26,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t309",
+    "slug": "los-defensores-de-la-tierra",
+    "name": "Los Defensores de La Tierra",
+    "year": 1986,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 65,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t312",
+    "slug": "zatch-bell",
+    "name": "Zatch Bell",
+    "year": 2003,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 150,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t313",
+    "slug": "recreo-la-serie-animada",
+    "name": "Recreo: La Serie Animada",
+    "year": 1997,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 65,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Disney Channel"
+  },
+  {
+    "id": "t314",
+    "slug": "el-pato-darkwing",
+    "name": "El Pato Darkwing",
+    "year": 1991,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 90,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Disney Channel"
+  },
+  {
+    "id": "t315",
+    "slug": "lilo-stich",
+    "name": "Lilo & Stich",
+    "year": 2003,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 65,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Disney Channel"
+  },
+  {
+    "id": "t316",
+    "slug": "chip-dale-guardianes-rescatadores",
+    "name": "Chip & Dale: Guardianes Rescatadores",
+    "year": 1989,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 65,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Disney Channel"
+  },
+  {
+    "id": "t317",
+    "slug": "hercules-la-serie-animada",
+    "name": "Hercules: La Serie Animada",
+    "year": 1998,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 65,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Disney Channel"
+  },
+  {
+    "id": "t318",
+    "slug": "kim-possible",
+    "name": "Kim Possible",
+    "year": 2002,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 85,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Disney Channel"
+  },
+  {
+    "id": "t319",
+    "slug": "la-leyenda-de-tarzan",
+    "name": "La Leyenda De Tarzan",
+    "year": 2001,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 38,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Disney Channel"
+  },
+  {
+    "id": "t320",
+    "slug": "dragon-ball-super",
+    "name": "Dragon Ball Super",
+    "year": 2015,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 131,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t321",
+    "slug": "orphen",
+    "name": "Orphen",
+    "year": 1998,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 24,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t322",
+    "slug": "orphen-revenge",
+    "name": "Orphen Revenge",
+    "year": 1999,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 23,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t323",
+    "slug": "corsario-negro",
+    "name": "Corsario Negro",
+    "year": 1998,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 26,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t324",
+    "slug": "zenki",
+    "name": "Zenki",
+    "year": 1995,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 51,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t325",
+    "slug": "slam-dunk",
+    "name": "Slam Dunk",
+    "year": 1993,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 101,
+    "score": 9,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t326",
+    "slug": "las-aventuras-de-pippi-longstocking",
+    "name": "Las Aventuras de Pippi Longstocking",
+    "year": 1997,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 26,
+    "score": 5,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t327",
+    "slug": "karate-kid",
+    "name": "Karate Kid",
+    "year": 1989,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 13,
+    "score": 5,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t328",
+    "slug": "la-patrulla-galactica",
+    "name": "La Patrulla Galactica",
+    "year": 1986,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 65,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t329",
+    "slug": "dino-riders",
+    "name": "Dino Riders",
+    "year": 1988,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 13,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t330",
+    "slug": "stargate-infinity",
+    "name": "Stargate Infinity",
+    "year": 2002,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 26,
+    "score": 4,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t331",
+    "slug": "inhumanoides",
+    "name": "Inhumanoides",
+    "year": 1986,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 13,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t332",
+    "slug": "happy-tree-friends",
+    "name": "Happy Tree Friends",
+    "year": 1999,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 189,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t333",
+    "slug": "star-trek",
+    "name": "Star Trek",
+    "year": 1973,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 22,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t334",
+    "slug": "malcolm-en-el-medio",
+    "name": "Malcolm En El Medio",
+    "year": 2000,
+    "kind": "serie",
+    "seasonCount": 7,
+    "episodeCount": 151,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t335",
+    "slug": "futurama",
+    "name": "Futurama",
+    "year": 1999,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 124,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t336",
+    "slug": "bonkers",
+    "name": "Bonkers",
+    "year": 1993,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 65,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Disney Channel"
+  },
+  {
+    "id": "t337",
+    "slug": "aventureros-del-aire",
+    "name": "Aventureros Del Aire",
+    "year": 1990,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 65,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Disney Channel"
+  },
+  {
+    "id": "t338",
+    "slug": "sabrina-la-serie-animada",
+    "name": "Sabrina: La Serie Animada",
+    "year": 1999,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 65,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Disney Channel"
+  },
+  {
+    "id": "t339",
+    "slug": "los-campeones-de-disney",
+    "name": "Los Campeones de Disney",
+    "year": 1996,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 26,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Disney Channel"
+  },
+  {
+    "id": "t340",
+    "slug": "el-inspector-de-la-pantera-rosa",
+    "name": "El Inspector De La Pantera Rosa",
+    "year": 1965,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 34,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t341",
+    "slug": "swat-kats",
+    "name": "Swat Kats",
+    "year": 1993,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 23,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t342",
+    "slug": "los-super-globetrotters",
+    "name": "Los Super GlobeTrotters",
+    "year": 1979,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 13,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t343",
+    "slug": "los-osos-revoltosos",
+    "name": "Los Osos Revoltosos",
+    "year": 1971,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 16,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t344",
+    "slug": "shazzan-y-el-mago",
+    "name": "Shazzan y El Mago",
+    "year": 1967,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 36,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t345",
+    "slug": "yo-yogi",
+    "name": "Yo Yogi!",
+    "year": 1991,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 19,
+    "score": 5,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t346",
+    "slug": "los-pitufos",
+    "name": "Los Pitufos",
+    "year": 1981,
+    "kind": "serie",
+    "seasonCount": 9,
+    "episodeCount": 258,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t347",
+    "slug": "capitan-cavernicola-y-los-angeles-adolescentes",
+    "name": "Capitan Cavernicola y los Angeles Adolescentes",
+    "year": 1977,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 20,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t348",
+    "slug": "la-familia-addams-serie-animada",
+    "name": "La Familia Addams: Serie Animada",
+    "year": 1973,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 16,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t349",
+    "slug": "jayce-y-los-guerreros-rodantes",
+    "name": "Jayce y los Guerreros Rodantes",
+    "year": 1985,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 48,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t350",
+    "slug": "yin-yang-yo",
+    "name": "Yin Yang Yo!",
+    "year": 2006,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 65,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t351",
+    "slug": "el-mundo-de-bobby",
+    "name": "El Mundo de Bobby",
+    "year": 1990,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 40,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t352",
+    "slug": "cuentos-de-la-cripta-serie-animada",
+    "name": "Cuentos De La Cripta: Serie Animada",
+    "year": 1993,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 39,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t353",
+    "slug": "pucca",
+    "name": "Pucca",
+    "year": 2006,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 71,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t354",
+    "slug": "el-colegio-del-agujero-negro",
+    "name": "El Colegio Del Agujero Negro",
+    "year": 2002,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 43,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t355",
+    "slug": "dientes-de-lata",
+    "name": "Dientes De Lata",
+    "year": 2001,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 78,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t356",
+    "slug": "el-show-de-super-mario-bros",
+    "name": "El Show de Super Mario Bros",
+    "year": 1989,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 52,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t357",
+    "slug": "felix-el-gato",
+    "name": "Felix El Gato",
+    "year": 1958,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 98,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t358",
+    "slug": "mad",
+    "name": "Mad",
+    "year": 2010,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 102,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t359",
+    "slug": "que-hay-de-nuevo-scooby-doo",
+    "name": "¿Qué hay de nuevo, Scooby-Doo?",
+    "year": 2002,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 42,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t360",
+    "slug": "shaggy-y-scooby-doo-detectives",
+    "name": "Shaggy y Scooby-Doo detectives",
+    "year": 2006,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 26,
+    "score": 5,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t361",
+    "slug": "historia-de-fantasmas",
+    "name": "Historia de Fantasmas",
+    "year": 2000,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 20,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t362",
+    "slug": "las-increibles-aventuras-de-jonny-quest",
+    "name": "Las Increibles Aventuras de Jonny Quest",
+    "year": 1996,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 46,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t363",
+    "slug": "popeye",
+    "name": "Popeye",
+    "year": 1960,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 220,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t364",
+    "slug": "poochini",
+    "name": "Poochini",
+    "year": 2000,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 26,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t365",
+    "slug": "el-misterio-de-anubis",
+    "name": "El Misterio de Anubis",
+    "year": 2011,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 101,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t366",
+    "slug": "yu-gi-oh-5ds",
+    "name": "YU Gi Oh! 5DS",
+    "year": 2008,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 154,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t367",
+    "slug": "zona-tiza",
+    "name": "Zona Tiza",
+    "year": 2002,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 34,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t368",
+    "slug": "los-rugrats-aventuras-en-panales",
+    "name": "Los Rugrats: Aventuras En Pañales",
+    "year": 1991,
+    "kind": "serie",
+    "seasonCount": 9,
+    "episodeCount": 169,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t369",
+    "slug": "rugrats-crecidos",
+    "name": "Rugrats Crecidos",
+    "year": 2003,
+    "kind": "serie",
+    "seasonCount": 5,
+    "episodeCount": 56,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t370",
+    "slug": "ginger",
+    "name": "Ginger",
+    "year": 2000,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 60,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t371",
+    "slug": "ren-y-stimpy",
+    "name": "Ren y Stimpy",
+    "year": 1991,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 49,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t372",
+    "slug": "blanco-y-negro",
+    "name": "Blanco y Negro",
+    "year": 1978,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 58,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t374",
+    "slug": "star-wars-la-guerra-de-los-clones",
+    "name": "Star Wars: La Guerra De Los Clones",
+    "year": 2008,
+    "kind": "serie",
+    "seasonCount": 6,
+    "episodeCount": 119,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t375",
+    "slug": "hora-de-aventura",
+    "name": "Hora de Aventura",
+    "year": 2010,
+    "kind": "serie",
+    "seasonCount": 9,
+    "episodeCount": 263,
+    "score": 9,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t376",
+    "slug": "un-show-mas",
+    "name": "Un Show Mas",
+    "year": 2010,
+    "kind": "serie",
+    "seasonCount": 8,
+    "episodeCount": 245,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t377",
+    "slug": "las-chicas-super-poderosas-z",
+    "name": "Las Chicas Super Poderosas Z",
+    "year": 2006,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 52,
+    "score": 5,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t378",
+    "slug": "momias-aqui",
+    "name": "Momias Aqui",
+    "year": 1997,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 42,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t379",
+    "slug": "kappa-mikey",
+    "name": "Kappa Mikey",
+    "year": 2006,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 39,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t380",
+    "slug": "ciudad-de-perros",
+    "name": "Ciudad de Perros",
+    "year": 1992,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 31,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t381",
+    "slug": "eek-el-gato",
+    "name": "Eek! El Gato",
+    "year": 1992,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 33,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t382",
+    "slug": "la-garrapata",
+    "name": "La Garrapata",
+    "year": 1994,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 36,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t383",
+    "slug": "double-dragon",
+    "name": "Double Dragon",
+    "year": 1993,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 23,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t384",
+    "slug": "pulgarcito-investigador-privado",
+    "name": "Pulgarcito Investigador Privado",
+    "year": 1973,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 10,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t385",
+    "slug": "las-aventuras-de-los-osos-gummis",
+    "name": "Las Aventuras De Los Osos Gummis",
+    "year": 1985,
+    "kind": "serie",
+    "seasonCount": 6,
+    "episodeCount": 95,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Disney Channel"
+  },
+  {
+    "id": "t387",
+    "slug": "phineas-y-pherb",
+    "name": "Phineas y Pherb",
+    "year": 2007,
+    "kind": "serie",
+    "seasonCount": 4,
+    "episodeCount": 129,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Disney Channel"
+  },
+  {
+    "id": "t388",
+    "slug": "quack-pack",
+    "name": "Quack Pack",
+    "year": 1996,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 39,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Disney Channel"
+  },
+  {
+    "id": "t389",
+    "slug": "las-nuevas-locuras-del-emperador",
+    "name": "Las Nuevas Locuras Del Emperador",
+    "year": 2000,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 51,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Disney Channel"
+  },
+  {
+    "id": "t390",
+    "slug": "ultimate-spider-man",
+    "name": "Ultimate Spider-Man",
+    "year": 2012,
+    "kind": "serie",
+    "seasonCount": 4,
+    "episodeCount": 104,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Marvel"
+  },
+  {
+    "id": "t391",
+    "slug": "el-espectacular-hombre-arana",
+    "name": "El Espectacular Hombre Araña",
+    "year": 2008,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 26,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Marvel"
+  },
+  {
+    "id": "t392",
+    "slug": "las-3-mellizas",
+    "name": "Las 3 Mellizas",
+    "year": 1997,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 72,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t394",
+    "slug": "rick-y-morty",
+    "name": "Rick y Morty",
+    "year": 2013,
+    "kind": "serie",
+    "seasonCount": 4,
+    "episodeCount": 36,
+    "score": 9,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t395",
+    "slug": "los-simpsons",
+    "name": "Los Simpsons",
+    "year": 1989,
+    "kind": "serie",
+    "seasonCount": 29,
+    "episodeCount": 638,
+    "score": 9,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t396",
+    "slug": "cool-mccool",
+    "name": "Cool McCool",
+    "year": 1966,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 20,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t397",
+    "slug": "sherlock-holmes-en-el-siglo-xxii",
+    "name": "Sherlock Holmes En El Siglo XXII",
+    "year": 1999,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 26,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t398",
+    "slug": "action-man-a-t-o-m",
+    "name": "Action Man: A.T.O.M.",
+    "year": 2005,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 52,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t399",
+    "slug": "super-duper-sumos",
+    "name": "Super Duper Sumos",
+    "year": 2002,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 26,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t400",
+    "slug": "t-u-f-f-puppy-agente-secreto",
+    "name": "T.U.F.F. Puppy, Agente Secreto",
+    "year": 2010,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 60,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t401",
+    "slug": "clarissa-lo-explica-todo",
+    "name": "Clarissa Lo Explica Todo",
+    "year": 1991,
+    "kind": "serie",
+    "seasonCount": 5,
+    "episodeCount": 60,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t402",
+    "slug": "los-verdaderos-cazafantasmas",
+    "name": "Los Verdaderos Cazafantasmas",
+    "year": 1986,
+    "kind": "serie",
+    "seasonCount": 6,
+    "episodeCount": 130,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t403",
+    "slug": "los-cazafantasmas-la-nueva-generacion",
+    "name": "Los Cazafantasmas La Nueva Generacion",
+    "year": 1997,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 40,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t404",
+    "slug": "popeye-el-marino",
+    "name": "Popeye El Marino",
+    "year": 1933,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 109,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t405",
+    "slug": "popeye-y-su-hijo",
+    "name": "Popeye y Su Hijo",
+    "year": 1987,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 13,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t406",
+    "slug": "jones-el-robot",
+    "name": "Jones El Robot",
+    "year": 2002,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 13,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t407",
+    "slug": "el-lagartijo-de-ned",
+    "name": "El Lagartijo De Ned",
+    "year": 1997,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 26,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t408",
+    "slug": "los-sabados-secretos",
+    "name": "Los Sabados Secretos",
+    "year": 2008,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 36,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t409",
+    "slug": "batman-el-valiente",
+    "name": "Batman El Valiente",
+    "year": 2008,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 65,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t410",
+    "slug": "justicia-joven",
+    "name": "Justicia Joven",
+    "year": 2010,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 72,
+    "score": 9,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t411",
+    "slug": "drama-total",
+    "name": "Drama Total",
+    "year": 2007,
+    "kind": "serie",
+    "seasonCount": 5,
+    "episodeCount": 122,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t412",
+    "slug": "mad-jack-el-pirata",
+    "name": "Mad Jack El Pirata",
+    "year": 1998,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 15,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t413",
+    "slug": "cadillacs-y-dinosaurios",
+    "name": "Cadillacs y Dinosaurios",
+    "year": 1993,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 13,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t414",
+    "slug": "alienators-evolucion-continua",
+    "name": "Alienators: Evolucion Continua",
+    "year": 2001,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 26,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t415",
+    "slug": "la-momia-la-serie-animada",
+    "name": "La Momia: La Serie Animada",
+    "year": 2001,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 26,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t416",
+    "slug": "robocop-comando-alfa",
+    "name": "Robocop Comando Alfa",
+    "year": 1998,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 36,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t417",
+    "slug": "toonsylvania",
+    "name": "Toonsylvania",
+    "year": 1998,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 21,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t418",
+    "slug": "jacobo-dos-dos",
+    "name": "Jacobo Dos Dos",
+    "year": 2003,
+    "kind": "serie",
+    "seasonCount": 5,
+    "episodeCount": 62,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t419",
+    "slug": "la-hormiga-y-el-oso-hormiguero",
+    "name": "La Hormiga y El Oso Hormiguero",
+    "year": 1969,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 17,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t420",
+    "slug": "archie-y-sabrina",
+    "name": "Archie y Sabrina",
+    "year": 1977,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 25,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t421",
+    "slug": "cantinflas-y-sus-amigos",
+    "name": "Cantinflas y sus amigos",
+    "year": 1982,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 51,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t422",
+    "slug": "el-fantasma-revoltoso",
+    "name": "El Fantasma Revoltoso",
+    "year": 1971,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 17,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t423",
+    "slug": "goober-y-los-cazafantasmas",
+    "name": "Goober y Los Cazafantasmas",
+    "year": 1973,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 15,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t424",
+    "slug": "el-gordo-y-el-flaco",
+    "name": "El Gordo y El Flaco",
+    "year": 1966,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 108,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t425",
+    "slug": "los-vaqueros-de-moo-mesa",
+    "name": "Los Vaqueros de Moo Mesa",
+    "year": 1992,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 26,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Disney Channel"
+  },
+  {
+    "id": "t426",
+    "slug": "policia-de-cuentos-de-hadas",
+    "name": "Policia De Cuentos De Hadas",
+    "year": 2002,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 26,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Disney Channel"
+  },
+  {
+    "id": "t427",
+    "slug": "protagonistas-de-la-historia",
+    "name": "Protagonistas De La Historia",
+    "year": 1991,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 20,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Warner Channel"
+  },
+  {
+    "id": "t428",
+    "slug": "el-mago",
+    "name": "El Mago",
+    "year": 1997,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 39,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t429",
+    "slug": "guerreros-miticos-guardianes-de-la-leyenda",
+    "name": "Guerreros Miticos: Guardianes De La Leyenda",
+    "year": 1998,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 26,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t430",
+    "slug": "el-rey-arturo",
+    "name": "El Rey Arturo",
+    "year": 1979,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 30,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t431",
+    "slug": "esqueletos-guerreros",
+    "name": "Esqueletos Guerreros",
+    "year": 1993,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 13,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t432",
+    "slug": "los-dinoplativolos",
+    "name": "Los Dinoplativolos",
+    "year": 1987,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 64,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t433",
+    "slug": "virtua-fighter",
+    "name": "Virtua Fighter",
+    "year": 1995,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 35,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t434",
+    "slug": "ripley-aunque-usted-no-lo-crea",
+    "name": "Ripley: Aunque Usted No Lo Crea",
+    "year": 1998,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 26,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t435",
+    "slug": "daria",
+    "name": "Daria",
+    "year": 1997,
+    "kind": "serie",
+    "seasonCount": 5,
+    "episodeCount": 65,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t436",
+    "slug": "escuela-de-heroes",
+    "name": "Escuela De Heroes",
+    "year": 1981,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 26,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t437",
+    "slug": "las-aventuras-de-brandy-y-el-senor-bigotes",
+    "name": "Las Aventuras de Brandy y El Señor Bigotes",
+    "year": 2004,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 39,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Disney Channel"
+  },
+  {
+    "id": "t438",
+    "slug": "el-mundo-de-quest",
+    "name": "El Mundo De Quest",
+    "year": 2008,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 26,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Disney Channel"
+  },
+  {
+    "id": "t439",
+    "slug": "la-carrera-espacial-de-yogui",
+    "name": "La Carrera Espacial de Yogui",
+    "year": 1978,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 13,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t440",
+    "slug": "los-locos-de-la-galaxia",
+    "name": "Los Locos de La Galaxia",
+    "year": 1978,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 13,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t441",
+    "slug": "pound-puppies",
+    "name": "Pound Puppies",
+    "year": 1985,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 26,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t442",
+    "slug": "el-fantastico-max",
+    "name": "El Fantastico Max",
+    "year": 1988,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 26,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t443",
+    "slug": "loopy-de-loop",
+    "name": "Loopy De Loop",
+    "year": 1969,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 48,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t444",
+    "slug": "yogui-y-la-busqueda-del-tesoro",
+    "name": "Yogui y La Busqueda Del Tesoro",
+    "year": 1985,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 27,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t445",
+    "slug": "mi-padre-el-rockero",
+    "name": "Mi Padre El Rockero",
+    "year": 2003,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 26,
+    "score": 5,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t446",
+    "slug": "el-show-de-amanda",
+    "name": "El Show de Amanda",
+    "year": 1999,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 32,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t447",
+    "slug": "isa-tkm",
+    "name": "Isa TKM",
+    "year": 2008,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 105,
+    "score": 5,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t448",
+    "slug": "isa-tk",
+    "name": "Isa TK+",
+    "year": 2009,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 120,
+    "score": 5,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t449",
+    "slug": "los-pequenos-looney-tunes",
+    "name": "Los Pequeños Looney Tunes",
+    "year": 2002,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 40,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t450",
+    "slug": "el-pais-de-donkey-kong",
+    "name": "El Pais De Donkey Kong",
+    "year": 1997,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 40,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t451",
+    "slug": "action-man-la-serie-animada",
+    "name": "Action Man La Serie Animada",
+    "year": 1995,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 26,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t452",
+    "slug": "stripperella",
+    "name": "Stripperella",
+    "year": 2003,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 13,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t453",
+    "slug": "max-steel",
+    "name": "Max Steel",
+    "year": 2000,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 35,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t454",
+    "slug": "la-tortuga-franklin",
+    "name": "La Tortuga Franklin",
+    "year": 1999,
+    "kind": "serie",
+    "seasonCount": 7,
+    "episodeCount": 78,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t455",
+    "slug": "el-mundo-fantastico-de-richard-scarry",
+    "name": "El Mundo Fantastico de Richard Scarry",
+    "year": 1993,
+    "kind": "serie",
+    "seasonCount": 5,
+    "episodeCount": 65,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t456",
+    "slug": "los-archivos-secretos-de-shelby-woo",
+    "name": "Los Archivos Secretos De Shelby Woo",
+    "year": 1996,
+    "kind": "serie",
+    "seasonCount": 4,
+    "episodeCount": 41,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Nickelodeon"
+  },
+  {
+    "id": "t457",
+    "slug": "super-fizgon-y-despistado",
+    "name": "Super Fizgon y Despistado",
+    "year": 1959,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 45,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Hanna Barbera"
+  },
+  {
+    "id": "t458",
+    "slug": "grotescologia",
+    "name": "Grotescologia",
+    "year": 2006,
+    "kind": "serie",
+    "seasonCount": 4,
+    "episodeCount": 52,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t459",
+    "slug": "mortal-kombat-defensores-del-reino",
+    "name": "Mortal Kombat: Defensores Del Reino",
+    "year": 1995,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 13,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t460",
+    "slug": "sam-y-max-policias-independientes",
+    "name": "Sam y Max : Policias Independientes",
+    "year": 2001,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 13,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t461",
+    "slug": "shinzo",
+    "name": "Shinzo",
+    "year": 2000,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 32,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t462",
+    "slug": "angela-anaconda",
+    "name": "Angela Anaconda",
+    "year": 1999,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 65,
+    "score": 4,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t463",
+    "slug": "power-rangers-a-la-velocidad-de-la-luz",
+    "name": "Power Rangers A La Velocidad De La Luz",
+    "year": 2000,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 40,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t464",
+    "slug": "power-rangers-fuerza-del-tiempo",
+    "name": "Power Rangers Fuerza Del Tiempo",
+    "year": 2001,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 40,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t465",
+    "slug": "power-rangers-fueza-salvaje",
+    "name": "Power Rangers Fueza Salvaje",
+    "year": 2002,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 40,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t466",
+    "slug": "power-rangers-tormenta-ninja",
+    "name": "Power Rangers Tormenta Ninja",
+    "year": 2003,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 38,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t467",
+    "slug": "power-rangers-dino-trueno",
+    "name": "Power Rangers Dino Trueno",
+    "year": 2004,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 38,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t468",
+    "slug": "power-rangers-super-patrulla-delta",
+    "name": "Power Rangers Super Patrulla Delta",
+    "year": 2005,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 38,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t469",
+    "slug": "power-rangers-fuerza-mistica",
+    "name": "Power Rangers Fuerza Mistica",
+    "year": 2006,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 32,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t470",
+    "slug": "power-rangers-operacion-sobrecarga",
+    "name": "Power Rangers Operacion Sobrecarga",
+    "year": 2007,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 32,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t471",
+    "slug": "power-rangers-furia-animal",
+    "name": "Power Rangers Furia Animal",
+    "year": 2008,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 32,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Fox Kids"
+  },
+  {
+    "id": "t472",
+    "slug": "power-rangers-rpm",
+    "name": "Power Rangers RPM",
+    "year": 2009,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 32,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Disney Channel"
+  },
+  {
+    "id": "t473",
+    "slug": "power-rangers-samurai",
+    "name": "Power Rangers Samurai",
+    "year": 2011,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 22,
+    "score": 5,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Disney Channel"
+  },
+  {
+    "id": "t474",
+    "slug": "power-rangers-super-samurai",
+    "name": "Power Rangers Super Samurai",
+    "year": 2012,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 22,
+    "score": 5,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Disney Channel"
+  },
+  {
+    "id": "t475",
+    "slug": "power-rangers-mega-force",
+    "name": "Power Rangers Mega Force",
+    "year": 2013,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 22,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t476",
+    "slug": "power-rangers-super-mega-force",
+    "name": "Power Rangers Super Mega Force",
+    "year": 2014,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 20,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t477",
+    "slug": "power-rangers-dino-charge",
+    "name": "Power Rangers Dino Charge",
+    "year": 2015,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 22,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t478",
+    "slug": "power-rangers-dino-super-charge",
+    "name": "Power Rangers Dino Super Charge",
+    "year": 2016,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 22,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t479",
+    "slug": "power-rangers-ninja-steel",
+    "name": "Power Rangers Ninja Steel",
+    "year": 2017,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 22,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t480",
+    "slug": "power-rangers-super-ninja-steel",
+    "name": "Power Rangers Super Ninja Steel",
+    "year": 2018,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 22,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t481",
+    "slug": "power-rangers-beast-morphers",
+    "name": "Power Rangers Beast Morphers",
+    "year": 2019,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 44,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t482",
+    "slug": "los-defensores-di-gata",
+    "name": "Los Defensores Di Gata",
+    "year": 2006,
+    "kind": "serie",
+    "seasonCount": 4,
+    "episodeCount": 52,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t483",
+    "slug": "arthur",
+    "name": "Arthur",
+    "year": 1996,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 65,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t484",
+    "slug": "mona-la-vampira",
+    "name": "Mona La Vampira",
+    "year": 1999,
+    "kind": "serie",
+    "seasonCount": 5,
+    "episodeCount": 65,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t485",
+    "slug": "los-misterios-de-archie",
+    "name": "Los Misterios De Archie",
+    "year": 1999,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 40,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t486",
+    "slug": "loonatics",
+    "name": "Loonatics",
+    "year": 2005,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 26,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
+  },
+  {
+    "id": "t487",
+    "slug": "super-escuadron-ciber-monos-hiperfuerza-ya",
+    "name": "Super Escuadrón Ciber Monos Hiperfuerza ¡Ya!",
+    "year": 2004,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 52,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Disney Channel"
+  },
+  {
+    "id": "t488",
+    "slug": "pepper-ann",
+    "name": "Pepper Ann",
+    "year": 1997,
+    "kind": "serie",
+    "seasonCount": 5,
+    "episodeCount": 65,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Disney Channel"
+  },
+  {
+    "id": "t489",
+    "slug": "highlander-el-inmortal",
+    "name": "Highlander El Inmortal",
+    "year": 1992,
+    "kind": "serie",
+    "seasonCount": 6,
+    "episodeCount": 119,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t490",
+    "slug": "las-aventuras-de-cristobal-colon",
+    "name": "Las Aventuras De Cristobal Colon",
+    "year": 1990,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 26,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t491",
+    "slug": "salvados-por-la-campana",
+    "name": "Salvados Por La Campana",
+    "year": 1989,
+    "kind": "serie",
+    "seasonCount": 4,
+    "episodeCount": 86,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t492",
+    "slug": "salvados-por-la-campana-anos-de-universidad",
+    "name": "Salvados Por La Campana: Años De Universidad",
+    "year": 1993,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 19,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t493",
+    "slug": "los-intocables-de-elliot-mouse",
+    "name": "Los Intocables De Elliot Mouse",
+    "year": 1996,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 26,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t494",
+    "slug": "xena-la-princesa-guerrera",
+    "name": "Xena La Princesa guerrera",
+    "year": 1995,
+    "kind": "serie",
+    "seasonCount": 6,
+    "episodeCount": 134,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t495",
+    "slug": "anatole",
+    "name": "Anatole",
+    "year": 1998,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 26,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t496",
+    "slug": "heroes-de-rescate",
+    "name": "Heroes De Rescate",
+    "year": 1999,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 39,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t497",
+    "slug": "los-conejitos-torpes",
+    "name": "Los Conejitos Torpes",
+    "year": 1998,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 26,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t498",
+    "slug": "zoboomafo",
+    "name": "Zoboomafo",
+    "year": 1999,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 60,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t499",
+    "slug": "clifford-el-gran-perro-rojo",
+    "name": "Clifford El Gran Perro Rojo",
+    "year": 2003,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 66,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t504",
+    "slug": "escuela-de-espanto",
+    "name": "Escuela De Espanto",
+    "year": 2004,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 25,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t505",
+    "slug": "fraggle-rock",
+    "name": "Fraggle Rock",
+    "year": 1983,
+    "kind": "serie",
+    "seasonCount": 4,
+    "episodeCount": 96,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t506",
+    "slug": "animalitos-locos",
+    "name": "Animalitos Locos",
+    "year": 1997,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 39,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t507",
+    "slug": "los-fantasticos-viajes-de-simbads-el-marino",
+    "name": "Los Fantasticos Viajes De Simbads El Marino",
+    "year": 1996,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 26,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t508",
+    "slug": "bumpy-y-sus-amigos",
+    "name": "Bumpy y sus Amigos",
+    "year": 1994,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 26,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t509",
+    "slug": "elliot-el-alce",
+    "name": "Elliot El Alce",
+    "year": 1998,
+    "kind": "serie",
+    "seasonCount": 2,
+    "episodeCount": 26,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t510",
+    "slug": "el-chavo-del-8",
+    "name": "El Chavo Del 8",
+    "year": 1973,
+    "kind": "serie",
+    "seasonCount": 9,
+    "episodeCount": 194,
+    "score": 8,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t511",
+    "slug": "angel-la-nina-de-las-flores",
+    "name": "Angel La Niña De Las Flores",
+    "year": 1979,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 50,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t512",
+    "slug": "la-familia-robinson",
+    "name": "La Familia Robinson",
+    "year": 1981,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 50,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t513",
+    "slug": "sabrina-secretos-de-la-brujita",
+    "name": "Sabrina Secretos De La Brujita",
+    "year": 2003,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 26,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t514",
+    "slug": "pelswick",
+    "name": "Pelswick",
+    "year": 2000,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 26,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t516",
+    "slug": "jem-y-los-hologramas",
+    "name": "Jem y Los Hologramas",
+    "year": 1985,
+    "kind": "serie",
+    "seasonCount": 1,
+    "episodeCount": 65,
+    "score": 7,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Otros"
+  },
+  {
+    "id": "t517",
+    "slug": "hi-hi-puffy-amiyumi",
+    "name": "Hi Hi Puffy AmiYumi",
+    "year": 2004,
+    "kind": "serie",
+    "seasonCount": 3,
+    "episodeCount": 39,
+    "score": 6,
+    "poster": "/placeholder.svg",
+    "backdrop": "/placeholder.svg",
+    "synopsis": "",
+    "genres": [
+      "animacion"
+    ],
+    "network": "Cartoon Network"
   }
 ]

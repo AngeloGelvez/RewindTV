@@ -5,6 +5,10 @@
  * tarjetas visibles mas un colchon, y las que salen vuelven al pool. Una fila
  * de 200 titulos mantiene ~12 nodos vivos.
  *
+ * Las medidas (itemWidth, itemHeight, gap) se dan en px a 16 px de fuente
+ * base y se escalan con la fuente raiz: en modo TV todo crece en rem y las
+ * tarjetas tienen que crecer con su texto, o el texto se sale de la tarjeta.
+ *
  * El scroll es NATIVO (clase .rail con scroll-snap). No animamos transform a
  * mano: el navegador mueve el contenido en el compositor, sin tocar el hilo
  * principal, y en movil el gesto se siente como el del sistema.
@@ -14,26 +18,73 @@ import { read, write } from '../../core/scheduler.js';
 import { observeResize } from '../../patterns/observer.js';
 import { defineComponent } from '../base/Component.js';
 import { icon } from '../ui/icons.js';
+import { remScale } from '../../core/tv.js';
 
 const BUFFER = 3;
+let uid = 0;
 
 export const Carousel = defineComponent({
   setup(
-    { title, items = [], itemWidth = 170, itemHeight, gap = 12, render, recycle, onSelect, href },
+    {
+      title,
+      items = [],
+      itemWidth: baseWidth = 170,
+      itemHeight: baseHeight,
+      gap: baseGap = 12,
+      render,
+      recycle,
+      onSelect,
+      href,
+      boxed = true,
+      action,
+    },
     { onDispose },
   ) {
+    // Medidas escaladas. Se recalculan en cada lectura y no solo al montar:
+    // al arrancar, el CSS de modo TV puede no estar aplicado todavia, y en TV
+    // la fuente depende del ancho de la ventana.
+    let k = 0;
+    let ancho = 0;
+    let itemWidth = 0;
+    let gap = baseGap;
+    let step = baseGap;
+    let alto = 0;
+
+    /**
+     * `itemWidth` puede ser un numero o una funcion del ancho disponible: asi
+     * una fila ensena 1,5 tarjetas en un movil y 6 en un escritorio con el
+     * mismo componente, sin media queries repartidas por los estilos.
+     *
+     * Devuelve true si algo cambio (y hay que recolocar todo).
+     */
+    function escalar(disponible) {
+      const next = remScale();
+      const base = typeof baseWidth === 'function' ? baseWidth(disponible) : baseWidth;
+      if (next === k && base === ancho) return false;
+      k = next;
+      ancho = base;
+      itemWidth = Math.round(base * k);
+      gap = Math.round(baseGap * k);
+      step = itemWidth + gap;
+      alto = baseHeight
+        ? Math.round((typeof baseHeight === 'function' ? baseHeight(base) : baseHeight) * k)
+        : 0;
+      return true;
+    }
+
     const track = el('div', { class: 'relative' });
-    const rail = el('div', { class: 'rail px-4 md:px-8 py-1' }, track);
+    // El carril desborda el relleno del panel a los lados: las tarjetas llegan
+    // al borde al deslizar, pero en reposo respetan el margen de la seccion.
+    const rail = el('div', { class: 'rail -mx-4 px-4 py-1 md:-mx-5 md:px-5' }, track);
 
     let data = items;
     const mounted = new Map();
-    const step = itemWidth + gap;
-    let alto = itemHeight ?? 0;
 
-    function reflow(force) {
+    function reflow(forced) {
       read(() => {
-        const scrollLeft = rail.scrollLeft;
         const width = rail.clientWidth;
+        const force = escalar(width) || forced;
+        const scrollLeft = rail.scrollLeft;
         const from = Math.max(0, Math.floor(scrollLeft / step) - BUFFER);
         const to = Math.min(data.length - 1, Math.ceil((scrollLeft + width) / step) + BUFFER);
 
@@ -82,44 +133,67 @@ export const Carousel = defineComponent({
       rail.scrollBy({ left: dir * Math.floor(rail.clientWidth * 0.8), behavior: 'smooth' });
     }
 
+    /**
+     * Flechas de paginacion. Son `aria-hidden` y fuera del orden de Tab a
+     * proposito: no aportan ningun destino nuevo — el carril ya se recorre con
+     * teclado, rueda o gesto — y colarlas entre tarjeta y tarjeta obligaria a
+     * pasar por ellas en cada fila.
+     */
     const flecha = (dir, nombre) =>
       el(
         'button',
         {
           type: 'button',
           class:
-            'hidden size-9 place-items-center rounded-full bg-surface-2 text-ink-1 transition hover:bg-surface-3 hover:text-ink-0 md:grid',
+            'hidden size-9 place-items-center rounded-full border text-ink-1 transition hairline ' +
+            'hover:border-[var(--fest-text)] hover:text-ink-0 active:scale-95 md:grid',
           'aria-label': nombre,
+          tabindex: '-1',
+          'aria-hidden': 'true',
+          'data-nav-skip': '',
           onClick: () => scrollBy(dir),
         },
         [icon('chevron', dir < 0 ? 'size-4 rotate-180' : 'size-4')],
       );
 
-    // Una barra de acento antes del titulo: marca el inicio de seccion sin
-    // necesidad de separadores ni de subir el tamano de letra.
-    const marca = el('span', {
-      class: 'h-5 w-1 shrink-0 rounded-full',
-      style: 'background: var(--fest)',
-    });
+    const headingId = `rail-${++uid}`;
+    const rotulo = el(
+      'h2',
+      { id: headingId, class: 'truncate text-[1.0625rem] font-bold tracking-tight md:text-[1.15rem]' },
+      title,
+    );
 
-    const rotulo = el('h2', { class: 'text-[17px] font-semibold tracking-tight' }, title);
-
-    const cabecera = el('div', { class: 'flex items-center gap-3 px-4 md:px-8' }, [
-      marca,
+    const cabecera = el('div', { class: 'flex items-center gap-3 pb-3.5' }, [
       href
-        ? el('a', { href, class: 'group flex items-center gap-1' }, [
+        ? el('a', { href, class: 'group flex min-w-0 items-center gap-1' }, [
             rotulo,
             el(
               'span',
-              { class: 'text-ink-2 transition group-hover:translate-x-0.5 group-hover:text-[var(--fest)]' },
+              {
+                class: 'shrink-0 text-ink-2 transition group-hover:translate-x-0.5 group-hover:text-[var(--fest-text)]',
+                'aria-hidden': 'true',
+              },
               [icon('chevron', 'size-4')],
             ),
           ])
         : rotulo,
-      el('div', { class: 'ml-auto flex gap-2' }, [flecha(-1, 'Anterior'), flecha(1, 'Siguiente')]),
+      el('div', { class: 'ml-auto flex shrink-0 items-center gap-2' }, [
+        action ?? null,
+        flecha(-1, 'Anterior'),
+        flecha(1, 'Siguiente'),
+      ]),
     ]);
 
-    const node = el('section', { class: 'space-y-3.5' }, [cabecera, rail]);
+    // `boxed`: la fila vive dentro de un panel redondeado. Es lo que da el
+    // ritmo de la portada; sin el, las filas flotan sueltas sobre el fondo.
+    const node = el(
+      'section',
+      {
+        class: boxed ? 'panel p-4 md:p-5' : '',
+        'aria-labelledby': headingId,
+      },
+      [cabecera, rail],
+    );
 
     const onScroll = () => reflow(false);
     rail.addEventListener('scroll', onScroll, { passive: true });
@@ -127,7 +201,7 @@ export const Carousel = defineComponent({
     onDispose(observeResize(rail, () => reflow(false)));
     onDispose(
       delegate(rail, '[data-id]', 'click', (event, target) => {
-        if (!onSelect) return;
+        if (!onSelect || event.ctrlKey || event.metaKey || event.shiftKey) return;
         event.preventDefault();
         onSelect(target.dataset.id);
       }),

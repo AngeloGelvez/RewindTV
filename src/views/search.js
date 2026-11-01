@@ -19,7 +19,7 @@ export default async function searchView({ outlet, query: qs }) {
     value: qs.q ?? '',
     placeholder: 'Nombre, año o genero...',
     class:
-      'w-full max-w-xl rounded-pill border border-surface-3 bg-surface-1 px-5 py-3 text-ink-0 placeholder:text-ink-2 focus:border-[var(--fest)] focus:outline-none',
+      'w-full max-w-xl rounded-pill border border-surface-3 bg-surface-1 px-5 py-3 text-ink-0 placeholder:text-ink-2 focus:border-[var(--fest-text)] focus:outline-none',
     'aria-label': 'Buscar en el catalogo',
   });
 

@@ -39,7 +39,7 @@ export default async function liveView({ outlet, query }) {
       {
         type: 'button',
         class:
-          'rounded-pill border border-surface-3 px-4 py-1.5 text-sm font-medium text-ink-1 transition hover:border-[var(--fest)] hover:text-ink-0',
+          'rounded-pill border border-surface-3 px-4 py-1.5 text-sm font-medium text-ink-1 transition hover:border-[var(--fest-text)] hover:text-ink-0',
         dataset: { cat: cat ?? '' },
       },
       cat ? LABEL[cat] ?? cat : `Todos (${getChannels().length})`,
@@ -53,6 +53,7 @@ export default async function liveView({ outlet, query }) {
       chip.classList.toggle('text-ink-0', activo);
       chip.classList.toggle('bg-surface-2', activo);
       chip.classList.toggle('ring-fest', activo);
+      chip.setAttribute('aria-pressed', String(activo));
     }
 
     const lista = cat ? getChannelsByCategory(cat) : getChannels();
@@ -114,14 +115,18 @@ export default async function liveView({ outlet, query }) {
       ),
     ]),
     escenario,
-    el('div', { class: 'mb-6 flex flex-wrap gap-2' }, chips),
+    el('div', { class: 'mb-6 flex flex-wrap gap-2', role: 'group', 'aria-label': 'Filtrar por categoria' }, chips),
     grid,
   ]);
 
   const quitarChips = delegate(node, '[data-cat]', 'click', (_e, target) => {
     pintar(target.dataset.cat || null);
   });
-  const quitarGrid = delegate(grid, '[data-id]', 'click', (_e, target) => reproducir(target.dataset.id));
+  const quitarGrid = delegate(grid, '[data-id]', 'click', (event, target) => {
+    if (event.ctrlKey || event.metaKey || event.shiftKey) return;
+    event.preventDefault();
+    reproducir(target.dataset.id);
+  });
 
   pintar(null);
   if (query.c) reproducir(query.c);

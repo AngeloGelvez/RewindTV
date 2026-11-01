@@ -21,6 +21,7 @@ const index = {
   bySlug: new Map(),
   byGenre: new Map(),
   byDecade: new Map(),
+  byNetwork: new Map(),
   festivities: [],
   festivityBySlug: new Map(),
   picks: {}, // slug -> [{ t: titleId, s: season, n: number, name }]
@@ -48,6 +49,7 @@ export function bootstrap() {
       index.bySlug.set(title.slug, title);
       for (const genre of title.genres) pushTo(index.byGenre, genre.slug, title);
       pushTo(index.byDecade, title.decade.slug, title);
+      if (title.network) pushTo(index.byNetwork, title.network.slug, title);
     }
 
     index.festivities = festivities;
@@ -64,6 +66,21 @@ export const getTitleById = (id) => index.byId.get(id);
 export const getTitleBySlug = (slug) => index.bySlug.get(slug);
 export const getByGenre = memoize((slug) => index.byGenre.get(slug) ?? []);
 export const getByDecade = memoize((slug) => index.byDecade.get(slug) ?? []);
+export const getByNetwork = memoize((slug) => index.byNetwork.get(slug) ?? []);
+
+/**
+ * Cadenas del catalogo, de la que mas titulos tiene a la que menos. Es el
+ * indice que la portada usa para sus pestanas: con 503 titulos de ocho
+ * cadenas, agrupar por cadena dice mucho mas que agrupar por genero, que aqui
+ * es siempre el mismo.
+ */
+export const networks = memoize(
+  () =>
+    [...index.byNetwork.entries()]
+      .map(([slug, titles]) => ({ network: titles[0].network, slug, titles }))
+      .sort((a, b) => b.titles.length - a.titles.length),
+  { keyOf: () => 'all' },
+);
 
 // ---------------------------------------------------------------- festividades
 
@@ -111,6 +128,21 @@ export function festivityPicks(slug) {
 
 export const getFestivity = (slug) => index.festivityBySlug.get(slug);
 export const allFestivities = () => index.festivities;
+
+/**
+ * Calendario completo: cada festividad con los dias que faltan y cuanto
+ * contenido tiene. Ordenado por cercania, con la activa de hoy (0 dias) la
+ * primera. Es lo que pinta la franja de "proximas" de la portada.
+ */
+export function festivityCalendar(date = new Date()) {
+  return index.festivities
+    .map((festivity) => ({
+      festivity,
+      days: daysUntil(festivity, date),
+      picks: (index.picks[festivity.slug] ?? []).length,
+    }))
+    .sort((a, b) => a.days - b.days);
+}
 
 // ------------------------------------------------------------------ episodios
 

@@ -14,12 +14,25 @@ import { read, write } from '../../core/scheduler.js';
 import { observeResize } from '../../patterns/observer.js';
 import { defineComponent } from '../base/Component.js';
 import { renderCard, recycleCard, fillCard } from './TitleCard.js';
+import { remScale } from '../../core/tv.js';
 
-const ROW_HEIGHT = 300; // alto de fila + gap, en px
+/**
+ * El alto de fila NO es una constante: la tarjeta es apaisada (16:9) y su alto
+ * depende del ancho que le toque a cada columna. Se recalcula al medir.
+ *   alto = ancho * 9/16 (miniatura) + texto (titulo de dos lineas + autor)
+ */
+const TEXTO = 92; // px a 16 px de fuente base
+const HUECO = 14; // separacion entre tarjetas
 const BUFFER_ROWS = 2;
 
 export const VirtualGrid = defineComponent({
-  setup({ items = [], minColumnWidth = 180, onSelect }, { onDispose }) {
+  setup({ items = [], minColumnWidth: baseColumn = 180, onSelect }, { onDispose }) {
+    // En modo TV la fuente raiz crece y las tarjetas con ella (ver Carousel).
+    // Se recalcula en measure(), no solo al montar.
+    let k = 0;
+    let ROW_HEIGHT = 300;
+    let hueco = HUECO;
+    let minColumnWidth = baseColumn;
     const sizer = el('div', { class: 'relative w-full' });
     const scroller = el('div', { class: 'v-scroller h-[calc(100dvh-7rem)]' }, sizer);
 
@@ -29,9 +42,21 @@ export const VirtualGrid = defineComponent({
 
     function measure() {
       read(() => {
+        const escala = remScale();
+        const cambio = escala !== k;
+        if (cambio) {
+          k = escala;
+          hueco = Math.round(HUECO * k);
+          minColumnWidth = Math.round(baseColumn * k);
+        }
         const width = scroller.clientWidth;
         const next = Math.max(1, Math.floor(width / minColumnWidth));
-        if (next !== columns) {
+        // El alto sale del ancho real de columna, no de una constante: si no,
+        // al estrechar la ventana las tarjetas se solapan con la fila de abajo.
+        const alto = Math.round(((width / next - hueco) * 9) / 16 + TEXTO * k + hueco);
+        const cambioAlto = alto !== ROW_HEIGHT;
+        ROW_HEIGHT = alto;
+        if (next !== columns || cambio || cambioAlto) {
           columns = next;
           reflow(true);
         } else {
@@ -74,6 +99,9 @@ export const VirtualGrid = defineComponent({
           node.style.left = `${(index % columns) * cellWidth}%`;
           node.style.width = `${cellWidth}%`;
           node.style.right = 'auto';
+          // La separacion va DENTRO de la celda (box-sizing: border-box), asi
+          // las columnas siguen midiendo un porcentaje exacto del ancho.
+          node.style.paddingRight = `${hueco}px`;
           mounted.set(index, node);
           frag.appendChild(node);
         }
@@ -87,7 +115,7 @@ export const VirtualGrid = defineComponent({
     onDispose(observeResize(scroller, measure));
     onDispose(
       delegate(scroller, '[data-id]', 'click', (event, target) => {
-        if (!onSelect) return;
+        if (!onSelect || event.ctrlKey || event.metaKey || event.shiftKey) return;
         event.preventDefault();
         onSelect(target.dataset.id);
       }),

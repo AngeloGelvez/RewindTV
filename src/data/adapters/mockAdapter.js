@@ -19,7 +19,10 @@ import { parseSeasons } from '../models/episode.js';
 import { Festivity } from '../models/festivity.js';
 import * as cache from '../cache.js';
 
-const CATALOG_KEY = 'catalog:v2';
+// v4: catalogo importado de lacartoons.com (503 titulos). Subir la version
+// invalida la cache vieja: sin esto, quien ya visito la web seguiria viendo el
+// catalogo de demostracion hasta que caduque el registro de IndexedDB.
+const CATALOG_KEY = 'catalog:v4';
 
 async function fetchJson(path) {
   const res = await fetch(path, { headers: { accept: 'application/json' } });

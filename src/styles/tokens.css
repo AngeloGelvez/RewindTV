@@ -1,44 +1,101 @@
 /*
  * Design tokens. Fuente unica de verdad.
  * Tailwind v4 los expone como utilidades: bg-surface-1, text-ink-1, etc.
+ *
+ * Dos ejes independientes:
+ *   MODO  claro / oscuro  -> `html[data-theme]`, lo elige la persona
+ *   TEMA  festividad      -> `src/core/theme.js` reescribe las variables
+ *
+ * Los valores de aqui son el arranque: lo que se ve antes de que el JS
+ * resuelva la festividad del dia. theme.js solo los pisa, nunca los inventa.
  */
 @theme {
-  /* Superficies: casi negro con un tinte violeta muy leve, no gris puro.
-     El tinte es lo que separa visualmente un dark "moderno" de uno plano. */
-  --color-surface-0: #08080c;
-  --color-surface-1: #101018;
-  --color-surface-2: #181824;
-  --color-surface-3: #232334;
-  --color-surface-4: #2e2e42;
+  /* Superficies del modo oscuro (las del claro van en el bloque de abajo).
+     Escala casi neutra: el color lo pone la festividad, y poco. */
+  --color-surface-0: #0a0a0c;
+  --color-surface-1: #121216;
+  --color-surface-2: #1a1a20;
+  --color-surface-3: #26262e;
+  --color-surface-4: #32323c;
 
-  --color-ink-0: #f5f5fa;
-  --color-ink-1: #a5a5bd;
-  --color-ink-2: #6b6b85;
+  /* Contraste medido sobre surface-2, el peor caso de cada modo:
+     ink-0 15:1, ink-1 6.5:1, ink-2 4.8:1. Las tres pasan AA. */
+  --color-ink-0: #f7f7f9;
+  --color-ink-1: #a6a6b2;
+  --color-ink-2: #8d8d9b;
 
   --color-accent: #7c5cff;
   --color-accent-2: #c084fc;
   --color-accent-ink: #ffffff;
-  --color-live: #ff3b5c;
+  /* El rojo "en directo" es identidad, no festividad: no cambia nunca. */
+  --color-live: #e8402a;
   --color-ok: #2ee6a8;
 
-  --font-display: 'Bebas Neue', system-ui, sans-serif;
-  --font-sans: 'Outfit', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  /* Inter Tight para titulares, Inter para todo lo demas. Una sola familia
+     en dos anchos: menos peso que dos tipografias y mas legible que una
+     condensada en mayusculas. */
+  --font-display: 'Inter Tight', 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
+  /* Radios generosos y coherentes: panel > tarjeta > chip. */
+  --radius-panel: 1.5rem;
   --radius-card: 1rem;
+  --radius-chip: 0.625rem;
   --radius-pill: 999px;
 
   --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
 
-  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.4), 0 8px 24px -8px rgb(0 0 0 / 0.6);
-  --shadow-pop: 0 12px 40px -8px rgb(124 92 255 / 0.45);
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.25), 0 10px 30px -14px rgb(0 0 0 / 0.55);
+  --shadow-pop: 0 18px 50px -18px var(--fest-glow);
 }
 
 /*
- * Color de acento contextual. La portada lo reescribe segun la festividad del
- * dia (naranja en Halloween, rojo en Navidad...) y toda la UI se tine sola,
- * sin que ningun componente tenga que saber que hay festividades.
+ * Paleta contextual. Ningun componente sabe que hay festividades: usan estas
+ * variables y theme.js las cambia. Reglas de uso:
+ *   --fest        rellenos (barras, botones, progreso)
+ *   --fest-ink    texto SOBRE un relleno --fest
+ *   --fest-text   acento usado COMO texto o borde (>= 4.5:1 en los dos modos)
+ *   --fest-2      segundo color de la festividad, solo decorativo
+ *   --line        borde de tarjetas y paneles, ya resuelto por modo
  */
 :root {
-  --fest: var(--color-accent);
-  --fest-soft: color-mix(in oklab, var(--fest) 22%, transparent);
+  --fest: #7c5cff;
+  --fest-2: #c084fc;
+  --fest-ink: #ffffff;
+  --fest-text: #a28bff;
+  --fest-text-2: #c9a2fc;
+  --fest-soft: rgb(124 92 255 / 0.14);
+  --fest-ring: rgb(162 139 255 / 0.55);
+  --fest-glow: rgb(124 92 255 / 0.35);
+  --fest-aura: rgb(192 132 252 / 0.08);
+  --surface-glass: rgb(10 10 12 / 0.72);
+  --line: rgb(255 255 255 / 0.08);
+  --line-strong: rgb(255 255 255 / 0.14);
+  --overlay-chip: rgb(10 10 12 / 0.62);
+  --overlay-ink: #ffffff;
+}
+
+/*
+ * Modo claro. Mismo esqueleto, superficies invertidas: el gris de pagina es
+ * mas oscuro que las tarjetas (y no al reves), que es lo que hace que un
+ * panel blanco se lea como elevado sin necesidad de sombras fuertes.
+ */
+:root[data-theme='light'] {
+  --color-surface-0: #f2f2f5;
+  --color-surface-1: #ffffff;
+  --color-surface-2: #f4f4f7;
+  --color-surface-3: #e4e4ea;
+  --color-surface-4: #d6d6de;
+
+  --color-ink-0: #111115;
+  --color-ink-1: #55555f;
+  --color-ink-2: #6a6a76;
+
+  --surface-glass: rgb(255 255 255 / 0.78);
+  --line: rgb(17 17 21 / 0.08);
+  --line-strong: rgb(17 17 21 / 0.14);
+  /* Los chips sobre imagen siguen siendo oscuros en modo claro: van encima de
+     una foto, no de la pagina. */
+  --overlay-chip: rgb(10 10 12 / 0.6);
+  --overlay-ink: #ffffff;
 }

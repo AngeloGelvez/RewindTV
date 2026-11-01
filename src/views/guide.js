@@ -15,7 +15,7 @@ export default async function guideView({ outlet }) {
     .sort((a, b) => a.inicio - b.inicio)
     .map((p) =>
       el('li', { class: 'flex items-center gap-4 rounded-card bg-surface-1 p-4' }, [
-        el('span', { class: 'w-16 shrink-0 font-mono text-sm', style: 'color: var(--fest)' }, clock(p.inicio)),
+        el('span', { class: 'w-16 shrink-0 font-mono text-sm', style: 'color: var(--fest-text)' }, clock(p.inicio)),
         el('div', { class: 'min-w-0' }, [
           el('p', { class: 'truncate text-sm font-medium' }, p.name),
           el('p', { class: 'text-xs text-ink-2' }, `${p.durationMin} min`),

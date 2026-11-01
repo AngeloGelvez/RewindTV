@@ -43,6 +43,7 @@ export const Player = defineComponent({
       type: 'button',
       class: 'absolute inset-0 grid place-items-center bg-surface-1 transition hover:bg-surface-2',
       'aria-label': `Reproducir ${label ?? ''}`.trim(),
+      'data-autofocus': '',
       onClick: () => arrancar(),
     });
 
@@ -58,7 +59,7 @@ export const Player = defineComponent({
       );
     }
     caratula.appendChild(
-      el('span', { class: 'relative grid size-16 place-items-center rounded-full bg-[var(--fest)] text-white shadow-[var(--shadow-pop)]' }, [
+      el('span', { class: 'relative grid size-16 place-items-center rounded-full bg-[var(--fest)] text-[var(--fest-ink)] shadow-[var(--shadow-pop)]' }, [
         icon('play', 'size-7'),
       ]),
     );
@@ -228,7 +229,7 @@ export const Player = defineComponent({
             'button',
             {
               type: 'button',
-              class: 'mx-auto rounded-pill border border-surface-3 px-4 py-1.5 text-xs text-ink-0 hover:border-[var(--fest)]',
+              class: 'mx-auto rounded-pill border border-surface-3 px-4 py-1.5 text-xs text-ink-0 hover:border-[var(--fest-text)]',
               onClick: () => location.reload(),
             },
             'Reintentar',

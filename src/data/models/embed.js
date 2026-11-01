@@ -27,6 +27,20 @@ const PROVIDERS = {
     label: 'Dailymotion',
     build: (id) => `https://www.dailymotion.com/embed/video/${id}`,
   },
+  // Los cuatro siguientes salen del volcado de lacartoons.com: 13.000 de sus
+  // 29.000 capitulos no estaban en ok.ru. `cubeembed` y `rpmvid` son el mismo
+  // servicio con dos formas de URL (el id va en el path o en el fragmento), y
+  // por eso son dos entradas: lo que cambia es como se construye, que es
+  // justo lo que este registro guarda.
+  rpmvid: { kind: 'iframe', label: 'Cube', build: (id) => `https://cubeembed.rpmvid.com/#${id}` },
+  cubeembed: { kind: 'iframe', label: 'Cube', build: (id) => `https://cubeembed.com/v/${id}` },
+  dhtpre: { kind: 'iframe', label: 'Dhtpre', build: (id) => `https://dhtpre.com/embed/${id}` },
+  sendvid: { kind: 'iframe', label: 'Sendvid', build: (id) => `https://sendvid.com/embed/${id}` },
+  yourupload: {
+    kind: 'iframe',
+    label: 'YourUpload',
+    build: (id) => `https://www.yourupload.com/embed/${id}`,
+  },
   // `mp4` guarda la URL completa: hosting propio o fichero publico, no hay id
   // que expandir. Cubre tambien HLS, que se distingue por extension (.m3u8) y
   // no por proveedor: el stream de un canal y un mp4 entran por la misma puerta.

@@ -5,22 +5,32 @@
  *  3. En idle: precarga el catalogo y los chunks de las rutas probables.
  */
 import './styles/main.css';
+import { restoreTheme, applyTheme } from './core/theme.js';
+import { initTv } from './core/tv.js';
+import { startSpatialNav } from './core/spatialNav.js';
+import { startRouteA11y } from './core/a11y.js';
 import { mountShell } from './components/layout/AppShell.js';
 import { startRouter, prefetch } from './core/router.js';
 import { bootstrap, activeFestivity } from './data/repository.js';
-import { applyFestivityTheme } from './components/media/Hero.js';
 import { idle } from './core/scheduler.js';
+
+// Antes de pintar nada: el tema de ayer (sin salto de color) y el modo TV,
+// que cambia la fuente raiz y con ella las medidas de las filas.
+restoreTheme();
+initTv();
 
 const root = document.getElementById('app');
 document.getElementById('app-skeleton')?.remove();
 
-const { outlet } = mountShell(root);
+const { outlet, announcer } = mountShell(root);
+startSpatialNav();
+startRouteA11y(outlet, announcer);
 
 // El catalogo se pide en paralelo al chunk de la vista, no en serie.
 // El tema de la festividad se aplica en cuanto hay datos, no solo en la
 // portada: la ficha y el reproductor tambien quedan tenidos.
 const catalogReady = bootstrap().then((r) => {
-  applyFestivityTheme(activeFestivity());
+  applyTheme(activeFestivity());
   return r;
 });
 
