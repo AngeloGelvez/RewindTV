@@ -55,7 +55,7 @@ export default async function watchView({ outlet, params }) {
 
   if (episode) {
     const player = Player({
-      source: episode.source,
+      sources: episode.sources,
       poster: title.backdrop ?? title.poster,
       label: `${title.name} T${episode.season}E${episode.number}`,
     });

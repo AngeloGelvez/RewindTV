@@ -45,7 +45,7 @@ export default async function homeView({ outlet }) {
   });
   piezas.push(hero);
 
-  const filas = el('div', { class: 'space-y-10 pt-4' });
+  const filas = el('div', { class: 'space-y-11 pb-6 pt-6' });
 
   /** Fila de titulos del catalogo. */
   const filaTitulos = (title, items, href) => {
@@ -53,7 +53,7 @@ export default async function homeView({ outlet }) {
     const c = Carousel({
       title, items, href,
       itemWidth: 170,
-      itemHeight: 255,
+      itemHeight: 320,
       render: renderCard,
       recycle: recycleCard,
       onSelect: (id) => {
@@ -95,7 +95,7 @@ export default async function homeView({ outlet }) {
           items: canales,
           href: '/en-vivo',
           itemWidth: 230,
-          itemHeight: 186,
+          itemHeight: 192,
           render: renderChannel,
           recycle: recycleChannel,
           onSelect: (id) => navigate(`/en-vivo?c=${id}`),

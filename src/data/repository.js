@@ -11,6 +11,7 @@ import { adapter } from './adapters/mockAdapter.js';
 import { memoize } from '../patterns/memoize.js';
 import { idle } from '../core/scheduler.js';
 import { isActive, daysUntil } from './models/festivity.js';
+import { hydrate as hydrateSourceHealth } from './sourceHealth.js';
 
 let bootstrapped = null;
 
@@ -34,7 +35,12 @@ function pushTo(map, key, value) {
 export function bootstrap() {
   if (bootstrapped) return bootstrapped;
   bootstrapped = (async () => {
-    const { titles, festivities, picks } = await adapter.loadAll();
+    // Los veredictos de fuentes se leen junto al catalogo: el Player los
+    // necesita ya ordenados en el primer click, no dos segundos despues.
+    const [{ titles, festivities, picks }] = await Promise.all([
+      adapter.loadAll(),
+      hydrateSourceHealth(),
+    ]);
 
     index.titles = titles;
     for (const title of titles) {

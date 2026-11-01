@@ -5,14 +5,23 @@
  * de episodios, los nombres de campo son una fraccion real del peso del
  * dataset. La forma "larga" se reconstruye aqui, una sola vez, al parsear.
  *
- * `src` es una tupla [proveedor, id] en vez de la URL completa:
+ * Las fuentes son una tupla [proveedor, id] en vez de la URL completa:
  *   ["okru", "1392690399817"]  ->  https://ok.ru/videoembed/1392690399817
  * Si manana cambias de proveedor, cambia el dato, no la UI.
+ *
+ * Un capitulo puede declarar VARIAS fuentes en `srcs`, en orden de preferencia:
+ *   "srcs": [["okru", "139..."], ["mp4", "https://.../cap01.mp4"]]
+ * `src` (una sola tupla) se sigue aceptando: es el formato anterior y no hay
+ * razon para reescribir los ficheros que ya estan bien.
  */
 import { intern } from '../../patterns/flyweight.js';
 import { Festivity } from './festivity.js';
+import { parseSources } from './embed.js';
 
 export function createEpisode(raw, title, season) {
+  // El contexto solo se usa en el aviso de consola cuando una fuente es
+  // invalida; sin el, un dato malo en 20.000 capitulos es imposible de ubicar.
+  const sources = parseSources(raw.srcs ?? raw.src, `${title.slug} t${season}c${raw.n}`);
   return {
     id: `${title.id}-${season}-${raw.n}`,
     titleId: title.id,
@@ -21,7 +30,9 @@ export function createEpisode(raw, title, season) {
     name: raw.name,
     synopsis: raw.synopsis ?? '',
     runtime: raw.min ?? title.runtime,
-    source: raw.src ? { provider: intern(raw.src[0]), id: raw.src[1] } : null,
+    sources,
+    // Compat: las vistas que solo entienden una fuente siguen funcionando.
+    source: sources[0] ?? null,
     // Referencias compartidas a los flyweights de festividad.
     festivities: raw.fest ? raw.fest.map((slug) => Festivity.get({ slug })) : EMPTY,
     href: `/ver/${title.slug}/t${season}/c${raw.n}`,

@@ -78,6 +78,7 @@ nombres de campo pesan mas que los datos.
 | --- | --- |
 | `n` | numero de capitulo dentro de la temporada |
 | `src` | `[proveedor, id]` — **nunca la URL completa** |
+| `srcs` | lista de tuplas en orden de preferencia (alternativa a `src`) |
 | `min` | duracion en minutos (opcional, hereda del titulo) |
 | `fest` | festividades a las que pertenece (opcional) |
 | `synopsis` | opcional |
@@ -95,6 +96,54 @@ que reescribir miles de registros.
 Guardando `["okru", "1392690399817"]`, la URL se construye en
 `src/data/models/embed.js` y cambiar de proveedor es tocar una funcion.
 Proveedores soportados: `okru`, `vk`, `dailymotion`, `mp4`.
+
+Un proveedor que no este en ese registro **no rompe la vista**: la fuente se
+descarta al parsear, el capitulo cae a la siguiente y la consola avisa una vez.
+
+### Varias fuentes por capitulo
+
+Un enlace de tercero se cae solo. Por eso un capitulo puede declarar varias
+fuentes y el Player las recorre en orden:
+
+```json
+{
+  "n": 1,
+  "name": "El problema de la puerta",
+  "srcs": [
+    ["okru", "1392690399817"],
+    ["mp4", "https://cdn.ejemplo/cap01.mp4"]
+  ]
+}
+```
+
+`src` (una sola tupla) se sigue aceptando y significa lo mismo que un `srcs`
+de un elemento: no hay que reescribir los ficheros que ya estan bien.
+
+El salto entre fuentes no es simetrico, porque la informacion disponible no lo es:
+
+| Tipo | Deteccion de fallo | Quien decide |
+| --- | --- | --- |
+| `mp4` / HLS | evento `error` del `<video>`, error fatal de hls.js | automatico |
+| iframe | **ninguna** — opaco por origen cruzado | el usuario, con un boton |
+
+Un iframe de ok.ru devuelve 200 y dispara `load` aunque pinte "video no
+disponible": no hay forma de saberlo desde nuestra pagina. Fingir una
+deteccion automatica ahi seria mentir en la UI.
+
+Lo observado se guarda en IndexedDB (`src/data/sourceHealth.js`): en la
+siguiente visita una fuente que fallo no va primera. Un fallo caduca a las 12 h
+y un acierto a los 7 dias, para que un corte de red no entierre un enlace bueno.
+
+El sondeo de verdad corre en Node, donde no hay origen cruzado:
+
+```bash
+node scripts/check-sources.mjs           # solo reporta
+node scripts/check-sources.mjs --prune   # borra las fuentes demostradas muertas
+```
+
+`--prune` solo quita lo que fallo de forma concluyente. El estado HTTP de un
+embed queda como `indicio` y nunca se borra: una senal debil no justifica
+perder el dato.
 
 ## `festivities.json`
 

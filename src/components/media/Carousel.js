@@ -95,19 +95,31 @@ export const Carousel = defineComponent({
         [icon('chevron', dir < 0 ? 'size-4 rotate-180' : 'size-4')],
       );
 
+    // Una barra de acento antes del titulo: marca el inicio de seccion sin
+    // necesidad de separadores ni de subir el tamano de letra.
+    const marca = el('span', {
+      class: 'h-5 w-1 shrink-0 rounded-full',
+      style: 'background: var(--fest)',
+    });
+
+    const rotulo = el('h2', { class: 'text-[17px] font-semibold tracking-tight' }, title);
+
     const cabecera = el('div', { class: 'flex items-center gap-3 px-4 md:px-8' }, [
+      marca,
       href
-        ? el('a', { href, class: 'group flex items-center gap-1.5' }, [
-            el('h2', { class: 'text-lg font-semibold tracking-tight' }, title),
-            el('span', { class: 'text-ink-2 transition group-hover:translate-x-0.5 group-hover:text-[var(--fest)]' }, [
-              icon('chevron', 'size-4'),
-            ]),
+        ? el('a', { href, class: 'group flex items-center gap-1' }, [
+            rotulo,
+            el(
+              'span',
+              { class: 'text-ink-2 transition group-hover:translate-x-0.5 group-hover:text-[var(--fest)]' },
+              [icon('chevron', 'size-4')],
+            ),
           ])
-        : el('h2', { class: 'text-lg font-semibold tracking-tight' }, title),
+        : rotulo,
       el('div', { class: 'ml-auto flex gap-2' }, [flecha(-1, 'Anterior'), flecha(1, 'Siguiente')]),
     ]);
 
-    const node = el('section', { class: 'space-y-3' }, [cabecera, rail]);
+    const node = el('section', { class: 'space-y-3.5' }, [cabecera, rail]);
 
     const onScroll = () => reflow(false);
     rail.addEventListener('scroll', onScroll, { passive: true });

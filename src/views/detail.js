@@ -8,7 +8,7 @@ import { write } from '../core/scheduler.js';
 import { navigate } from '../core/router.js';
 import { bootstrap, getTitleBySlug, loadEpisodes } from '../data/repository.js';
 import { renderEpisode, recycleEpisode } from '../components/media/EpisodeCard.js';
-import { icon } from '../components/ui/icons.js';
+import { sectionTitle } from '../components/ui/SectionTitle.js';
 import { runtime } from '../utils/format.js';
 
 export default async function detailView({ outlet, params }) {
@@ -72,10 +72,7 @@ export default async function detailView({ outlet, params }) {
       ]),
     ]),
     el('section', { class: 'space-y-5 px-4 pb-16 md:px-8' }, [
-      el('div', { class: 'flex items-center gap-3' }, [
-        el('h2', { class: 'text-lg font-semibold' }, 'Episodios'),
-        el('span', { class: 'h-px flex-1 bg-surface-2' }),
-      ]),
+      sectionTitle('Episodios'),
       tabs,
       lista,
     ]),
