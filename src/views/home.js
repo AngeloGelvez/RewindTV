@@ -17,7 +17,7 @@ import { idle } from '../core/scheduler.js';
 import { navigate } from '../core/router.js';
 import {
   bootstrap, festivityOnStage, upcomingFestivity, festivityPicks, festivityCalendar,
-  query, getTitleById, networks, loadChannels, getChannels, AVISO_DIAS,
+  query, getTitleById, networks, loadChannelIndex, getFeaturedChannels, getChannel, AVISO_DIAS,
 } from '../data/repository.js';
 import { Hero, applyFestivityTheme } from '../components/media/Hero.js';
 import { Carousel } from '../components/media/Carousel.js';
@@ -294,10 +294,13 @@ export default async function homeView({ outlet }) {
   });
 
   // Los canales llegan despues; la portada ya esta en pantalla.
+  // Los canales llegan despues; la portada ya esta en pantalla. Solo se piden
+  // el indice y los destacados: los ~8.000 canales no se bajan para pintar una
+  // fila de 24.
   idle(async () => {
     try {
-      await loadChannels();
-      const canales = getChannels();
+      const catalogo = await loadChannelIndex();
+      const canales = getFeaturedChannels();
       if (!canales.length) return;
       const c = Carousel({
         title: 'Canales en vivo',
@@ -307,15 +310,18 @@ export default async function homeView({ outlet }) {
         itemHeight: 156,
         render: renderChannel,
         recycle: recycleChannel,
-        onSelect: (id) => navigate(`/en-vivo?c=${id}`),
         action: el(
           'span',
           {
             class: 'hidden rounded-pill px-2.5 py-1 text-[11px] font-bold text-ink-1 sm:inline-block',
             style: 'background: var(--fest-soft); color: var(--fest-text)',
           },
-          `${canales.length} canales`,
+          `${catalogo.total.toLocaleString('es')} canales`,
         ),
+        onSelect: (id) => {
+          const canal = getChannel(id);
+          navigate(`/en-vivo?c=${encodeURIComponent(id)}${canal ? `&k=${encodeURIComponent(canal.category)}` : ''}`);
+        },
       });
       piezas.push(c);
       huecoCanales.replaceChildren(c.node);

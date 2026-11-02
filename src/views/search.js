@@ -11,10 +11,10 @@
  */
 import { el, delegate, clear } from '../core/dom.js';
 import { createView } from './_view.js';
-import { write, idle } from '../core/scheduler.js';
+import { write } from '../core/scheduler.js';
 import { navigate } from '../core/router.js';
 import { debounce } from '../utils/timing.js';
-import { bootstrap, search, searchChannels, getTitleById, loadChannels } from '../data/repository.js';
+import { bootstrap, search, searchChannels, getTitleById, loadAllChannels } from '../data/repository.js';
 import { renderCard, recycleCard } from '../components/media/TitleCard.js';
 import { renderChannel, recycleChannel } from '../components/media/ChannelCard.js';
 
@@ -43,10 +43,36 @@ export default async function searchView({ outlet, query: qs }) {
     'aria-label': 'Buscar en el catalogo y en los canales',
   });
 
+  /*
+   * Los canales se piden la PRIMERA vez que se escribe algo, no al entrar: son
+   * ~1,7 MB en trozos y quien llega aqui a mirar no tiene por que bajarlos.
+   * Hasta que llegan, la busqueda devuelve solo titulos; al llegar se repite
+   * sola. Y no se consulta el indice de canales antes: `searchChannels` se
+   * memoiza por termino, y un resultado calculado con la lista a medias se
+   * quedaria cacheado incompleto.
+   */
+  let canalesListos = false;
+  let canalesPidiendose = false;
+
+  function pedirCanales() {
+    if (canalesListos || canalesPidiendose) return;
+    canalesPidiendose = true;
+    loadAllChannels()
+      .then(() => {
+        canalesListos = true;
+        if (ultimo.trim().length >= 2) pintar(ultimo);
+      })
+      .catch((err) => console.error('[buscar] canales', err))
+      .finally(() => {
+        canalesPidiendose = false;
+      });
+  }
+
   function pintar(term) {
     ultimo = term ?? '';
+    if (ultimo.trim().length >= 2) pedirCanales();
     const titulos = search(ultimo);
-    const canales = searchChannels(ultimo);
+    const canales = canalesListos ? searchChannels(ultimo) : [];
 
     write(() => {
       for (const n of montadas) recycleCard(n);
@@ -128,15 +154,6 @@ export default async function searchView({ outlet, query: qs }) {
 
   if (qs.q) pintar(qs.q);
   write(() => input.focus());
-
-  idle(async () => {
-    try {
-      await loadChannels();
-      if (ultimo.trim().length >= 2) pintar(ultimo);
-    } catch (err) {
-      console.error('[buscar] canales', err);
-    }
-  });
 
   return createView(node, outlet, () => {
     alEscribir.cancel();

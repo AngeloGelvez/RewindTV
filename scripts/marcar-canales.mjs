@@ -55,9 +55,9 @@
  *   }
  *   copy(JSON.stringify(malos));   // y pegarlo en un .json
  */
-import { readFile, writeFile } from 'node:fs/promises';
+import { readFile } from 'node:fs/promises';
+import { leerMaestro, escribirMaestro, ordenar } from './lib/canales.mjs';
 
-const FILE = new URL('../public/data/channels.json', import.meta.url);
 
 const args = process.argv.slice(2);
 const dry = args.includes('--dry');
@@ -74,7 +74,7 @@ const motivos = new Map(
   crudo.map((e) => (typeof e === 'string' ? [e, 'cors'] : [e.id, e.motivo ?? 'cors'])),
 );
 
-const canales = JSON.parse(await readFile(FILE, 'utf8'));
+const canales = await leerMaestro();
 
 let marcados = 0;
 let desmarcados = 0;
@@ -92,16 +92,11 @@ for (const canal of canales) {
   }
 }
 
-/* Los que no reproducen van al final de su categoria. No se esconden, pero
-   tampoco ocupan las primeras filas de la rejilla. */
-const salida = canales.sort(
-  (a, b) =>
-    a.category.localeCompare(b.category) ||
-    (a.webPlayable === false) - (b.webPlayable === false) ||
-    a.name.localeCompare(b.name),
-);
+/* Los que no reproducen van al final de su categoria (lo hace `ordenar`). No se
+   esconden, pero tampoco ocupan las primeras filas de la rejilla. */
+const salida = ordenar(canales);
 
-if (!dry) await writeFile(FILE, JSON.stringify(salida, null, 2), 'utf8');
+if (!dry) await escribirMaestro(salida);
 
 const malos = salida.filter((c) => c.webPlayable === false);
 const porMotivo = malos.reduce((m, c) => ((m[c.webReason] = (m[c.webReason] ?? 0) + 1), m), {});

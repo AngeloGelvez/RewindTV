@@ -106,7 +106,9 @@ export function renderChannel(channel) {
   const { img, fallback, name, meta, tag, q, vivo, aviso } = node.__refs;
 
   node.dataset.id = channel.id;
-  node.href = `/en-vivo?c=${encodeURIComponent(channel.id)}`;
+  // `k` es la categoria: con ella la vista de En vivo pide solo su trozo y no
+  // los ocho mil canales para encontrar este.
+  node.href = `/en-vivo?c=${encodeURIComponent(channel.id)}&k=${encodeURIComponent(channel.category)}`;
   fallback.textContent = initials(channel.name);
 
   img.alt = '';

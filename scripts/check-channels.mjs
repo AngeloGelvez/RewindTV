@@ -9,9 +9,8 @@
  * Un canal se considera vivo si responde 200 y el cuerpo es un playlist HLS
  * (#EXTM3U). Un 200 que devuelve HTML es un portal caido, no un stream.
  */
-import { readFile, writeFile } from 'node:fs/promises';
+import { leerMaestro, escribirMaestro } from './lib/canales.mjs';
 
-const FILE = new URL('../public/data/channels.json', import.meta.url);
 // 15 s y no 9: hay canales lentos pero vivos, y un corte por impaciencia se
 // parece demasiado a un canal muerto.
 const TIMEOUT = 15_000;
@@ -21,7 +20,7 @@ const TIMEOUT = 15_000;
 const CONCURRENCY = 48;
 const prune = process.argv.includes('--prune');
 
-const channels = JSON.parse(await readFile(FILE, 'utf8'));
+const channels = await leerMaestro();
 
 async function probe(channel) {
   const ctrl = new AbortController();
@@ -100,9 +99,21 @@ if (mixtos.length) {
 }
 
 if (prune) {
-  vivos.sort((a, b) => a.category.localeCompare(b.category) || a.name.localeCompare(b.name));
-  await writeFile(FILE, JSON.stringify(vivos, null, 2), 'utf8');
-  console.log(`\nchannels.json reescrito con ${vivos.length} canales`);
+  /*
+   * --prune solo borra lo DEMOSTRADO muerto. Un timeout no lo demuestra: puede
+   * ser el servidor teniendo un mal dia, nuestra red, o un origen lento. Esos
+   * se quedan y se avisan, porque perder un canal bueno es peor que arrastrar
+   * uno dudoso: el reproductor ya sabe decir que una fuente no responde.
+   */
+  const dudosos = caidos.filter(({ reason }) => reason === 'timeout');
+  const conservados = dudosos.map(({ channel }) => channel);
+
+  await escribirMaestro([...vivos, ...conservados]);
+  console.log(`\ndata/channels.json reescrito con ${vivos.length + conservados.length} canales`);
+  console.log(`  eliminados : ${caidos.length - dudosos.length}`);
+  if (dudosos.length) {
+    console.log(`  conservados por timeout (no es prueba de muerte): ${dudosos.length}`);
+  }
 } else if (caidos.length) {
-  console.log('\n(usa --prune para eliminarlos del fichero)');
+  console.log('\n(usa --prune para eliminar los caidos; los timeout se conservan)');
 }

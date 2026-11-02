@@ -28,9 +28,9 @@
  * El resultado alimenta a `marcar-canales.mjs`, que NO borra: pone
  * `webPlayable: false` y el motivo.
  */
-import { readFile, writeFile } from 'node:fs/promises';
+import { writeFile } from 'node:fs/promises';
+import { leerMaestro } from './lib/canales.mjs';
 
-const FILE = new URL('../public/data/channels.json', import.meta.url);
 const TIMEOUT = 12_000;
 const CONCURRENCY = 48;
 // Un origen cualquiera sirve: lo que se mira es si el servidor contesta algo.
@@ -42,7 +42,7 @@ const salida = args.includes('--write') ? args[args.indexOf('--write') + 1] : nu
 /** Codecs que ningun Chrome de escritorio decodifica por MSE. */
 const IMPOSIBLES = /hvc1|hev1|ac-3|ec-3|mp4a\.a5|mp4a\.a6|dvh1|dvhe/i;
 
-const canales = JSON.parse(await readFile(FILE, 'utf8'));
+const canales = await leerMaestro();
 
 async function probar(canal) {
   const ctrl = new AbortController();

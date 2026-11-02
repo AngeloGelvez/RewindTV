@@ -1,5 +1,5 @@
 /**
- * Funde una lista de canales en vivo con public/data/channels.json.
+ * Funde una lista de canales en vivo con la lista maestra (data/channels.json).
  *
  *   node scripts/import-canales.mjs <ruta-del-csv>
  *   node scripts/import-canales.mjs <ruta-del-csv> --dry
@@ -8,27 +8,31 @@
  *
  *   canal;grupo;tipo;listas;url;logo
  *
- * SUMA, no reemplaza: lo que ya estaba se queda tal cual, con su `checkedAt`.
- * Un canal nuevo entra sin sello, y es `npm run channels` quien decide despues
- * si sobrevive. Aqui no se verifica nada: este script normaliza, el otro
- * comprueba. Mezclar las dos cosas haria que una lista de 3.800 lineas
- * tardara media hora en entrar.
+ * SUMA, no reemplaza: lo que ya estaba se queda tal cual, con su `checkedAt` y
+ * su `webPlayable`. Un canal nuevo entra sin sello, y es `npm run channels`
+ * quien decide despues si sobrevive. Aqui no se verifica nada: este script
+ * normaliza, el otro comprueba. Mezclar las dos cosas haria que una lista de
+ * 10.000 lineas tardara media hora en entrar.
+ *
+ * Reclasifica TODO, no solo lo nuevo: las categorias pasaron de cuatro a diez
+ * (ver scripts/lib/canales.mjs) y los canales de antes tienen que caer en
+ * ellas, o "general" seguiria teniendo medio catalogo.
  *
  * Que se descarta y por que
  * -------------------------
- *  RADIO        casi mil emisoras (grupos Radio_*, streams .aac/.mp3). Esto es
- *               un catalogo de television; una emisora sin imagen en una
- *               rejilla de tarjetas con logo es una tarjeta que no hace nada.
+ *  RADIO        casi mil emisoras (grupos Radio_*, streams .aac/.mp3) y otras
+ *               tantas con "Radio" en el nombre y sin grupo. Esto es un
+ *               catalogo de television; una emisora sin imagen en una rejilla
+ *               de tarjetas con logo es una tarjeta que no hace nada.
  *  http://      el navegador bloquea mixed content en una web HTTPS, sin aviso
  *               util. Entrarian solo para fallar al pulsarlas.
  *  no-HLS       .mpd (DASH) y descargas sueltas: el reproductor habla HLS y
  *               ficheros, pero un canal "en vivo" que es un mp4 en bucle no es
  *               un canal.
- *  repetidos    por URL y por id, contra el fichero y dentro del propio CSV.
+ *  repetidos    por URL, contra el fichero y dentro del propio CSV.
  */
-import { readFile, writeFile } from 'node:fs/promises';
-
-const FILE = new URL('../public/data/channels.json', import.meta.url);
+import { readFile } from 'node:fs/promises';
+import { categoriaDe, generosDe, esRadio, slugify, leerMaestro, escribirMaestro } from './lib/canales.mjs';
 
 const args = process.argv.slice(2);
 const dry = args.includes('--dry');
@@ -67,13 +71,6 @@ function parseCsv(text, sep = ';') {
   return rows.map((r) => Object.fromEntries(head.map((h, i) => [h, (r[i] ?? '').trim()])));
 }
 
-const sinAcentos = (s) => s.normalize('NFD').replace(/[̀-ͯ]/g, '');
-const slugify = (s) =>
-  sinAcentos(s)
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '');
-
 /**
  * El nombre trae cuatro datos pegados, con las mismas convenciones que ya
  * normalizamos del m3u original (ver docs/canales.md):
@@ -92,7 +89,7 @@ function partirNombre(bruto) {
     name = name.slice(0, pais.index);
   }
 
-  const cal = name.match(/\((\d{3,4}p)\)/i);
+  const cal = name.match(/\((\d{3,4}[pi])\)/i);
   if (cal) {
     quality = cal[1].toLowerCase();
     name = name.replace(cal[0], ' ');
@@ -109,66 +106,41 @@ function partirNombre(bruto) {
 }
 
 /**
- * `grupo` mezcla categoria y genero, y puede traer varios separados por ;.
- * Nuestro esquema tiene CUATRO categorias y una lista de generos aparte: la
- * categoria sale del primer grupo reconocido y el resto cae a generos.
+ * Logos inservibles: la lista trae `http://127.0.0.1/` y similares, que no
+ * apuntan a ninguna imagen. Es mejor un null —la tarjeta pinta las iniciales—
+ * que una peticion a localhost en cada tarjeta de quien abre la web.
  */
-const CATEGORIA = {
-  sports: 'deportes', deportes: 'deportes', deporte: 'deportes', futbol: 'deportes',
-  music: 'musica', musica: 'musica', musicales: 'musica', musical: 'musica',
-  entertainment: 'entretenimiento', entretenimiento: 'entretenimiento',
-  movies: 'entretenimiento', cine: 'entretenimiento', series: 'entretenimiento',
-  kids: 'entretenimiento', infantil: 'entretenimiento', anime: 'entretenimiento',
-  religious: 'entretenimiento', religioso: 'entretenimiento',
-  documentary: 'entretenimiento', documental: 'entretenimiento',
-  culture: 'entretenimiento', cultura: 'entretenimiento', comedy: 'entretenimiento',
-  lifestyle: 'entretenimiento', travel: 'entretenimiento', outdoor: 'entretenimiento',
-  education: 'entretenimiento', educativo: 'entretenimiento', classic: 'entretenimiento',
-  general: 'general', news: 'general', noticias: 'general', public: 'general',
-};
-
-const GENERO = {
-  movies: 'cine', cine: 'cine', series: 'series', kids: 'infantil', infantil: 'infantil',
-  anime: 'anime', religious: 'religioso', religioso: 'religioso',
-  documentary: 'documental', documental: 'documental', news: 'noticias',
-  noticias: 'noticias', education: 'educativo', educativo: 'educativo',
-  culture: 'cultura', cultura: 'cultura', comedy: 'comedia', music: 'musica',
-  sports: 'deportes', lifestyle: 'estilo-de-vida', travel: 'viajes', classic: 'clasicos',
-};
-
-function clasificar(grupo) {
-  const partes = grupo
-    .split(/[;,/|]/)
-    .map((p) => slugify(p))
-    .filter((p) => p && p !== 'undefined');
-
-  let category = null;
-  const genres = [];
-  for (const p of partes) {
-    if (!category && CATEGORIA[p]) category = CATEGORIA[p];
-    const g = GENERO[p];
-    if (g && !genres.includes(g)) genres.push(g);
+const logoUtil = (url) => {
+  if (!url) return null;
+  try {
+    const { hostname, pathname } = new URL(url);
+    if (/^(localhost|127.|0.0.0.0|10.|192.168.)/.test(hostname)) return null;
+    if (pathname === '/' || pathname === '') return null;
+    return url;
+  } catch {
+    return null;
   }
-  // Sin grupo reconocible, "general" es lo honesto: no inventamos una
-  // categoria que la fuente no da.
-  return { category: category ?? 'general', genres };
-}
+};
 
-const esRadio = (fila) =>
-  /^radio/i.test(fila.grupo) ||
-  /^radios\b/i.test(fila.grupo) ||
-  /\b(radio|emisora)s?\b/i.test(fila.listas) ||
-  /\.(aac|mp3|ogg)(\?|$)/i.test(fila.url);
+/** Los grupos de una fila: pueden venir varios separados por ; o , */
+const gruposDe = (grupo) =>
+  grupo
+    .split(/[;,/|]/)
+    .map((g) => g.trim())
+    .filter((g) => g && !/^undefined$/i.test(g));
 
 // ------------------------------------------------------------------ proceso
 
 const filas = parseCsv((await readFile(csvPath, 'utf8')).replace(/^﻿/, ''));
-const canales = JSON.parse(await readFile(FILE, 'utf8'));
+const canales = await leerMaestro();
 
 const porUrl = new Set(canales.map((c) => c.stream));
 const porId = new Set(canales.map((c) => c.id));
 
-const stats = { filas: filas.length, radio: 0, http: 0, noHls: 0, repetidos: 0, renombrados: 0, sinNombre: 0, nuevos: 0 };
+const stats = {
+  filas: filas.length, radio: 0, http: 0, noHls: 0, repetidos: 0,
+  renombrados: 0, sinNombre: 0, nuevos: 0, reclasificados: 0,
+};
 const nuevos = [];
 
 for (const fila of filas) {
@@ -176,7 +148,9 @@ for (const fila of filas) {
     stats.sinNombre++;
     continue;
   }
-  if (esRadio(fila)) {
+  const { name, country, quality, always } = partirNombre(fila.canal);
+
+  if (esRadio({ grupo: fila.grupo, listas: fila.listas, url: fila.url, nombre: name })) {
     stats.radio++;
     continue;
   }
@@ -192,17 +166,16 @@ for (const fila of filas) {
     stats.repetidos++;
     continue;
   }
-
-  const { name, country, quality, always } = partirNombre(fila.canal);
-  if (!name) {
+  // Un nombre hecho de '?' es una codificacion perdida en el origen: no hay nada
+  // que mostrar ni de donde recuperarlo.
+  if (!name || !/[p{L}p{N}]/u.test(name.replace(/?/g, ''))) {
     stats.sinNombre++;
     continue;
   }
 
   // Dos canales distintos pueden compartir nombre (una cadena con dos señales):
   // el id se numera en vez de pisarse.
-  let id = slugify(name);
-  if (!id) id = `canal-${nuevos.length + 1}`;
+  let id = slugify(name) || `canal-${nuevos.length + 1}`;
   if (porId.has(id)) {
     let n = 2;
     while (porId.has(`${id}-${n}`)) n++;
@@ -210,29 +183,40 @@ for (const fila of filas) {
     stats.renombrados++;
   }
 
-  const { category, genres } = clasificar(fila.grupo);
+  const grupos = gruposDe(fila.grupo);
 
-  porUrl.add(fila.url);
+  porUrl.add(fila.stream ?? fila.url);
   porId.add(id);
   nuevos.push({
     id,
     name,
-    category,
-    genres,
+    category: categoriaDe({ senales: grupos, nombre: name }),
+    genres: generosDe(grupos),
     country,
     quality,
     always,
-    logo: fila.logo || null,
+    logo: logoUtil(fila.logo),
     stream: fila.url,
   });
   stats.nuevos++;
 }
 
-const salida = [...canales, ...nuevos].sort(
-  (a, b) => a.category.localeCompare(b.category) || a.name.localeCompare(b.name),
-);
+// Los de antes tambien: las categorias cambiaron. Se usan sus generos ya
+// guardados y su categoria anterior como senales, y el nombre como ultimo
+// recurso.
+for (const canal of canales) {
+  const nueva = categoriaDe({
+    senales: [...(canal.genres ?? []), canal.category],
+    nombre: canal.name,
+  });
+  if (nueva !== canal.category) {
+    canal.category = nueva;
+    stats.reclasificados++;
+  }
+}
 
-if (!dry) await writeFile(FILE, JSON.stringify(salida, null, 2), 'utf8');
+const salida = [...canales, ...nuevos];
+if (!dry) await escribirMaestro(salida);
 
 const cuenta = (lista, campo) =>
   lista.reduce((m, c) => ((m[c[campo]] = (m[c[campo]] ?? 0) + 1), m), {});
@@ -244,10 +228,11 @@ console.log(`    radio            : ${stats.radio}`);
 console.log(`    por http://      : ${stats.http}   (mixed content)`);
 console.log(`    no son HLS       : ${stats.noHls}`);
 console.log(`    ya estaban       : ${stats.repetidos}   (misma url)`);
-console.log(`  con id numerado    : ${stats.renombrados}  (mismo nombre, señal distinta)`);
 console.log(`    sin nombre o url : ${stats.sinNombre}`);
+console.log(`  con id numerado    : ${stats.renombrados}  (mismo nombre, señal distinta)`);
 console.log(`  nuevos             : ${stats.nuevos}`);
-console.log(`  total en el fichero: ${salida.length}  (${(Buffer.byteLength(JSON.stringify(salida)) / 1024).toFixed(0)} KB)`);
+console.log(`  reclasificados     : ${stats.reclasificados}  de los ${canales.length} que ya estaban`);
+console.log(`  total en el fichero: ${salida.length}`);
 console.log(`  por categoria      : ${JSON.stringify(cuenta(salida, 'category'))}`);
 console.log(`  sin logo           : ${salida.filter((c) => !c.logo).length}`);
 console.log(`\nsiguiente paso: npm run channels   (verifica y sella los nuevos)`);
