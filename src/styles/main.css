@@ -1,43 +1,318 @@
 @import 'tailwindcss';
 @import './tokens.css';
 
-/* Capa base: todo lo global vive aqui, nunca en estilos inline por componente. */
 @layer base {
-  :root {
-    color-scheme: dark;
-  }
-
   html {
     scrollbar-gutter: stable;
+    -webkit-tap-highlight-color: transparent;
+    /* La cabecera es sticky: sin esto, el foco por teclado o mando que sube
+       por la pagina deja la tarjeta enfocada escondida debajo de ella. */
+    scroll-padding-top: 5.5rem;
+    scroll-padding-bottom: 5rem;
   }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--color-surface-0);
+    /* Inter tiene cifras tabulares y ligaduras de contexto: se activan aqui
+       una vez para que los contadores (23k, 1h 02m) no bailen al cambiar. */
+    font-feature-settings: 'cv05' 1, 'ss03' 1;
+    letter-spacing: -0.011em;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.021em;
+  }
+
+  /* Aura de la festividad: dos luces fijas con los dos colores del tema.
+     Muy baja a proposito — la festividad se nota, no se impone.
+     Va en un pseudo-elemento fijo y no en background-attachment: fixed, que
+     obliga a repintar en cada scroll (y en un televisor se nota). */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(55rem 30rem at 100% -8%, var(--fest-aura), transparent 70%),
+      radial-gradient(42rem 26rem at -8% 0%, var(--fest-soft), transparent 72%);
+  }
+
+  ::selection {
+    background: var(--fest);
+    color: var(--fest-ink);
+  }
+
+  /* El foco es la interfaz principal con teclado y con mando de TV, asi que
+     es grueso y usa --fest-text, que garantiza 4.5:1 en los dos modos. */
+  :focus-visible {
+    outline: 3px solid var(--fest-text);
+    outline-offset: 3px;
+    border-radius: 8px;
+  }
+  /* El campo de busqueda marca el foco en su contenedor (focus-within). */
+  input[type='search']:focus-visible {
+    outline: none;
+  }
+}
+
+@layer utilities {
+  /* --- rendimiento --- */
 
   /* Las listas virtualizadas dependen de esto para no disparar reflows. */
   .v-scroller {
     contain: strict;
     overflow-y: auto;
     overscroll-behavior: contain;
-    -webkit-overflow-scrolling: touch;
   }
 
   .v-item {
     position: absolute;
     left: 0;
-    right: 0;
     contain: layout paint style;
   }
 
-  /* Aisla cada tarjeta del calculo de layout del resto del carrusel. */
+  /*
+   * Aisla cada tarjeta del calculo de layout del resto de la fila: el
+   * navegador no pinta ni mide lo que esta fuera de pantalla.
+   *
+   * `contain-intrinsic-size` es el alto que SE SUPONE mientras no se mide, y
+   * tiene que parecerse al real. Era un valor fijo de 240 px, heredado de
+   * cuando las tarjetas eran posters verticales: con las tarjetas de canal, de
+   * 122 px, las filas de abajo reservaban el doble de alto y se encogian de
+   * golpe al entrar en pantalla. Ahora cada tarjeta declara el suyo con
+   * --card-h y el valor por defecto solo cubre a quien no lo diga.
+   */
   .card-surface {
     content-visibility: auto;
-    contain-intrinsic-size: auto 260px;
+    contain-intrinsic-size: auto var(--card-h, 240px);
   }
+
+  /* Carrusel: scroll nativo con snap. Mas fluido que animar transform a mano,
+     y en movil usa el scroll del compositor sin tocar el hilo principal. */
+  .rail {
+    display: flex;
+    gap: 0.75rem;
+    overflow-x: auto;
+    scroll-snap-type: x proximate;
+    scroll-behavior: smooth;
+    scroll-padding-inline: 1rem;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+  }
+  .rail::-webkit-scrollbar {
+    display: none;
+  }
+  .rail > * {
+    scroll-snap-align: start;
+    flex: 0 0 auto;
+  }
+
+  /* --- estetica --- */
+
+  /*
+   * Cristal.
+   *
+   * Un cristal convincente no es "fondo translucido + blur": son tres cosas a
+   * la vez, y la que suele faltar es la tercera.
+   *
+   *  1. El FONDO deja pasar bastante (≈55 %). Si tapa, el blur no se ve y
+   *     queda un panel gris cualquiera.
+   *  2. El DESENFOQUE es amplio (20 px) pero la saturacion sube poco (130 %):
+   *     lo justo para que el color de debajo no se apague al difuminarse. Pasar
+   *     de ahi es el halo lechoso y chillon que se ve en tantos sitios.
+   *  3. El BORDE SUPERIOR lleva una linea de luz de 1 px por dentro. Es lo que
+   *     da el canto del vidrio: sin ella el panel flota sin grosor.
+   *
+   * Y una capa de saturacion propia detras, porque el contenido que pasa por
+   * debajo de la cabecera son portadas de dibujos animados: al difuminarse
+   * pierden fuerza y conviene devolverles un poco.
+   */
+  .glass {
+    background-color: var(--surface-glass);
+    -webkit-backdrop-filter: blur(20px) saturate(130%);
+    backdrop-filter: blur(20px) saturate(130%);
+    box-shadow: inset 0 1px 0 0 var(--glass-sheen);
+  }
+
+  /* Sin backdrop-filter (Firefox con la opcion apagada, televisores viejos) el
+     fondo translucido dejaria el texto ilegible sobre una portada. Ahi se cae
+     a un color solido. */
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .glass {
+      background-color: var(--color-surface-0);
+    }
+  }
+
+  /* Chip sobre imagen (en directo, duracion, descuento). Mismo blur suave. */
+  .chip-glass {
+    background-color: var(--overlay-chip);
+    color: var(--overlay-ink);
+    -webkit-backdrop-filter: blur(8px) saturate(110%);
+    backdrop-filter: blur(8px) saturate(110%);
+  }
+
+  /*
+   * Panel de seccion: el contenedor redondeado que agrupa una fila entera.
+   * Es la pieza que da el ritmo de la portada — sin el, las filas flotan
+   * sueltas sobre el fondo y la pagina se lee como una lista larga.
+   */
+  .panel {
+    background-color: var(--color-surface-1);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-panel);
+  }
+
+  .hairline {
+    border-color: var(--line);
+  }
+
+  .ring-fest {
+    box-shadow: 0 0 0 2px var(--fest-ring);
+  }
+
+  /* Degradado que funde el hero con el fondo sin un corte duro. */
+  .fade-bottom {
+    -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+  }
+
+  /* Velo de lectura sobre una imagen: el texto del hero y de las tarjetas se
+     apoya en el, no en la suerte que tenga la foto. */
+  .scrim {
+    background: linear-gradient(
+      to top,
+      rgb(0 0 0 / 0.88) 0%,
+      rgb(0 0 0 / 0.55) 38%,
+      rgb(0 0 0 / 0.12) 70%,
+      transparent 100%
+    );
+  }
+
+  .scrim-side {
+    background: linear-gradient(
+      to right,
+      rgb(0 0 0 / 0.86) 0%,
+      rgb(0 0 0 / 0.62) 42%,
+      rgb(0 0 0 / 0.15) 72%,
+      transparent 100%
+    );
+  }
+
+  /* Dos lineas y puntos suspensivos: los titulos de tarjeta ocupan siempre lo
+     mismo, venga un nombre de 8 caracteres o de 60. */
+  .clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* --- preferencias del sistema --- */
 
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
     *::after {
       animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
     }
+  }
+
+  @media (prefers-contrast: more) {
+    :root {
+      --color-ink-1: #d6d6e4;
+      --color-ink-2: #babacd;
+      --line: rgb(255 255 255 / 0.22);
+    }
+    :root[data-theme='light'] {
+      --color-ink-1: #33333b;
+      --color-ink-2: #44444e;
+      --line: rgb(17 17 21 / 0.26);
+    }
+    :focus-visible {
+      outline-width: 4px;
+    }
+    body::before {
+      display: none;
+    }
+    .glass,
+    .chip-glass {
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+    }
+  }
+
+  /* En modo de colores forzados (alto contraste de Windows) los fondos
+     desaparecen: el foco y los bordes tienen que salir del sistema. */
+  @media (forced-colors: active) {
+    :focus-visible {
+      outline-color: Highlight;
+    }
+    .ring-fest {
+      outline: 2px solid Highlight;
+    }
+    .panel {
+      border-color: CanvasText;
+    }
+  }
+
+  /* --- modo televisor (html.tv, lo pone src/core/tv.js) ---
+     Interfaz de 3 metros: todo escala con la fuente raiz porque el resto del
+     CSS esta en rem. 1920 px de ancho dan 24 px de base; 1280 dan 16 px, que
+     en esos televisores se pintan a 1.5x. */
+  html.tv {
+    font-size: clamp(16px, 1.25vw, 30px);
+    scroll-padding-top: 7rem;
+    scroll-padding-bottom: 3rem;
+  }
+
+  html.tv :focus-visible,
+  html.tv :focus {
+    outline-width: 4px;
+    outline-offset: 4px;
+  }
+
+  /* La tarjeta enfocada crece: en una pantalla grande vista desde el sofa,
+     un contorno solo no basta para saber donde estas. */
+  html.tv .card-surface:focus {
+    transform: scale(1.06);
+    box-shadow: var(--shadow-pop);
+    z-index: 2;
+  }
+  html.tv .rail {
+    padding-block: 1.25rem;
+    scroll-padding-inline: 4rem;
+  }
+
+  /* En television la barra inferior no sirve (no hay pulgar, hay mando): la
+     misma navegacion vuelve a ser un rail lateral, que es donde el foco por
+     flechas entra y sale de forma natural. Zona segura incluida: muchos
+     televisores recortan el borde de la imagen. */
+  html.tv [data-rail] {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.75rem;
+    inset: 3vh auto 3vh 2vw;
+    width: 6.5rem;
+    height: auto;
+    border: 1px solid var(--line);
+    border-radius: 1.25rem;
+  }
+  html.tv [data-rail] > a {
+    flex: 0 0 auto;
+    height: auto;
+    padding-block: 0.75rem;
+  }
+  html.tv [data-content] {
+    padding-left: calc(7rem + 3vw);
+    padding-right: 2vw;
   }
 }

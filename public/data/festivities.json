@@ -1,0 +1,176 @@
+[
+  {
+    "slug": "halloween",
+    "label": "Halloween",
+    "emoji": "🎃",
+    "color": "#ff7518",
+    "accent2": "#8b5cf6",
+    "priority": 90,
+    "tagline": "Especiales de terror y episodios embrujados",
+    "greeting": "¡Feliz Halloween!",
+    "rule": {
+      "type": "fixed-range",
+      "from": "10-18",
+      "to": "10-31",
+      "peak": "10-31"
+    }
+  },
+  {
+    "slug": "dia-de-muertos",
+    "label": "Día de Muertos",
+    "emoji": "💀",
+    "color": "#c026d3",
+    "accent2": "#f59e0b",
+    "priority": 85,
+    "tagline": "Ofrendas, calaveras y visitas del más allá",
+    "greeting": "¡Feliz Día de Muertos!",
+    "rule": {
+      "type": "fixed-range",
+      "from": "11-01",
+      "to": "11-02",
+      "peak": "11-02"
+    }
+  },
+  {
+    "slug": "accion-de-gracias",
+    "label": "Acción de Gracias",
+    "emoji": "🦃",
+    "color": "#b45309",
+    "accent2": "#dc2626",
+    "priority": 60,
+    "tagline": "Cenas familiares que salen mal",
+    "greeting": "¡Feliz Día de Acción de Gracias!",
+    "rule": {
+      "type": "nth-weekday",
+      "month": 11,
+      "weekday": 4,
+      "nth": 4,
+      "window": 3
+    }
+  },
+  {
+    "slug": "navidad",
+    "label": "Navidad",
+    "emoji": "🎄",
+    "color": "#dc2626",
+    "accent2": "#16a34a",
+    "priority": 95,
+    "tagline": "Especiales navideños de toda la vida",
+    "greeting": "¡Feliz Navidad!",
+    "rule": {
+      "type": "fixed-range",
+      "from": "12-01",
+      "to": "12-26",
+      "peak": "12-25"
+    }
+  },
+  {
+    "slug": "ano-nuevo",
+    "label": "Año Nuevo",
+    "emoji": "🎆",
+    "color": "#fbbf24",
+    "accent2": "#cbd5e1",
+    "priority": 80,
+    "tagline": "Cuenta regresiva y propósitos imposibles",
+    "greeting": "¡Feliz Año Nuevo!",
+    "rule": {
+      "type": "fixed-range",
+      "from": "12-27",
+      "to": "01-06",
+      "peak": "01-01"
+    }
+  },
+  {
+    "slug": "san-valentin",
+    "label": "San Valentín",
+    "emoji": "❤️",
+    "color": "#ec4899",
+    "accent2": "#f43f5e",
+    "priority": 70,
+    "tagline": "Amor, desamor y triángulos animados",
+    "greeting": "¡Feliz San Valentín!",
+    "rule": {
+      "type": "fixed-day",
+      "month": 2,
+      "day": 14,
+      "window": 6
+    }
+  },
+  {
+    "slug": "carnaval",
+    "label": "Carnaval",
+    "emoji": "🎭",
+    "color": "#8b5cf6",
+    "accent2": "#facc15",
+    "priority": 50,
+    "tagline": "Disfraces, desfiles y caos",
+    "greeting": "¡Feliz Carnaval!",
+    "rule": {
+      "type": "easter-offset",
+      "offset": -47,
+      "window": 3,
+      "span": 2
+    }
+  },
+  {
+    "slug": "pascua",
+    "label": "Pascua",
+    "emoji": "🐰",
+    "color": "#a3e635",
+    "accent2": "#f9a8d4",
+    "priority": 55,
+    "tagline": "Conejos, huevos y búsquedas del tesoro",
+    "greeting": "¡Felices Pascuas!",
+    "rule": {
+      "type": "easter-offset",
+      "offset": 0,
+      "window": 6
+    }
+  },
+  {
+    "slug": "dia-de-las-madres",
+    "label": "Día de las Madres",
+    "emoji": "💐",
+    "color": "#f472b6",
+    "accent2": "#c4b5fd",
+    "priority": 45,
+    "tagline": "Episodios dedicados a mamá",
+    "greeting": "¡Feliz Día de las Madres!",
+    "rule": {
+      "type": "fixed-day",
+      "month": 5,
+      "day": 10,
+      "window": 2
+    }
+  },
+  {
+    "slug": "verano",
+    "label": "Verano",
+    "emoji": "☀️",
+    "color": "#06b6d4",
+    "accent2": "#fbbf24",
+    "priority": 20,
+    "tagline": "Playa, campamento y vacaciones sin fin",
+    "greeting": "¡Llegó el verano!",
+    "rule": {
+      "type": "fixed-range",
+      "from": "06-21",
+      "to": "08-20"
+    }
+  },
+  {
+    "slug": "regreso-a-clases",
+    "label": "Regreso a Clases",
+    "emoji": "🎒",
+    "color": "#3b82f6",
+    "accent2": "#facc15",
+    "priority": 40,
+    "tagline": "El primer día nunca sale bien",
+    "greeting": "¡De vuelta a clases!",
+    "rule": {
+      "type": "fixed-range",
+      "from": "08-21",
+      "to": "09-10"
+    }
+  }
+]

@@ -6,7 +6,10 @@
   "description": "SPA de catalogo retro, reproductor y guia de programacion en JS vanilla.",
   "scripts": {
     "dev": "vite",
+    "prebuild": "node scripts/build-picks.mjs",
     "build": "vite build",
+    "data": "node scripts/build-picks.mjs",
+    "channels": "node scripts/check-channels.mjs",
     "preview": "vite preview",
     "analyze": "vite build --mode analyze"
   },
@@ -14,5 +17,8 @@
     "@tailwindcss/vite": "^4.1.11",
     "tailwindcss": "^4.1.11",
     "vite": "^6.3.5"
+  },
+  "dependencies": {
+    "hls.js": "^1.5.17"
   }
 }
