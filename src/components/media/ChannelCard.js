@@ -135,7 +135,9 @@ export function renderChannel(channel) {
     aviso.title =
       channel.webReason === 'codec'
         ? 'El canal usa un codec que este navegador no sabe decodificar'
-        : 'El servidor del canal no autoriza su uso desde una web (CORS)';
+        : channel.webReason === 'http'
+          ? 'El servidor del canal rechaza la peticion desde una web'
+          : 'El servidor del canal no autoriza su uso desde una web (CORS)';
     node.classList.add('opacity-60');
   }
 

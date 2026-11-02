@@ -169,6 +169,34 @@ suena a averia nuestra, y no lo es.
 La marca se quita sola: si en la siguiente pasada el canal responde, el script
 borra `webPlayable` de ese registro.
 
+### Lo medido: 1.514 de 1.864
+
+Sonda completa en Chrome sobre los 1.864 canales, 7 minutos:
+
+| Motivo | N.º |
+| --- | ---: |
+| Sin CORS | 220 |
+| El servidor rechaza al navegador (403/404/503) | 87 |
+| Codec que el navegador no decodifica | 43 |
+| **No reproducen** | **350** (18,8 %) |
+
+De esos 350, el reproductor nativo no salvo **ni uno**: cuando hls.js no puede,
+el `<video>` tampoco. Por eso la sonda de dos fases se puede reducir a una.
+
+`scripts/check-web.mjs` hace esa comprobacion desde Node, pidiendo el playlist
+con la cabecera `Origin` puesta y mirando si vuelve `Access-Control-Allow-Origin`:
+
+```bash
+node scripts/check-web.mjs --write ids.json
+node scripts/marcar-canales.mjs ids.json
+```
+
+Detecta 234 de los 350, y conviene saber por que se le escapan 116: Chrome
+rechaza ademas cadenas de codec mal formadas que `isTypeSupported` no acepta
+(`avc1.66.31`, `avc1.420028`), y hay servidores que devuelven 403 solo al
+navegador por las cabeceras que este añade y Node no. Para la pasada fina sigue
+haciendo falta el navegador; para una revision rapida, el script basta.
+
 ## Revalidacion periodica
 
 Los streams publicos se caen constantemente. Hay script permanente:
