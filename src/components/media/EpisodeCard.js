@@ -36,6 +36,7 @@ const cloneCard = template(`
     <div class="space-y-1 p-3">
       <p class="text-[11px] font-semibold uppercase tracking-wider" style="color: var(--fest-text)" data-num></p>
       <h3 class="line-clamp-2 text-sm font-medium leading-snug" data-name></h3>
+      <p class="hidden truncate text-xs text-ink-2" data-serie></p>
     </div>
   </a>
 `);
@@ -48,13 +49,16 @@ export const episodePool = createPool({
       fallback: node.querySelector('[data-fallback]'),
       name: node.querySelector('[data-name]'),
       num: node.querySelector('[data-num]'),
+      serie: node.querySelector('[data-serie]'),
       dur: node.querySelector('[data-dur]'),
       progress: node.querySelector('[data-progress]'),
     };
     return node;
   },
   reset(node) {
-    const { img, fallback, name, num, dur, progress } = node.__refs;
+    const { img, fallback, name, num, dur, progress, serie } = node.__refs;
+    serie.textContent = '';
+    serie.classList.add('hidden');
     resetImage(img);
     fallback.textContent = '';
     name.textContent = '';
@@ -71,9 +75,15 @@ export const episodePool = createPool({
   max: 60,
 });
 
-export function renderEpisode(episode, { still, activo, progreso = 0, href } = {}) {
+/**
+ * @param {object} [opts]
+ * @param {string} [opts.serie] nombre de la serie. En la ficha sobra —ya estas
+ *   dentro de ella— pero en una fila tematica los capitulos vienen de series
+ *   distintas y sin esto no se sabe de que son.
+ */
+export function renderEpisode(episode, { still, activo, progreso = 0, href, serie: nombreSerie } = {}) {
   const node = episodePool.acquire();
-  const { img, fallback, name, num, dur, progress } = node.__refs;
+  const { img, fallback, name, num, dur, progress, serie } = node.__refs;
 
   node.dataset.id = episode.id;
   if (href) node.href = href;
@@ -84,6 +94,10 @@ export function renderEpisode(episode, { still, activo, progreso = 0, href } = {
   num.textContent = `T${episode.season} · E${episode.number}`;
   name.textContent = episode.name;
   dur.textContent = runtime(episode.runtime);
+  if (nombreSerie) {
+    serie.textContent = nombreSerie;
+    serie.classList.remove('hidden');
+  }
   if (progreso > 0) progress.style.transform = `scaleX(${Math.min(1, progreso)})`;
   node.classList.toggle('ring-fest', Boolean(activo));
   if (activo) node.setAttribute('aria-current', 'true');
