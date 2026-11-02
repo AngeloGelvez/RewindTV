@@ -129,6 +129,46 @@ principio. Ahora usa el mismo `VirtualGrid` del catalogo —generalizado para
 aceptar cualquier tarjeta con pool— y mantiene **40-50 tarjetas vivas**
 recorriendo los 56.000 px de alto de la lista.
 
+## Dos verificaciones, no una
+
+`check-channels.mjs` corre en Node y comprueba lo que se puede comprobar
+desde un servidor: que el playlist responda y que la variante exista. Hay dos
+cosas que NO puede ver, y las dos deciden si un canal reproduce de verdad:
+
+| | Que pasa | Quien lo sufre |
+| --- | --- | --- |
+| **CORS** | hls.js baja el playlist con `fetch`, asi que el origen tiene que mandar `Access-Control-Allow-Origin`. Node no tiene origen: para el siempre pasa | hls.js |
+| **Codecs** | Reproducir por MSE exige que el navegador sepa decodificar lo que anuncia el playlist. AC-3 o HEVC son 200 por HTTP y silencio en pantalla | hls.js |
+
+Un canal sin CORS todavia puede salvarse por el reproductor nativo, que no lo
+necesita; muere solo el que falla por los dos caminos. Como esa medicion solo
+se puede hacer en un navegador, el reparto es:
+
+```bash
+node scripts/check-channels.mjs --prune    # servidor: playlist y variante
+# la sonda del navegador (esta en la cabecera de marcar-canales.mjs)
+node scripts/marcar-canales.mjs ids.json   # marca lo que no reproduce
+```
+
+Esto es tambien la respuesta a "este canal da *Esta fuente no responde ahora
+mismo*": casi siempre es un origen que no manda CORS y que Chrome tampoco sabe
+reproducir de forma nativa. No hay arreglo posible desde una web sin backend
+—haria falta un proxy que reenviara el playlist con sus cabeceras.
+
+### Se marcan, no se borran
+
+Los que no reproducen llevan `"webPlayable": false` y un `webReason`. Siguen en
+la lista, al final de su categoria, con la tarjeta atenuada y un aviso en lugar
+del rotulo "En vivo". Borrarlos quedaria mas limpio, pero esconderia algo que
+es verdad —el canal existe y emite— y que deja de ser un problema en cuanto el
+origen arregle sus cabeceras o la app se sirva tras un proxy.
+
+El aviso aparece ANTES de pulsar: descubrirlo con un "esta fuente no responde"
+suena a averia nuestra, y no lo es.
+
+La marca se quita sola: si en la siguiente pasada el canal responde, el script
+borra `webPlayable` de ese registro.
+
 ## Revalidacion periodica
 
 Los streams publicos se caen constantemente. Hay script permanente:

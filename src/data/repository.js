@@ -234,22 +234,69 @@ export const query = memoize(
 
 let searchIndex = null;
 
+/**
+ * Texto comparable: sin acentos y en minusculas.
+ *
+ * Es la diferencia entre que el buscador sirva o no. Medio catalogo lleva
+ * tilde —"El Capitán Planeta", "Día de Muertos", "Dragón"— y nadie las escribe
+ * al buscar: antes, "capitan" encontraba UN titulo de cuatro, y el que no
+ * llevaba tilde. La normalizacion va en los dos lados, indice y consulta.
+ */
+const normalizar = (texto) =>
+  texto
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .toLowerCase();
+
 function buildSearchIndex() {
   if (searchIndex) return;
   searchIndex = index.titles.map((title) => ({
     title,
-    haystack: `${title.name} ${title.year} ${title.genres.map((g) => g.label).join(' ')}`.toLowerCase(),
+    // La cadena entra en el indice: "cartoon network" es una busqueda legitima
+    // y el genero aqui es "animacion" en los 503, asi que no distingue nada.
+    haystack: normalizar(
+      `${title.name} ${title.year} ${title.network?.name ?? ''} ${title.genres.map((g) => g.label).join(' ')}`,
+    ),
   }));
 }
 
 export const search = memoize(
   (term) => {
-    const needle = term.trim().toLowerCase();
+    const needle = normalizar(term.trim());
     if (needle.length < 2) return [];
     buildSearchIndex();
     const out = [];
     for (let i = 0; i < searchIndex.length && out.length < 60; i++) {
       if (searchIndex[i].haystack.includes(needle)) out.push(searchIndex[i].title);
+    }
+    return out;
+  },
+  { limit: 32 },
+);
+
+/**
+ * Busqueda de canales. El buscador prometia "series, pelis o canales" y solo
+ * miraba el catalogo: escribir "ESPN" con 1.864 canales dentro no devolvia
+ * nada. El indice se arma la primera vez que se busca, no al cargar los
+ * canales: quien entra a "En vivo" y no busca no paga ese trabajo.
+ */
+let channelSearchIndex = null;
+
+export const searchChannels = memoize(
+  (term) => {
+    const needle = normalizar(term.trim());
+    if (needle.length < 2 || !channelIndex.all.length) return [];
+    if (!channelSearchIndex) {
+      channelSearchIndex = channelIndex.all.map((channel) => ({
+        channel,
+        haystack: normalizar(
+          `${channel.name} ${channel.category} ${channel.country ?? ''} ${channel.genres.map((g) => g.label).join(' ')}`,
+        ),
+      }));
+    }
+    const out = [];
+    for (let i = 0; i < channelSearchIndex.length && out.length < 40; i++) {
+      if (channelSearchIndex[i].haystack.includes(needle)) out.push(channelSearchIndex[i].channel);
     }
     return out;
   },
@@ -265,6 +312,9 @@ const channelIndex = { all: [], byId: new Map(), byCategory: new Map() };
 export function loadChannels() {
   if (channelsPromise) return channelsPromise;
   channelsPromise = adapter.loadChannels().then((channels) => {
+    // Lo que reproduce va primero. Un canal marcado sigue siendo visible, pero
+    // no ocupa las primeras filas de la rejilla.
+    channels.sort((a, b) => (a.webPlayable === false) - (b.webPlayable === false));
     channelIndex.all = channels;
     for (const channel of channels) {
       channelIndex.byId.set(channel.id, channel);

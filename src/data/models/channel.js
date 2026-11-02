@@ -24,6 +24,17 @@ export function createChannel(raw, position) {
     stream: raw.stream,
     // Lo rellena el checker; la UI lo usa para no ofrecer canales caidos.
     checkedAt: raw.checkedAt ?? null,
+    /*
+     * `webPlayable: false` lo pone scripts/marcar-canales.mjs: el stream esta
+     * vivo pero el navegador no puede con el —el origen no manda CORS, o el
+     * codec no es decodificable— y eso solo se mide en un navegador.
+     *
+     * No se esconden: siguen en la lista, al final y avisados. El canal existe
+     * y emite; lo que falla es el camino, y deja de fallar en cuanto el origen
+     * arregle sus cabeceras o la app se sirva tras un proxy.
+     */
+    webPlayable: raw.webPlayable !== false,
+    webReason: raw.webReason ?? null,
   };
 }
 

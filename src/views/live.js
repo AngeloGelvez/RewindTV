@@ -117,7 +117,16 @@ export default async function liveView({ outlet, query }) {
       el(
         'p',
         { class: 'text-sm text-ink-1' },
-        `${getChannels().length} canales verificados. Los marcados "por franjas" no emiten las 24 horas.`,
+        (() => {
+          // Se dice cuantos no van ANTES de que nadie pulse uno: el aviso de
+          // la tarjeta explica el caso, este explica el conjunto.
+          const total = getChannels().length;
+          const bloqueados = getChannels().filter((c) => c.webPlayable === false).length;
+          const base = `${total} canales verificados. Los marcados "por franjas" no emiten las 24 horas.`;
+          return bloqueados
+            ? `${base} ${bloqueados} no se pueden reproducir desde el navegador: su servidor no lo autoriza.`
+            : base;
+        })(),
       ),
     ]),
     escenario,

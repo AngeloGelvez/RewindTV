@@ -43,8 +43,12 @@ const cloneCard = template(`
     </div>
 
     <div class="flex items-center gap-1.5 pt-4">
-      <span class="inline-flex items-center gap-1.5 rounded-pill bg-live px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-white">
+      <span class="inline-flex items-center gap-1.5 rounded-pill bg-live px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-white" data-vivo>
         <span class="size-1.5 animate-pulse rounded-full bg-white" aria-hidden="true"></span>En vivo
+      </span>
+      <span class="hidden items-center gap-1.5 rounded-pill border px-2.5 py-1 text-[11px] font-semibold text-ink-2 hairline" data-aviso>
+        <svg viewBox="0 0 24 24" class="size-3" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 9v4m0 4h.01M10.3 3.9 2.6 17.1A1.6 1.6 0 0 0 4 19.5h16a1.6 1.6 0 0 0 1.4-2.4L13.7 3.9a1.6 1.6 0 0 0-2.8 0Z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        No va en el navegador
       </span>
       <span class="truncate rounded-pill border px-2.5 py-1 text-[11px] font-semibold text-ink-1 hairline" data-tag></span>
       <span class="ml-auto hidden shrink-0 rounded-pill border px-2.5 py-1 text-[11px] font-semibold text-ink-2 hairline" data-q></span>
@@ -59,6 +63,8 @@ export const channelPool = createPool({
       img: node.querySelector('img'),
       fallback: node.querySelector('[data-fallback]'),
       name: node.querySelector('[data-name]'),
+      vivo: node.querySelector('[data-vivo]'),
+      aviso: node.querySelector('[data-aviso]'),
       meta: node.querySelector('[data-meta]'),
       tag: node.querySelector('[data-tag]'),
       q: node.querySelector('[data-q]'),
@@ -66,7 +72,12 @@ export const channelPool = createPool({
     return node;
   },
   reset(node) {
-    const { img, fallback, name, meta, tag, q } = node.__refs;
+    const { img, fallback, name, meta, tag, q, vivo, aviso } = node.__refs;
+    vivo.classList.remove('hidden');
+    vivo.classList.add('inline-flex');
+    aviso.classList.add('hidden');
+    aviso.classList.remove('inline-flex');
+    node.classList.remove('opacity-60');
     resetImage(img);
     fallback.textContent = '';
     name.textContent = '';
@@ -92,7 +103,7 @@ const PAIS = {
 
 export function renderChannel(channel) {
   const node = channelPool.acquire();
-  const { img, fallback, name, meta, tag, q } = node.__refs;
+  const { img, fallback, name, meta, tag, q, vivo, aviso } = node.__refs;
 
   node.dataset.id = channel.id;
   node.href = `/en-vivo?c=${encodeURIComponent(channel.id)}`;
@@ -108,7 +119,30 @@ export function renderChannel(channel) {
     .join(' · ');
 
   tag.textContent = channel.category;
-  node.setAttribute('aria-label', `${channel.name}, en vivo, ${meta.textContent}`);
+
+  /*
+   * El canal emite, pero este navegador no puede con el (ver `webPlayable`).
+   * Se dice en la tarjeta en vez de dejar que lo descubra pulsando y leyendo
+   * "esta fuente no responde", que suena a averia nuestra y no lo es.
+   * El enlace se deja: en otro navegador, o tras un proxy, puede ir.
+   */
+  const bloqueado = channel.webPlayable === false;
+  if (bloqueado) {
+    vivo.classList.add('hidden');
+    vivo.classList.remove('inline-flex');
+    aviso.classList.remove('hidden');
+    aviso.classList.add('inline-flex');
+    aviso.title =
+      channel.webReason === 'codec'
+        ? 'El canal usa un codec que este navegador no sabe decodificar'
+        : 'El servidor del canal no autoriza su uso desde una web (CORS)';
+    node.classList.add('opacity-60');
+  }
+
+  node.setAttribute(
+    'aria-label',
+    `${channel.name}, ${bloqueado ? 'no reproducible en el navegador' : 'en vivo'}, ${meta.textContent}`,
+  );
 
   if (channel.quality) {
     q.textContent = channel.quality;
