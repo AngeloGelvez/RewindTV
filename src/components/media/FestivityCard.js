@@ -39,8 +39,11 @@ export function renderFestivity(entry) {
       href: picks ? `/explorar?fest=${encodeURIComponent(f.slug)}` : '/explorar',
       'data-id': f.slug,
       'aria-label': `${f.label}, ${cuenta(days).toLowerCase()}, ${picks} capitulos`,
+      // `h-full` toma el alto del carril, que es fijo: con taglines de una y
+      // de tres lineas mezcladas, sin esto cada tarjeta mide distinto y la
+      // fila se ve dentada.
       class:
-        'card-surface group flex select-none flex-col gap-2 overflow-hidden rounded-card p-4 ' +
+        'card-surface group flex h-full select-none flex-col gap-2 overflow-hidden rounded-card p-4 ' +
         'shadow-[var(--shadow-card)] transition duration-300 ease-[var(--ease-out-quint)] hover:-translate-y-1 focus-visible:-translate-y-1',
       style: `background: linear-gradient(155deg, ${shade(color, hoy ? 0.15 : 0.45)}, ${shade(color, 0.8)}); color: ${hoy ? tinta : '#fff'}`,
     },

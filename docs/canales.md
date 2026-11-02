@@ -52,7 +52,7 @@ simplemente no arrancan al pulsarlos.
 
 ## Dataset resultante
 
-`public/data/channels.json`, 55 canales:
+`public/data/channels.json`, 50 canales:
 
 | Categoria | N.º |
 | --- | ---: |
@@ -114,7 +114,25 @@ vivos y sellando `checkedAt`:
 node scripts/check-channels.mjs --prune
 ```
 
-Verificado el 31 de octubre de 2026: **55 / 55 vivos**.
+Verificado el 2 de noviembre de 2026: **50 / 55 vivos**. Los cinco caidos se
+quitaron del fichero.
+
+### El master vivo no basta
+
+El checker daba 55/55 y era enganoso: solo pedia el playlist MAESTRO. Hay
+canales que responden 200 con su lista de variantes y devuelven **404 en la
+variante**, asi que no reproducen aunque el checker los diera por buenos.
+Ahora se comprueba tambien la primera variante, y el numero coincide con lo que
+mide el navegador.
+
+Dos reglas que salieron de ahi:
+
+- **El timeout no borra.** `--prune` solo elimina lo demostrado muerto; un
+  canal lento o un mal dia del servidor se conserva y se avisa. Perder un canal
+  bueno es peor que arrastrar uno dudoso, porque el reproductor ya sabe decir
+  que una fuente no responde.
+- **15 segundos de espera**, no 9. Con 9, un canal vivo pero lento (1Twente TV)
+  salia como caido; con 15 se vio su problema real, que era la variante.
 
 ## Sobre el tamano del dataset
 

@@ -160,6 +160,20 @@ function festividades(titulo) {
 
 const filas = parseCsv((await readFile(csvPath, 'utf8')).replace(/^﻿/, ''));
 
+/**
+ * Portadas ya importadas, por id. Este script reescribe titles.json entero,
+ * asi que sin esto una reimportacion del catalogo borraria el trabajo de
+ * scripts/import-portadas.mjs. Las imagenes no vienen de este CSV, pero
+ * tampoco son suyas para tirarlas.
+ */
+const arte = new Map();
+try {
+  const previos = JSON.parse(await readFile(join(DATA, 'titles.json'), 'utf8'));
+  for (const t of previos) if (t.poster || t.backdrop) arte.set(t.id, { poster: t.poster, backdrop: t.backdrop });
+} catch {
+  /* primera importacion: todavia no hay titles.json */
+}
+
 const series = new Map();
 const conflictos = [];
 const stats = {
@@ -231,6 +245,8 @@ for (const serie of [...series.values()].sort((a, b) => Number(a.id.slice(1)) - 
   const seasons = [...serie.seasons.keys()].sort((a, b) => a - b);
   const episodeCount = seasons.reduce((n, s) => n + serie.seasons.get(s).size, 0);
 
+  const imagenes = arte.get(serie.id);
+
   titles.push({
     id: serie.id,
     slug: serie.slug,
@@ -240,8 +256,8 @@ for (const serie of [...series.values()].sort((a, b) => Number(a.id.slice(1)) - 
     seasonCount: seasons.length,
     episodeCount,
     score: serie.score,
-    poster: '/placeholder.svg',
-    backdrop: '/placeholder.svg',
+    ...(imagenes?.poster ? { poster: imagenes.poster } : {}),
+    ...(imagenes?.backdrop ? { backdrop: imagenes.backdrop } : {}),
     synopsis: '',
     genres: GENEROS,
     network: serie.network,
@@ -281,6 +297,7 @@ console.log(`  titulos            : ${titles.length}  (titles.json ${kb(titles)}
 console.log(`  capitulos          : ${titles.reduce((n, t) => n + t.episodeCount, 0)}`);
 console.log(`  renumerados        : ${stats.renumerados}`);
 console.log(`  sin fuente usable  : ${stats.sinFuente}`);
+console.log(`  portadas conservadas: ${titles.filter((t) => t.poster || t.backdrop).length}`);
 console.log('  fuentes por proveedor:');
 for (const [p, n] of [...stats.proveedores].sort((a, b) => b[1] - a[1])) {
   console.log(`    ${p.padEnd(12)} ${n}`);

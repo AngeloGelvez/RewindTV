@@ -10,6 +10,7 @@ import { renderEpisode, recycleEpisode } from '../components/media/EpisodeCard.j
 import { sectionTitle } from '../components/ui/SectionTitle.js';
 import { runtime } from '../utils/format.js';
 import { inkFor, shade } from '../core/theme.js';
+import { atSize } from '../data/models/images.js';
 import { initials } from '../components/ui/LazyImage.js';
 
 export default async function detailView({ outlet, params }) {
@@ -29,7 +30,7 @@ export default async function detailView({ outlet, params }) {
   const lista = el('div', { class: 'grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-4' });
 
   const cadena = title.network?.color ?? '#6e6e80';
-  const tieneArte = Boolean(title.poster) && !title.poster.includes('placeholder');
+  const tieneArte = Boolean(title.poster);
 
   const meta = [
     title.year,
@@ -119,7 +120,13 @@ export default async function detailView({ outlet, params }) {
       const frag = document.createDocumentFragment();
       for (const ep of episodios) {
         // Enlace real: el router lo intercepta, y Enter o el mando lo activan.
-        const n = renderEpisode(ep, { href: `/ver/${title.slug}/t${ep.season}/c${ep.number}` });
+        // Sin fotograma propio —el catalogo aun no los tiene— se usa el fondo
+        // de la serie: un mosaico de recuadros vacios se lee como un error, y
+        // la tarjeta ya distingue el capitulo por su numero y su titulo.
+        const n = renderEpisode(ep, {
+          still: ep.still ?? atSize(title.backdrop, 'still'),
+          href: `/ver/${title.slug}/t${ep.season}/c${ep.number}`,
+        });
         montados.push(n);
         frag.appendChild(n);
       }

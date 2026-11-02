@@ -8,18 +8,8 @@
     "quality": null,
     "always": true,
     "logo": "https://iili.io/J1kV1Bn.png",
-    "stream": "https://thm-it-roku.otteravision.com/thm/it/it.m3u8"
-  },
-  {
-    "id": "san-marino-rtvsport",
-    "name": "San Marino RTV Sport",
-    "category": "deportes",
-    "genres": [],
-    "country": "sm",
-    "quality": null,
-    "always": true,
-    "logo": "https://i.imgur.com/PGm944g.png",
-    "stream": "https://d2hrvno5bw6tg2.cloudfront.net/smrtv-ch02/smil:ch-02.smil/master.m3u8"
+    "stream": "https://thm-it-roku.otteravision.com/thm/it/it.m3u8",
+    "checkedAt": "2026-11-02"
   },
   {
     "id": "abnbible-movies-channel",
@@ -33,7 +23,8 @@
     "quality": null,
     "always": true,
     "logo": "https://i.imgur.com/NCqZdaL.png",
-    "stream": "https://mediaserver.abnvideos.com/streams/abnbiblemovies.m3u8"
+    "stream": "https://mediaserver.abnvideos.com/streams/abnbiblemovies.m3u8",
+    "checkedAt": "2026-11-02"
   },
   {
     "id": "azteca-internacional",
@@ -44,7 +35,8 @@
     "quality": "1080p",
     "always": true,
     "logo": "https://upload.wikimedia.org/wikipedia/commons/e/eb/Azteca_Internacional_logo_2023.png",
-    "stream": "https://azt-mun.otteravision.com/azt/mun/mun.m3u8"
+    "stream": "https://azt-mun.otteravision.com/azt/mun/mun.m3u8",
+    "checkedAt": "2026-11-02"
   },
   {
     "id": "canal-mas-television",
@@ -55,7 +47,8 @@
     "quality": "720p",
     "always": true,
     "logo": "https://i.imgur.com/ODMa27W.jpg",
-    "stream": "https://movil.ejeserver.com/live/teledoradahd.m3u8"
+    "stream": "https://movil.ejeserver.com/live/teledoradahd.m3u8",
+    "checkedAt": "2026-11-02"
   },
   {
     "id": "canal-nets",
@@ -66,7 +59,8 @@
     "quality": "720p",
     "always": false,
     "logo": "https://i.imgur.com/edaAexc.png",
-    "stream": "https://movil.ejeserver.com/live/nets.m3u8"
+    "stream": "https://movil.ejeserver.com/live/nets.m3u8",
+    "checkedAt": "2026-11-02"
   },
   {
     "id": "canal-vision-dorada",
@@ -77,7 +71,8 @@
     "quality": "720p",
     "always": false,
     "logo": "https://i.imgur.com/TerY4iM.png",
-    "stream": "https://movil.ejeserver.com/live/visiondorada.m3u8"
+    "stream": "https://movil.ejeserver.com/live/visiondorada.m3u8",
+    "checkedAt": "2026-11-02"
   },
   {
     "id": "fmtv",
@@ -90,7 +85,8 @@
     "quality": null,
     "always": false,
     "logo": "https://i.imgur.com/vPxvbVv.png",
-    "stream": "https://s2.tvdatta.com:3307/hybrid/play.m3u8"
+    "stream": "https://s2.tvdatta.com:3307/hybrid/play.m3u8",
+    "checkedAt": "2026-11-02"
   },
   {
     "id": "kuriakos-kids",
@@ -105,7 +101,8 @@
     "quality": "1080p",
     "always": true,
     "logo": "https://i.imgur.com/SRX6EPY.png",
-    "stream": "https://w2.manasat.com/kkids/smil:kkids.smil/playlist.m3u8"
+    "stream": "https://w2.manasat.com/kkids/smil:kkids.smil/playlist.m3u8",
+    "checkedAt": "2026-11-02"
   },
   {
     "id": "made-in-hollywood",
@@ -118,7 +115,8 @@
     "quality": null,
     "always": true,
     "logo": "https://i.imgur.com/p16HNIM.png",
-    "stream": "https://connection3-ent-nz.samsung.wurl.tv/playlist.m3u8"
+    "stream": "https://connection3-ent-nz.samsung.wurl.tv/playlist.m3u8",
+    "checkedAt": "2026-11-02"
   },
   {
     "id": "my-time-movie-network",
@@ -131,20 +129,8 @@
     "quality": null,
     "always": true,
     "logo": "https://images.vix.com/prd/channel-landscape/6245bfd63a2cba2fcd37a215/038c7f3e5c31693db560d25bec219ff7?tr=w-1200,h-627,f-jpeg",
-    "stream": "https://appletree-mytimespain-rakuten.amagi.tv/playlist.m3u8"
-  },
-  {
-    "id": "novelisima",
-    "name": "Novelisima",
-    "category": "entretenimiento",
-    "genres": [
-      "series"
-    ],
-    "country": "us",
-    "quality": null,
-    "always": true,
-    "logo": "https://i.imgur.com/8dUS3Ih.png",
-    "stream": "https://dai.google.com/linear/hls/event/sFuxwI37R9KMTs-KywMcBg/master.m3u8"
+    "stream": "https://appletree-mytimespain-rakuten.amagi.tv/playlist.m3u8",
+    "checkedAt": "2026-11-02"
   },
   {
     "id": "oasis-tv",
@@ -157,7 +143,8 @@
     "quality": "720p",
     "always": false,
     "logo": "https://i.imgur.com/VKYzFpZ.png",
-    "stream": "https://5e85d90130e77.streamlock.net/6020/6020/playlist.m3u8"
+    "stream": "https://5e85d90130e77.streamlock.net/6020/6020/playlist.m3u8",
+    "checkedAt": "2026-11-02"
   },
   {
     "id": "sastv",
@@ -168,7 +155,8 @@
     "quality": "720p",
     "always": true,
     "logo": "https://i.imgur.com/VShjB3o.png",
-    "stream": "https://cdn.streamhispanatv.net:3390/live/sastvgtlive.m3u8"
+    "stream": "https://cdn.streamhispanatv.net:3390/live/sastvgtlive.m3u8",
+    "checkedAt": "2026-11-02"
   },
   {
     "id": "telemundo-corpus-christi",
@@ -179,7 +167,8 @@
     "quality": null,
     "always": true,
     "logo": "https://upload.wikimedia.org/wikipedia/commons/9/98/Telemundo_Corpus_Christi_logo.png",
-    "stream": "https://content.uplynk.com/channel/b6a96ed39d694ae1b738faa98cf7dd3f.m3u8"
+    "stream": "https://content.uplynk.com/channel/b6a96ed39d694ae1b738faa98cf7dd3f.m3u8",
+    "checkedAt": "2026-11-02"
   },
   {
     "id": "thisis-bulgaria-hd",
@@ -190,7 +179,8 @@
     "quality": "1080p",
     "always": true,
     "logo": "https://i.imgur.com/062jkXw.png",
-    "stream": "https://streamer103.neterra.tv/thisisbulgaria/live.m3u8"
+    "stream": "https://streamer103.neterra.tv/thisisbulgaria/live.m3u8",
+    "checkedAt": "2026-11-02"
   },
   {
     "id": "timeline",
@@ -201,7 +191,8 @@
     "quality": null,
     "always": true,
     "logo": "https://i.imgur.com/PZRQvFv.png",
-    "stream": "https://cdn-apse1-prod.tsv2.amagi.tv/linear/amg00426-littledotstudio-timelinenz-samsungnz/playlist.m3u8"
+    "stream": "https://cdn-apse1-prod.tsv2.amagi.tv/linear/amg00426-littledotstudio-timelinenz-samsungnz/playlist.m3u8",
+    "checkedAt": "2026-11-02"
   },
   {
     "id": "tvcentro272-hd",
@@ -212,7 +203,8 @@
     "quality": "720p",
     "always": true,
     "logo": "https://i.imgur.com/Wo2scQf.jpg",
-    "stream": "https://cloud2.streaminglivehd.com:1936/8004/8004/playlist.m3u8"
+    "stream": "https://cloud2.streaminglivehd.com:1936/8004/8004/playlist.m3u8",
+    "checkedAt": "2026-11-02"
   },
   {
     "id": "w14-dkd7",
@@ -223,7 +215,8 @@
     "quality": null,
     "always": true,
     "logo": "https://upload.wikimedia.org/wikipedia/en/b/ba/Heartland_TV_logo.png",
-    "stream": "https://2-fss-2.streamhoster.com/pl_118/amlst:204972-3078008/playlist.m3u8"
+    "stream": "https://2-fss-2.streamhoster.com/pl_118/amlst:204972-3078008/playlist.m3u8",
+    "checkedAt": "2026-11-02"
   },
   {
     "id": "xplore-tv",
@@ -234,7 +227,8 @@
     "quality": null,
     "always": true,
     "logo": "https://i.imgur.com/WaGRlFO.png",
-    "stream": "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00111-hearstmediaprod-xploreintlnl-samsungnl/playlist.m3u8"
+    "stream": "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00111-hearstmediaprod-xploreintlnl-samsungnl/playlist.m3u8",
+    "checkedAt": "2026-11-02"
   },
   {
     "id": "xptv2",
@@ -245,7 +239,8 @@
     "quality": "720p",
     "always": true,
     "logo": "https://i.imgur.com/74Z8ATB.png",
-    "stream": "https://janus.xpbroadcasting.com:8443/hls/xptv2.m3u8"
+    "stream": "https://janus.xpbroadcasting.com:8443/hls/xptv2.m3u8",
+    "checkedAt": "2026-11-02"
   },
   {
     "id": "13-c",
@@ -256,18 +251,8 @@
     "quality": "1080p",
     "always": true,
     "logo": "https://i.ibb.co/3fbvkZ3/13cultura.png",
-    "stream": "https://origin.dpsgo.com/ssai/event/GI-9cp_bT8KcerLpZwkuhw/master.m3u8"
-  },
-  {
-    "id": "1-twente-tv",
-    "name": "1Twente TV",
-    "category": "general",
-    "genres": [],
-    "country": "nl",
-    "quality": "1080p",
-    "always": true,
-    "logo": "https://i.imgur.com/ftiuNK3.png",
-    "stream": "https://ms2.mx-cd.net/dtv-10/198-989148/1Twente_TV.smil/playlist.m3u8"
+    "stream": "https://origin.dpsgo.com/ssai/event/GI-9cp_bT8KcerLpZwkuhw/master.m3u8",
+    "checkedAt": "2026-11-02"
   },
   {
     "id": "8-ntv",
@@ -278,7 +263,8 @@
     "quality": "1080p",
     "always": true,
     "logo": "https://i.imgur.com/7ecgGIG.png",
-    "stream": "https://60417ddeaf0d9.streamlock.net/ntv/videontv/playlist.m3u8"
+    "stream": "https://60417ddeaf0d9.streamlock.net/ntv/videontv/playlist.m3u8",
+    "checkedAt": "2026-11-02"
   },
   {
     "id": "a1-tv",
@@ -289,7 +275,8 @@
     "quality": "1080p",
     "always": false,
     "logo": "https://i.imgur.com/JZ1oTM2.png",
-    "stream": "https://stream.a1mediagroep.nl/hls/a1tv.m3u8"
+    "stream": "https://stream.a1mediagroep.nl/hls/a1tv.m3u8",
+    "checkedAt": "2026-11-02"
   },
   {
     "id": "alto-adige-tv",
@@ -300,7 +287,8 @@
     "quality": "720p",
     "always": true,
     "logo": "https://i.imgur.com/yt7JJrn.png",
-    "stream": "https://5f204aff97bee.streamlock.net/AltoAdigeTV/livestream/playlist.m3u8"
+    "stream": "https://5f204aff97bee.streamlock.net/AltoAdigeTV/livestream/playlist.m3u8",
+    "checkedAt": "2026-11-02"
   },
   {
     "id": "autentica-television",
@@ -311,7 +299,8 @@
     "quality": "720p",
     "always": false,
     "logo": "https://i.imgur.com/bEJK3RN.png",
-    "stream": "https://live.obslivestream.com/autenticatvmux/index.m3u8"
+    "stream": "https://live.obslivestream.com/autenticatvmux/index.m3u8",
+    "checkedAt": "2026-11-02"
   },
   {
     "id": "canal2-alpavision-neiva",
@@ -322,7 +311,8 @@
     "quality": "720p",
     "always": false,
     "logo": "https://i.imgur.com/Yv8XIGW.png",
-    "stream": "https://stmv1.voxtvhd.com.br/alpavision/alpavision/playlist.m3u8"
+    "stream": "https://stmv1.voxtvhd.com.br/alpavision/alpavision/playlist.m3u8",
+    "checkedAt": "2026-11-02"
   },
   {
     "id": "canal8-tvplus",
@@ -333,7 +323,8 @@
     "quality": "720p",
     "always": true,
     "logo": "https://i.imgur.com/peOIG1F.png",
-    "stream": "https://movil.ejeserver.com/live/canal8tv.m3u8"
+    "stream": "https://movil.ejeserver.com/live/canal8tv.m3u8",
+    "checkedAt": "2026-11-02"
   },
   {
     "id": "dateline247",
@@ -346,7 +337,8 @@
     "quality": null,
     "always": true,
     "logo": "https://i.imgur.com/8mAJuut.png",
-    "stream": "https://dz59iptwz5rxs.cloudfront.net/live/master.m3u8"
+    "stream": "https://dz59iptwz5rxs.cloudfront.net/live/master.m3u8",
+    "checkedAt": "2026-11-02"
   },
   {
     "id": "dwespanol",
@@ -359,7 +351,8 @@
     "quality": "1080p",
     "always": true,
     "logo": "https://i.imgur.com/A1xzjOI.png",
-    "stream": "https://dwamdstream104.akamaized.net/hls/live/2015530/dwstream104/index.m3u8"
+    "stream": "https://dwamdstream104.akamaized.net/hls/live/2015530/dwstream104/index.m3u8",
+    "checkedAt": "2026-11-02"
   },
   {
     "id": "eduvision",
@@ -372,18 +365,8 @@
     "quality": "1080p",
     "always": true,
     "logo": "https://i.imgur.com/ppBdqel.png",
-    "stream": "https://stmv3.voxtvhd.com.br/conex2/conex2/playlist.m3u8"
-  },
-  {
-    "id": "mbc4",
-    "name": "MBC 4",
-    "category": "general",
-    "genres": [],
-    "country": "ae",
-    "quality": "1080p",
-    "always": true,
-    "logo": "https://i.imgur.com/BcXASJp.png",
-    "stream": "https://mbc4-prod-dub-ak.akamaized.net/out/v1/c08681f81775496ab4afa2bac7ae7638/index.m3u8"
+    "stream": "https://stmv3.voxtvhd.com.br/conex2/conex2/playlist.m3u8",
+    "checkedAt": "2026-11-02"
   },
   {
     "id": "cnnusa",
@@ -394,7 +377,8 @@
     "quality": null,
     "always": true,
     "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/CNN_International_logo.svg/800px-CNN_International_logo.svg.png",
-    "stream": "https://turnerlive.warnermediacdn.com/hls/live/586495/cnngo/cnn_slate/VIDEO_0_3564000.m3u8"
+    "stream": "https://turnerlive.warnermediacdn.com/hls/live/586495/cnngo/cnn_slate/VIDEO_0_3564000.m3u8",
+    "checkedAt": "2026-11-02"
   },
   {
     "id": "dw",
@@ -405,7 +389,8 @@
     "quality": null,
     "always": true,
     "logo": "https://i.imgur.com/d2SXEFp.png",
-    "stream": "https://dwamdstream104.akamaized.net/hls/live/2015530/dwstream104/index.m3u8"
+    "stream": "https://dwamdstream104.akamaized.net/hls/live/2015530/dwstream104/index.m3u8",
+    "checkedAt": "2026-11-02"
   },
   {
     "id": "rt",
@@ -416,20 +401,8 @@
     "quality": null,
     "always": true,
     "logo": "https://i.imgur.com/qv3P4pm.png",
-    "stream": "https://rt-ger.rttv.com/dvr/rtdeutsch/playlist.m3u8"
-  },
-  {
-    "id": "nature-time",
-    "name": "NatureTime",
-    "category": "general",
-    "genres": [
-      "documental"
-    ],
-    "country": "es",
-    "quality": null,
-    "always": true,
-    "logo": "https://i.imgur.com/72JmyjM.png",
-    "stream": "https://shls-live-ak.akamaized.net/out/v1/b06a89a463764d3688cda337d40dc5bf/index.m3u8"
+    "stream": "https://rt-ger.rttv.com/dvr/rtdeutsch/playlist.m3u8",
+    "checkedAt": "2026-11-02"
   },
   {
     "id": "13-festival",
@@ -440,7 +413,8 @@
     "quality": "1080p",
     "always": true,
     "logo": "https://i.imgur.com/hTUe0Pw.png",
-    "stream": "https://origin.dpsgo.com/ssai/event/Nftd0fM2SXasfDlRphvUsg/master.m3u8"
+    "stream": "https://origin.dpsgo.com/ssai/event/Nftd0fM2SXasfDlRphvUsg/master.m3u8",
+    "checkedAt": "2026-11-02"
   },
   {
     "id": "7080-tv",
@@ -451,7 +425,8 @@
     "quality": "1080p",
     "always": true,
     "logo": "https://i.imgur.com/y4kNV3Q.png",
-    "stream": "https://585b674743bbb.streamlock.net/9050/9050/playlist.m3u8"
+    "stream": "https://585b674743bbb.streamlock.net/9050/9050/playlist.m3u8",
+    "checkedAt": "2026-11-02"
   },
   {
     "id": "981-pearl-fm",
@@ -462,7 +437,8 @@
     "quality": "720p",
     "always": true,
     "logo": "https://i.imgur.com/GY750xh.jpg",
-    "stream": "https://live2.tensila.com/pearl-v-1.pearlfm/hls/live/mystream.m3u8"
+    "stream": "https://live2.tensila.com/pearl-v-1.pearlfm/hls/live/mystream.m3u8",
+    "checkedAt": "2026-11-02"
   },
   {
     "id": "activa-tv",
@@ -473,7 +449,8 @@
     "quality": "720p",
     "always": true,
     "logo": "https://i.imgur.com/VCUZKiw.png",
-    "stream": "https://streamtv.mediasector.es/hls/activatv/index.m3u8"
+    "stream": "https://streamtv.mediasector.es/hls/activatv/index.m3u8",
+    "checkedAt": "2026-11-02"
   },
   {
     "id": "atomic-tv",
@@ -484,7 +461,8 @@
     "quality": "360p",
     "always": true,
     "logo": "https://i.imgur.com/O4uI0Uy.png",
-    "stream": "https://atomic.streamnet.ro/atomictv.m3u8"
+    "stream": "https://atomic.streamnet.ro/atomictv.m3u8",
+    "checkedAt": "2026-11-02"
   },
   {
     "id": "avang-tv",
@@ -495,7 +473,8 @@
     "quality": "720p",
     "always": true,
     "logo": "https://i.imgur.com/3I1n7fO.png",
-    "stream": "https://hls.avang.live/hls/stream.m3u8"
+    "stream": "https://hls.avang.live/hls/stream.m3u8",
+    "checkedAt": "2026-11-02"
   },
   {
     "id": "baraza-tvdeep-house",
@@ -506,7 +485,8 @@
     "quality": "720p",
     "always": true,
     "logo": "https://i.imgur.com/TZ1unwF.png",
-    "stream": "https://rtmp.streams.ovh:1936/barazarelax/barazazararelax/barazarelax/playlist.m3u8"
+    "stream": "https://rtmp.streams.ovh:1936/barazarelax/barazazararelax/barazarelax/playlist.m3u8",
+    "checkedAt": "2026-11-02"
   },
   {
     "id": "baraza-tvrelaxing",
@@ -517,7 +497,8 @@
     "quality": "720p",
     "always": true,
     "logo": "https://i.imgur.com/TZ1unwF.png",
-    "stream": "https://rtmp.streams.ovh:1936/barazarelax/barazarelax/playlist.m3u8"
+    "stream": "https://rtmp.streams.ovh:1936/barazarelax/barazarelax/playlist.m3u8",
+    "checkedAt": "2026-11-02"
   },
   {
     "id": "better-life-nature-channel",
@@ -530,7 +511,8 @@
     "quality": "480p",
     "always": true,
     "logo": "https://i.imgur.com/LMHrQJu.png",
-    "stream": "https://tgn.bozztv.com/betterlife/betternature/betternature/index.m3u8"
+    "stream": "https://tgn.bozztv.com/betterlife/betternature/betternature/index.m3u8",
+    "checkedAt": "2026-11-02"
   },
   {
     "id": "hits-channel",
@@ -541,7 +523,8 @@
     "quality": "1024p",
     "always": true,
     "logo": "https://i.ibb.co/L9BjpfT/Canal-CNC-HITS-Channel-tvtolive-com.jpg",
-    "stream": "https://hvtraficonew.ddns.net/pastocnc1/cnc1/playlist.m3u8"
+    "stream": "https://hvtraficonew.ddns.net/pastocnc1/cnc1/playlist.m3u8",
+    "checkedAt": "2026-11-02"
   },
   {
     "id": "deejay-tv",
@@ -552,7 +535,8 @@
     "quality": "1080p",
     "always": true,
     "logo": "https://i.imgur.com/YV27Chs.png",
-    "stream": "https://4c4b867c89244861ac216426883d1ad0.msvdn.net/live/S85984808/sMO0tz9Sr2Rk/playlist.m3u8"
+    "stream": "https://4c4b867c89244861ac216426883d1ad0.msvdn.net/live/S85984808/sMO0tz9Sr2Rk/playlist.m3u8",
+    "checkedAt": "2026-11-02"
   },
   {
     "id": "deluxe-music",
@@ -563,7 +547,8 @@
     "quality": "720p",
     "always": true,
     "logo": "https://i.imgur.com/HimuPPb.png",
-    "stream": "https://sdn-global-live-streaming-packager-cache.3qsdn.com/13456/13456_264_live.m3u8"
+    "stream": "https://sdn-global-live-streaming-packager-cache.3qsdn.com/13456/13456_264_live.m3u8",
+    "checkedAt": "2026-11-02"
   },
   {
     "id": "kronehit",
@@ -574,7 +559,8 @@
     "quality": "1080p",
     "always": true,
     "logo": "https://i.imgur.com/dQJQv1X.png",
-    "stream": "https://bitcdn-kronehit.bitmovin.com/v2/hls/playlist.m3u8"
+    "stream": "https://bitcdn-kronehit.bitmovin.com/v2/hls/playlist.m3u8",
+    "checkedAt": "2026-11-02"
   },
   {
     "id": "popworld-tv",
@@ -585,7 +571,8 @@
     "quality": "720p",
     "always": true,
     "logo": "https://i.imgur.com/LQB6G3s.jpg",
-    "stream": "https://janus.xpbroadcasting.com:8443/hls/popworld.m3u8"
+    "stream": "https://janus.xpbroadcasting.com:8443/hls/popworld.m3u8",
+    "checkedAt": "2026-11-02"
   },
   {
     "id": "stingray-hit-list",
@@ -596,7 +583,8 @@
     "quality": "1080p",
     "always": true,
     "logo": "https://i.imgur.com/lgpIwId.png",
-    "stream": "https://lotus.stingray.com/manifest/ose-107ads-montreal/samsungtvplus/master.m3u8"
+    "stream": "https://lotus.stingray.com/manifest/ose-107ads-montreal/samsungtvplus/master.m3u8",
+    "checkedAt": "2026-11-02"
   },
   {
     "id": "stingray-holiday-hits",
@@ -607,7 +595,8 @@
     "quality": "1080p",
     "always": true,
     "logo": "https://i.imgur.com/4xVVKH8.png",
-    "stream": "https://lotus.stingray.com/manifest/ose-155ads-montreal/samsungtvplus/master.m3u8"
+    "stream": "https://lotus.stingray.com/manifest/ose-155ads-montreal/samsungtvplus/master.m3u8",
+    "checkedAt": "2026-11-02"
   },
   {
     "id": "stingray-pop-adult",
@@ -618,7 +607,8 @@
     "quality": "1080p",
     "always": true,
     "logo": "https://i.imgur.com/H2ugC9L.png",
-    "stream": "https://lotus.stingray.com/manifest/ose-104ads-montreal/samsungtvplus/master.m3u8"
+    "stream": "https://lotus.stingray.com/manifest/ose-104ads-montreal/samsungtvplus/master.m3u8",
+    "checkedAt": "2026-11-02"
   },
   {
     "id": "stingray-rock-alternative",
@@ -629,6 +619,7 @@
     "quality": "1080p",
     "always": true,
     "logo": "https://i.imgur.com/mt8ulVX.png",
-    "stream": "https://lotus.stingray.com/manifest/ose-102ads-montreal/samsungtvplus/master.m3u8"
+    "stream": "https://lotus.stingray.com/manifest/ose-102ads-montreal/samsungtvplus/master.m3u8",
+    "checkedAt": "2026-11-02"
   }
 ]

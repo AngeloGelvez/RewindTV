@@ -21,7 +21,7 @@
 import { el } from '../../core/dom.js';
 import { defineComponent } from '../base/Component.js';
 import { icon } from '../ui/icons.js';
-import { embedUrl, isIframe, providerLabel } from '../../data/models/embed.js';
+import { embedUrl, isIframe, isHlsUrl, providerLabel } from '../../data/models/embed.js';
 import { rank, markOk, markFailed } from '../../data/sourceHealth.js';
 import { emit, EVENTS } from '../../core/eventBus.js';
 
@@ -110,10 +110,12 @@ export const Player = defineComponent({
       limpiarMedia();
       if (indice >= orden.length - 1) {
         const total = orden.length;
+        // Sin la palabra "capitulo": el mismo reproductor sirve un canal en
+        // vivo, y ahi el mensaje no tenia sentido.
         mostrarError(
           total === 1
-            ? 'La fuente de este capitulo no responde.'
-            : `Ninguna de las ${total} fuentes de este capitulo responde.`,
+            ? 'Esta fuente no responde ahora mismo.'
+            : `Ninguna de las ${total} fuentes responde ahora mismo.`,
         );
         return;
       }
@@ -164,17 +166,59 @@ export const Player = defineComponent({
         emit(EVENTS.MEDIA_PROGRESS, { label, position: video.currentTime });
       });
       video.addEventListener('ended', () => emit(EVENTS.MEDIA_ENDED, { label }));
+      // Lo rellena el camino HLS de mas abajo: mientras quede un reintento
+      // (la libreria y el reproductor del navegador son dos intentos, no uno),
+      // el error no mata la fuente todavia.
+      let reintento = null;
+
       // Este error si es inequivoco: el navegador no pudo con el recurso.
       video.addEventListener('error', () => {
         const code = video.error?.code;
-        siguiente(code ? `media error ${code}` : 'media error');
+        const motivo = code ? `media error ${code}` : 'media error';
+        if (reintento) reintento(motivo);
+        else siguiente(motivo);
       });
 
-      if (actual.kind !== 'hls' || video.canPlayType('application/vnd.apple.mpegurl')) {
-        // Safari reproduce HLS de forma nativa: no hace falta la libreria.
+      // El `kind` lo calcula `createSource`, pero una fuente construida a mano
+      // puede no traerlo, y entonces un m3u8 se intentaria reproducir como si
+      // fuera un mp4. La extension es la prueba de ultimo recurso.
+      const esHls = actual.kind === 'hls' || isHlsUrl(url);
+
+      if (!esHls) {
         video.src = url;
         return;
       }
+
+      /*
+       * HLS: DOS CAMINOS, y ninguno gana siempre.
+       *
+       *   hls.js   descarga el playlist con fetch, asi que necesita CORS, y
+       *            a cambio entiende variantes que el navegador rechaza.
+       *   nativo   no necesita CORS —un <video> puede pedir lo que quiera—
+       *            pero en Chrome solo traga HLS sencillos.
+       *
+       * Antes solo se intentaba el nativo, porque la condicion era
+       * `canPlayType('application/vnd.apple.mpegurl')` y Chrome contesta
+       * "maybe": dice que quiza pueda, se le da el playlist y falla con
+       * MEDIA_ERR_SRC_NOT_SUPPORTED. De los 28 primeros canales del catalogo,
+       * 13 fallaban asi con el stream perfectamente vivo.
+       *
+       * Ahora se prueban los dos antes de dar la fuente por muerta: primero la
+       * libreria y, si avisa de un error fatal, el nativo. Solo cuando los dos
+       * fallan se pasa a la siguiente fuente. `Hls.isSupported()` mira si hay
+       * Media Source Extensions y no miente; donde no las hay —el Safari del
+       * iPhone— el soporte nativo es justamente el bueno.
+       */
+      const caerANativo = (motivo) => {
+        reintento = null; // el nativo es el ultimo intento: si falla, se acabo
+        hls?.destroy();
+        hls = null;
+        console.warn(`[player] ${motivo}: se reintenta con el reproductor del navegador`);
+        video.removeAttribute('src');
+        video.src = url;
+        video.load();
+      };
+      reintento = caerANativo;
 
       try {
         const { default: Hls } = await import('hls.js');
@@ -187,11 +231,11 @@ export const Player = defineComponent({
         hls.attachMedia(video);
         hls.on(Hls.Events.ERROR, (_e, data) => {
           if (!data.fatal) return;
-          siguiente(`hls ${data.details ?? data.type}`);
+          caerANativo(`hls ${data.details ?? data.type}`);
         });
       } catch (err) {
         console.error('[player] hls', err);
-        siguiente('hls no disponible');
+        caerANativo('hls no disponible');
       }
     }
 

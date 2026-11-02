@@ -76,10 +76,20 @@
     contain: layout paint style;
   }
 
-  /* Aisla cada tarjeta del calculo de layout del resto de la fila. */
+  /*
+   * Aisla cada tarjeta del calculo de layout del resto de la fila: el
+   * navegador no pinta ni mide lo que esta fuera de pantalla.
+   *
+   * `contain-intrinsic-size` es el alto que SE SUPONE mientras no se mide, y
+   * tiene que parecerse al real. Era un valor fijo de 240 px, heredado de
+   * cuando las tarjetas eran posters verticales: con las tarjetas de canal, de
+   * 122 px, las filas de abajo reservaban el doble de alto y se encogian de
+   * golpe al entrar en pantalla. Ahora cada tarjeta declara el suyo con
+   * --card-h y el valor por defecto solo cubre a quien no lo diga.
+   */
   .card-surface {
     content-visibility: auto;
-    contain-intrinsic-size: auto 240px;
+    contain-intrinsic-size: auto var(--card-h, 240px);
   }
 
   /* Carrusel: scroll nativo con snap. Mas fluido que animar transform a mano,
@@ -105,15 +115,37 @@
   /* --- estetica --- */
 
   /*
-   * Cristal. El blur es bajo (12 px) y la saturacion apenas sube: lo que se ve
-   * detras sigue siendo reconocible y no aparece el halo lechoso de un blur
-   * agresivo. Si el navegador no soporta backdrop-filter, queda el color
-   * solido de --surface-glass, que ya es legible por si mismo.
+   * Cristal.
+   *
+   * Un cristal convincente no es "fondo translucido + blur": son tres cosas a
+   * la vez, y la que suele faltar es la tercera.
+   *
+   *  1. El FONDO deja pasar bastante (≈55 %). Si tapa, el blur no se ve y
+   *     queda un panel gris cualquiera.
+   *  2. El DESENFOQUE es amplio (20 px) pero la saturacion sube poco (130 %):
+   *     lo justo para que el color de debajo no se apague al difuminarse. Pasar
+   *     de ahi es el halo lechoso y chillon que se ve en tantos sitios.
+   *  3. El BORDE SUPERIOR lleva una linea de luz de 1 px por dentro. Es lo que
+   *     da el canto del vidrio: sin ella el panel flota sin grosor.
+   *
+   * Y una capa de saturacion propia detras, porque el contenido que pasa por
+   * debajo de la cabecera son portadas de dibujos animados: al difuminarse
+   * pierden fuerza y conviene devolverles un poco.
    */
   .glass {
     background-color: var(--surface-glass);
-    -webkit-backdrop-filter: blur(12px) saturate(115%);
-    backdrop-filter: blur(12px) saturate(115%);
+    -webkit-backdrop-filter: blur(20px) saturate(130%);
+    backdrop-filter: blur(20px) saturate(130%);
+    box-shadow: inset 0 1px 0 0 var(--glass-sheen);
+  }
+
+  /* Sin backdrop-filter (Firefox con la opcion apagada, televisores viejos) el
+     fondo translucido dejaria el texto ilegible sobre una portada. Ahi se cae
+     a un color solido. */
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .glass {
+      background-color: var(--color-surface-0);
+    }
   }
 
   /* Chip sobre imagen (en directo, duracion, descuento). Mismo blur suave. */

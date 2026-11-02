@@ -148,7 +148,10 @@ export function paletteFor(festivity, mode = 'dark') {
     '--fest-ring': alpha(text, 0.55),
     '--fest-glow': alpha(a1, claro ? 0.2 : 0.35),
     '--fest-aura': alpha(a2, claro ? 0.07 : 0.09),
-    '--surface-glass': alpha(surfaces[claro ? 1 : 0], claro ? 0.78 : 0.72),
+    // Translucido de verdad (ver .glass en main.css): si tapa, el desenfoque
+    // no se aprecia y la cabecera deja de parecer cristal.
+    '--surface-glass': alpha(surfaces[claro ? 1 : 0], claro ? 0.62 : 0.55),
+    '--glass-sheen': claro ? 'rgb(255 255 255 / 0.65)' : 'rgb(255 255 255 / 0.07)',
   };
   surfaces.forEach((s, i) => {
     vars[`--color-surface-${i}`] = toHex(s);

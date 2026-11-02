@@ -58,7 +58,7 @@ export default async function watchView({ outlet, params }) {
       sources: episode.sources,
       // Solo arte real: el marcador de posicion generico detras del boton de
       // reproducir no aporta nada y se ve como una imagen rota a medio cargar.
-      poster: [title.backdrop, title.poster].find((p) => p && !p.includes('placeholder')) ?? null,
+      poster: title.backdrop ?? title.poster ?? null,
       label: `${title.name} T${episode.season}E${episode.number}`,
     });
     piezas.push(player);

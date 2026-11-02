@@ -16,42 +16,72 @@ import { createView } from './_view.js';
 import { idle } from '../core/scheduler.js';
 import { navigate } from '../core/router.js';
 import {
-  bootstrap, activeFestivity, upcomingFestivity, festivityPicks, festivityCalendar,
+  bootstrap, festivityOnStage, upcomingFestivity, festivityPicks, festivityCalendar,
   query, getTitleById, networks, loadChannels, getChannels,
 } from '../data/repository.js';
 import { Hero, applyFestivityTheme } from '../components/media/Hero.js';
 import { Carousel } from '../components/media/Carousel.js';
 import { renderCard, recycleCard } from '../components/media/TitleCard.js';
 import { renderChannel, recycleChannel } from '../components/media/ChannelCard.js';
-import { renderNetwork, recycleNetwork } from '../components/media/NetworkCard.js';
+import { renderNetwork, recycleNetwork, placa } from '../components/media/NetworkCard.js';
 import { renderFestivity, recycleFestivity } from '../components/media/FestivityCard.js';
-import { initials } from '../components/ui/LazyImage.js';
-import { inkFor } from '../core/theme.js';
 
 /* Medidas de tarjeta en funcion del ancho del carril. Un solo sitio donde
    decidir cuantas tarjetas se ven: en un movil de 360 px entra una y media
    —el recorte invita a deslizar— y en un escritorio ancho, seis. */
 const ANCHO_TITULO = (w) => (w < 420 ? 216 : w < 700 ? 240 : w < 1100 ? 262 : 282);
 const ALTO_TITULO = (w) => Math.round((w * 9) / 16) + 88;
-const ANCHO_CANAL = (w) => (w < 420 ? 248 : 300);
+const ANCHO_CANAL = (w) => (w < 420 ? 268 : 340);
+
+/**
+ * Baraja una copia (Fisher-Yates). Es lo que hace que la portada no reciba
+ * siempre al mismo titulo: la seleccion del hero se sortea en cada visita.
+ */
+function barajar(lista) {
+  const copia = lista.slice();
+  for (let i = copia.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copia[i], copia[j]] = [copia[j], copia[i]];
+  }
+  return copia;
+}
 
 export default async function homeView({ outlet }) {
   await bootstrap();
 
-  const festividad = activeFestivity();
+  // La festividad "en cartel": la de hoy, o la que llega en menos de una
+  // semana. El tema de color arranca con el aviso, no el dia en punto.
+  const cartel = festivityOnStage();
+  const festividad = cartel?.festivity ?? null;
   applyFestivityTheme(festividad);
 
   const picks = festividad ? festivityPicks(festividad.slug) : [];
   const tematicos = [...new Map(picks.map((p) => [p.title.id, p.title])).values()];
 
-  // El hero lleva primero lo de la festividad y detras lo mejor valorado. Hoy
-  // Dia de Muertos tiene UN capitulo: sin completar, el carrusel seria una sola
-  // diapositiva sin puntos ni rotacion, y la portada parece rota, no sobria.
-  const destacados = [...new Map([...tematicos, ...query({ sort: 'score' })].map((t) => [t.id, t])).values()];
+  /*
+   * Seleccion del hero: un titulo de la festividad mas un sorteo entre los
+   * mejor valorados, en orden aleatorio. Dos motivos para no poner el top 5:
+   *
+   *  - con 503 titulos, un hero fijo ensena siempre los mismos cinco y el
+   *    resto del catalogo no existe para quien entra por la portada;
+   *  - la gracia de un catalogo retro es tropezarse con algo olvidado.
+   *
+   * El sorteo es entre los 60 mejor valorados, no entre los 503: variedad, sin
+   * que la portada abra con el ultimo de la lista.
+   */
+  const candidatos = query({ sort: 'score' }).slice(0, 60);
+  const sorteados = barajar(candidatos)
+    .filter((t) => !tematicos.includes(t))
+    .slice(0, 4);
+  // Un titulo tematico entra siempre (si lo hay) pero NO siempre el primero:
+  // con una sola recomendacion de la festividad —hoy Dia de Muertos tiene un
+  // capitulo— el hero abriria con el mismo titulo todas las visitas.
+  const tematico = tematicos.length ? barajar(tematicos)[0] : null;
+  const destacados = barajar(tematico ? [tematico, ...sorteados] : barajar(candidatos).slice(0, 5));
 
   const piezas = [];
   const hero = Hero({
-    festivity: festividad,
+    stage: cartel,
     items: destacados,
     upcoming: upcomingFestivity(),
   });
@@ -107,15 +137,9 @@ export default async function homeView({ outlet }) {
           onClick: () => elegir(n),
         },
         [
-          el(
-            'span',
-            {
-              class: 'grid size-9 place-items-center rounded-chip text-[11px] font-extrabold transition',
-              style: `background: ${color}; color: ${inkFor(color)}`,
-              'aria-hidden': 'true',
-            },
-            initials(entry.network.name),
-          ),
+          // Misma placa clara que la tarjeta de cadena: el logo manda y las
+          // iniciales quedan debajo por si no carga.
+          placa(entry.network, color, { caja: 'size-10 p-1.5', logo: 'max-h-6', texto: 'text-[11px]' }),
           el('span', { class: 'max-w-[7rem] truncate' }, entry.network.name),
         ],
       );
@@ -227,7 +251,7 @@ export default async function homeView({ outlet }) {
         items: canales,
         href: '/en-vivo',
         itemWidth: ANCHO_CANAL,
-        itemHeight: 138,
+        itemHeight: 156,
         render: renderChannel,
         recycle: recycleChannel,
         onSelect: (id) => navigate(`/en-vivo?c=${id}`),

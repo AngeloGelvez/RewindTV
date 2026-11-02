@@ -36,14 +36,29 @@ Catalogo ligero. **No contiene episodios.**
   "seasonCount": 1,
   "episodeCount": 2,
   "score": 7,
-  "poster": "/img/2-perros-tontos.webp",
-  "backdrop": "/img/2-perros-tontos-bg.webp",
+  "poster": "3Lyc5VqhTqq76vmKUn1an8rlnP7.jpg",
+  "backdrop": "qyW97RT9OFwwQJteSQ1FACQfrBD.jpg",
   "synopsis": "Dos perros callejeros sin nombre...",
   "rating": "TV-Y7",
   "genres": ["comedia", "animacion"],
   "network": "Cartoon Network"
 }
 ```
+
+`poster` (vertical) y `backdrop` (apaisada) guardan el **nombre del fichero
+en TMDB**, no la URL. El prefijo y el ancho los pone `src/data/models/images.js`:
+w780 para la ficha, w1280 para el hero, w500 para las tarjetas y w300 para las
+miniaturas de episodio. Repetir `https://image.tmdb.org/t/p/w780/` en dos
+campos por titulo serian ~34 KB de texto en el fichero que se baja al arrancar,
+y el ancho es una decision de la interfaz, no del dato. Una ruta que empieza por
+`/` o por `http` se respeta tal cual, asi que una imagen propia en `public/img/`
+convive con las de TMDB. Un titulo sin portada no lleva el campo: la tarjeta
+pinta el color de su cadena con las iniciales.
+
+Las portadas entran con `node scripts/import-portadas.mjs <csv>`, que parchea
+`titles.json` sin tocar nada mas. De 503 titulos, 494 tienen portada vertical y
+489 apaisada; 27 coincidencias quedaron marcadas para revisar y el script las
+lista en cada pasada.
 
 `genres` y `network` son **strings**, no objetos. Al parsear se convierten en
 flyweights compartidos (`Genre.get`, `Network.get`): 500 series que digan
@@ -82,6 +97,7 @@ nombres de campo pesan mas que los datos.
 | `min` | duracion en minutos (opcional, hereda del titulo) |
 | `fest` | festividades a las que pertenece (opcional) |
 | `synopsis` | opcional |
+| `st` | fotograma del capitulo (nombre de fichero, como las portadas); aun sin datos |
 
 El `id` del episodio no se guarda: se deriva (`t1-1-1`). Un campo menos por
 cada capitulo.
@@ -163,7 +179,8 @@ nada que actualizar cada enero.
   "color": "#ff7518",
   "priority": 90,
   "tagline": "Especiales de terror y episodios embrujados",
-  "rule": { "type": "fixed-range", "from": "10-18", "to": "10-31" }
+  "greeting": "¡Feliz Halloween!",
+  "rule": { "type": "fixed-range", "from": "10-18", "to": "10-31", "peak": "10-31" }
 }
 ```
 
@@ -182,6 +199,37 @@ la resolucion lo detecta sola.
 `easter-offset` se apoya en el **computus gregoriano** implementado en
 `festivity.js`: calcula el Domingo de Pascua de cualquier año y de ahi derivan
 Carnaval (−47 dias), Miercoles de Ceniza (−46) y la propia Pascua.
+
+### Temporada y dia señalado no son lo mismo
+
+Navidad ocupa del 1 al 26 de diciembre —ahi es cuando apetece ver especiales
+navideños— pero el dia es el 25. Esa diferencia es la que da el rotulo de la
+portada:
+
+| Cuando | Que dice |
+| --- | --- |
+| Dentro de la temporada, lejos del dia | `🎄 Navidad` |
+| A 7 dias o menos | `🎄 Faltan 5 dias para Navidad` |
+| La vispera | `🎄 Mañana es Navidad` |
+| El dia | `🎄 ¡Feliz Navidad!` |
+
+Las reglas de dia (`fixed-day`, `nth-weekday`, `easter-offset`) ya nombran un
+dia. Las de rango lo declaran con `peak`. Una temporada sin `peak` —el verano,
+el regreso a clases— no tiene cuenta atras ni saludo: no se felicita el verano.
+
+La cuenta atras se mide SIEMPRE contra el dia, nunca contra el inicio de la
+temporada. Accion de Gracias abre la suya tres dias antes; decir "faltan 3
+dias" cuando faltan seis seria mentir con precision.
+
+`greeting` va en el dato y no en el codigo porque "Feliz X" no vale para todas:
+nadie dice "Feliz Regreso a Clases".
+
+### El calendario es el de quien mira, no el UTC
+
+Todo el calculo va en hora **local**. Yendo en UTC habia un fallo real: a las
+23:30 del 31 de octubre en GMT-5 ya era 1 de noviembre en UTC, asi que la
+portada dejaba de celebrar Halloween mientras la gente seguia disfrazada. El 25
+de diciembre empieza cuando dan las doce en tu reloj.
 
 ### Resolucion de hoy
 

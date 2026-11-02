@@ -19,10 +19,13 @@ import { parseSeasons } from '../models/episode.js';
 import { Festivity } from '../models/festivity.js';
 import * as cache from '../cache.js';
 
-// v4: catalogo importado de lacartoons.com (503 titulos). Subir la version
-// invalida la cache vieja: sin esto, quien ya visito la web seguiria viendo el
-// catalogo de demostracion hasta que caduque el registro de IndexedDB.
-const CATALOG_KEY = 'catalog:v4';
+// v6: las festividades traen saludo (`greeting`) y dia señalado (`rule.peak`).
+//
+// Subir la version invalida la cache vieja, y hay que acordarse SIEMPRE que
+// cambia la forma del dato: el adaptador guarda el JSON crudo en IndexedDB, y
+// quien ya visito la web seguiria leyendo la version anterior —sin saludo, sin
+// portadas— durante un dia entero. Esta es la tercera vez que pasa.
+const CATALOG_KEY = 'catalog:v6';
 
 async function fetchJson(path) {
   const res = await fetch(path, { headers: { accept: 'application/json' } });
@@ -61,7 +64,7 @@ export const adapter = {
    * stream responde, y eso lo revalida `scripts/check-channels.mjs`.
    */
   async loadChannels() {
-    const key = 'channels:v1';
+    const key = 'channels:v2'; // v2: 50 canales (se quitaron 5 con la variante muerta)
     let raw = await cache.get(key, { maxAge: 7 * 86_400_000 });
     if (!raw) {
       raw = await fetchJson('/data/channels.json');

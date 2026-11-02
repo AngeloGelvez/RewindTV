@@ -11,6 +11,7 @@ import {
 } from '../data/repository.js';
 import { renderChannel, recycleChannel } from '../components/media/ChannelCard.js';
 import { Player } from '../components/media/Player.js';
+import { createSource } from '../data/models/embed.js';
 
 const LABEL = {
   musica: 'Musica',
@@ -28,7 +29,7 @@ export default async function liveView({ outlet, query }) {
 
   const escenario = el('div', { class: 'mb-8' });
   const grid = el('div', {
-    class: 'grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4',
+    class: 'grid grid-cols-[repeat(auto-fill,minmax(270px,1fr))] gap-4',
   });
 
   let categoriaActiva = null;
@@ -78,7 +79,10 @@ export default async function liveView({ outlet, query }) {
 
     player?.destroy();
     player = Player({
-      source: { provider: 'mp4', id: canal.stream }, // HLS directo, sin iframe
+      // Por el registro y no a mano: asi la fuente sale con su `kind` ('hls'
+      // para un .m3u8) y el Player sabe que tiene que cargar hls.js. Armarla a
+      // mano dejaba ese campo vacio y el canal no arrancaba en Chrome.
+      source: createSource(['mp4', canal.stream], `canal ${canal.id}`),
       poster: canal.logo,
       label: canal.name,
     });

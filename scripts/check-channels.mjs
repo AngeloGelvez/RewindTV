@@ -12,7 +12,9 @@
 import { readFile, writeFile } from 'node:fs/promises';
 
 const FILE = new URL('../public/data/channels.json', import.meta.url);
-const TIMEOUT = 9000;
+// 15 s y no 9: hay canales lentos pero vivos, y un corte por impaciencia se
+// parece demasiado a un canal muerto.
+const TIMEOUT = 15_000;
 const CONCURRENCY = 24;
 const prune = process.argv.includes('--prune');
 
@@ -32,7 +34,27 @@ async function probe(channel) {
     if (!body.includes('#EXTM3U')) {
       return { ok: false, reason: body.trimStart().startsWith('<') ? 'devuelve HTML' : 'no es HLS' };
     }
-    return { ok: true, variants: (body.match(/#EXT-X-STREAM-INF/g) || []).length };
+
+    const variantes = (body.match(/#EXT-X-STREAM-INF/g) || []).length;
+    if (!variantes) return { ok: true, variants: 0 };
+
+    // Un master vivo no basta: hay canales que responden 200 con la lista de
+    // variantes y devuelven 404 en la variante, asi que no reproducen aunque
+    // el checker los diera por buenos. Se comprueba la primera.
+    const primera = body
+      .split('\n')
+      .map((l) => l.trim())
+      .find((l) => l && !l.startsWith('#'));
+    if (!primera) return { ok: false, reason: 'master sin variante' };
+
+    const variante = await fetch(new URL(primera, res.url).href, {
+      signal: ctrl.signal,
+      redirect: 'follow',
+      headers: { 'user-agent': 'Mozilla/5.0', accept: '*/*' },
+    });
+    if (!variante.ok) return { ok: false, reason: `variante HTTP ${variante.status}` };
+
+    return { ok: true, variants: variantes };
   } catch (err) {
     return { ok: false, reason: err.name === 'AbortError' ? 'timeout' : (err.cause?.code ?? err.message) };
   } finally {

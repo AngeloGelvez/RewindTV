@@ -8,6 +8,7 @@
  */
 import { Genre, Decade, Network } from './taxonomy.js';
 import { intern } from '../../patterns/flyweight.js';
+import { imageUrl } from './images.js';
 
 export function createTitle(raw) {
   return {
@@ -17,8 +18,10 @@ export function createTitle(raw) {
     year: raw.year,
     kind: intern(raw.kind), // 'serie' | 'pelicula' | 'especial'
     runtime: raw.runtime,
-    poster: raw.poster,
-    backdrop: raw.backdrop,
+    // El JSON guarda el nombre del fichero; la URL (y el ancho) se deciden en
+    // images.js. Sin portada queda null, y cada componente pinta su respaldo.
+    poster: imageUrl(raw.poster, 'poster'),
+    backdrop: imageUrl(raw.backdrop, 'backdrop'),
     synopsis: raw.synopsis,
     rating: intern(raw.rating ?? 'NR'),
     score: raw.score ?? null, // 0-10, el "7 estrella" de la tarjeta

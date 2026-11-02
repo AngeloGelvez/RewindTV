@@ -10,7 +10,7 @@
 import { adapter } from './adapters/mockAdapter.js';
 import { memoize } from '../patterns/memoize.js';
 import { idle } from '../core/scheduler.js';
-import { isActive, daysUntil } from './models/festivity.js';
+import { isActive, daysUntil, daysToPeak } from './models/festivity.js';
 import { hydrate as hydrateSourceHealth } from './sourceHealth.js';
 
 let bootstrapped = null;
@@ -110,6 +110,43 @@ export function upcomingFestivity(date = new Date()) {
     }
   }
   return best ? { festivity: best, days: bestDays } : null;
+}
+
+/**
+ * Dias de antelacion con los que la portada empieza a anunciar una festividad.
+ * Una semana es lo que tarda alguien en volver a entrar y seguir viendolo como
+ * novedad; con un mes, para cuando llega el dia ya cansa.
+ */
+export const AVISO_DIAS = 7;
+
+/**
+ * La festividad que manda HOY en la portada, con lo que hay que decir de ella.
+ *
+ * Tres situaciones, y la distincion importa:
+ *
+ *   season  estamos dentro de su temporada (del 1 al 26 de diciembre)
+ *   days    dias hasta su DIA señalado (el 25), no hasta la temporada
+ *   active  hoy es ese dia -> toca el saludo
+ *
+ * La cuenta atras se mide siempre contra el dia, nunca contra el inicio de la
+ * temporada: Accion de Gracias abre su temporada tres dias antes, y "faltan 3
+ * dias" cuando en realidad faltan 6 seria mentir con precision.
+ */
+export function festivityOnStage(date = new Date(), aviso = AVISO_DIAS) {
+  const activa = activeFestivity(date);
+  if (activa) {
+    const days = daysToPeak(activa, date);
+    return { festivity: activa, days, active: days === 0, season: true };
+  }
+
+  // Fuera de temporada solo se anuncia lo que tiene dia y lo tiene cerca.
+  let mejor = null;
+  for (const festivity of index.festivities) {
+    const days = daysToPeak(festivity, date);
+    if (days === null || days <= 0 || days > aviso) continue;
+    if (!mejor || days < mejor.days) mejor = { festivity, days, active: false, season: false };
+  }
+  return mejor;
 }
 
 /**

@@ -24,6 +24,7 @@ import { template } from '../../core/dom.js';
 import { createPool } from '../../patterns/objectPool.js';
 import { hydrateImage, resetImage, initials } from '../ui/LazyImage.js';
 import { inkFor, shade } from '../../core/theme.js';
+import { atSize } from '../../data/models/images.js';
 
 const cloneCard = template(`
   <a class="card-surface group block select-none">
@@ -115,12 +116,16 @@ export function fillCard(node, title) {
   art.style.background = `linear-gradient(145deg, ${color}, ${shade(color, 0.65)})`;
   fallback.textContent = initials(title.name);
 
-  // Mientras el titulo no tenga arte propio NO se carga nada: el marcador de
-  // posicion es una imagen generica igual en las 503 tarjetas, y taparia el
-  // unico rasgo que hoy las distingue, que es el color de su cadena.
+  // La tarjeta es apaisada: manda el fondo horizontal, y la portada vertical
+  // solo entra si no hay fondo (recortada, pero mejor que nada). Sin ninguna
+  // de las dos NO se carga nada: queda el color de la cadena con las
+  // iniciales, que es lo que distingue una tarjeta de otra.
   img.alt = '';
-  if (title.poster && !title.poster.includes('placeholder')) {
-    img.dataset.src = title.poster;
+  // La tarjeta mide ~280 px: pedir el fondo de 1280 del hero seria bajar seis
+  // veces mas pixeles de los que caben en ella.
+  const arteReal = atSize(title.backdrop ?? title.poster, 'card');
+  if (arteReal) {
+    img.dataset.src = arteReal;
     hydrateImage(img);
   }
   name.textContent = title.name;

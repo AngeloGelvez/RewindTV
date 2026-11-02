@@ -31,9 +31,22 @@ export const Festivity = createFlyweightFactory(
     priority: def.priority ?? 0,
     rule: def.rule,
     tagline: def.tagline ?? '',
+    // Saludo del dia. Viene del dato porque "Feliz X" no sirve para todas:
+    // nadie dice "Feliz Regreso a Clases".
+    greeting: def.greeting ?? `¡Feliz ${def.label}!`,
   }),
   (def) => def.slug,
 );
+
+/**
+ * TODO EL CALCULO VA EN HORA LOCAL, no en UTC.
+ *
+ * Antes iba en UTC y eso producia un fallo real: a las 23:30 del 31 de octubre
+ * en GMT-5 ya era 1 de noviembre en UTC, asi que la portada dejaba de celebrar
+ * Halloween y pasaba a Dia de Muertos mientras la gente seguia disfrazada. Una
+ * festividad es una fecha del calendario de quien mira, no un instante
+ * universal: el 25 de diciembre empieza cuando dan las doce en tu reloj.
+ */
 
 /**
  * Computus gregoriano (algoritmo anonimo). Devuelve el Domingo de Pascua del
@@ -54,19 +67,23 @@ export function easterSunday(year) {
   const m = Math.floor((a + 11 * h + 22 * l) / 451);
   const month = Math.floor((h + l - 7 * m + 114) / 31);
   const day = ((h + l - 7 * m + 114) % 31) + 1;
-  return new Date(Date.UTC(year, month - 1, day));
+  return new Date(year, month - 1, day);
 }
 
 /** Fecha del n-esimo <weekday> de un mes (weekday: 0=domingo). */
 function nthWeekday(year, month, weekday, nth) {
-  const first = new Date(Date.UTC(year, month - 1, 1));
-  const offset = (weekday - first.getUTCDay() + 7) % 7;
-  return new Date(Date.UTC(year, month - 1, 1 + offset + (nth - 1) * 7));
+  const first = new Date(year, month - 1, 1);
+  const offset = (weekday - first.getDay() + 7) % 7;
+  return new Date(year, month - 1, 1 + offset + (nth - 1) * 7);
 }
 
 const DAY = 86_400_000;
-const atUtcMidnight = (date) =>
-  Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
+
+/** Medianoche local del dia de `date`, en milisegundos. */
+const medianoche = (date) => new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime();
+
+/** Medianoche local de un dia concreto. Sustituye a Date.UTC. */
+const dia = (year, month, day) => new Date(year, month, day).getTime();
 
 /**
  * Resuelve la regla de una festividad a un intervalo [inicio, fin] del año dado.
@@ -87,27 +104,27 @@ export function resolveWindow(festivity, year) {
     case 'fixed-range': {
       const [fm, fd] = rule.from.split('-').map(Number);
       const [tm, td] = rule.to.split('-').map(Number);
-      start = Date.UTC(year, fm - 1, fd);
-      end = Date.UTC(year, tm - 1, td) + DAY - 1;
+      start = dia(year, fm - 1, fd);
+      end = dia(year, tm - 1, td) + DAY - 1;
       // Rangos que cruzan el fin de año (ej. 12-20 -> 01-06).
-      if (end < start) end = Date.UTC(year + 1, tm - 1, td) + DAY - 1;
+      if (end < start) end = dia(year + 1, tm - 1, td) + DAY - 1;
       break;
     }
     case 'fixed-day': {
       const window = rule.window ?? 0;
-      const day = Date.UTC(year, rule.month - 1, rule.day);
+      const day = dia(year, rule.month - 1, rule.day);
       start = day - window * DAY;
       end = day + DAY - 1;
       break;
     }
     case 'nth-weekday': {
-      const day = atUtcMidnight(nthWeekday(year, rule.month, rule.weekday, rule.nth));
+      const day = medianoche(nthWeekday(year, rule.month, rule.weekday, rule.nth));
       start = day - (rule.window ?? 0) * DAY;
       end = day + DAY - 1;
       break;
     }
     case 'easter-offset': {
-      const day = atUtcMidnight(easterSunday(year)) + (rule.offset ?? 0) * DAY;
+      const day = medianoche(easterSunday(year)) + (rule.offset ?? 0) * DAY;
       start = day - (rule.window ?? 0) * DAY;
       end = day + DAY - 1 + (rule.span ?? 0) * DAY;
       break;
@@ -121,9 +138,58 @@ export function resolveWindow(festivity, year) {
   return value;
 }
 
+/**
+ * El DIA señalado, que no es lo mismo que la temporada.
+ *
+ * Navidad ocupa del 1 al 26 de diciembre —ahi es cuando apetece ver especiales
+ * navideños— pero el dia es el 25. Esa diferencia es la que separa "faltan 5
+ * dias para Navidad" de "¡Feliz Navidad!".
+ *
+ * Las reglas de dia (fixed-day, nth-weekday, easter-offset) ya nombran un dia;
+ * las de rango lo declaran con `peak`. Una temporada sin dia señalado —el
+ * verano, el regreso a clases— devuelve null, y entonces no hay cuenta atras
+ * ni saludo: no se felicita el verano.
+ */
+export function peakDay(festivity, year) {
+  const { rule } = festivity;
+  switch (rule.type) {
+    case 'fixed-day':
+      return dia(year, rule.month - 1, rule.day);
+    case 'nth-weekday':
+      return medianoche(nthWeekday(year, rule.month, rule.weekday, rule.nth));
+    case 'easter-offset':
+      return medianoche(easterSunday(year)) + (rule.offset ?? 0) * DAY;
+    case 'fixed-range': {
+      if (!rule.peak) return null;
+      const [pm, pd] = rule.peak.split('-').map(Number);
+      let pico = dia(year, pm - 1, pd);
+      // Año Nuevo: la temporada abre el 27 de diciembre y el dia cae ya en
+      // enero del año siguiente.
+      if (pico < resolveWindow(festivity, year).start) pico = dia(year + 1, pm - 1, pd);
+      return pico;
+    }
+    default:
+      return null;
+  }
+}
+
+/** Dias hasta el dia señalado: 0 es hoy, null si la festividad no tiene uno. */
+export function daysToPeak(festivity, date = new Date()) {
+  const now = medianoche(date);
+  const year = date.getFullYear();
+  let best = null;
+  for (const y of [year - 1, year, year + 1]) {
+    const pico = peakDay(festivity, y);
+    if (pico == null || pico < now) continue;
+    const dias = Math.round((pico - now) / DAY);
+    if (best === null || dias < best) best = dias;
+  }
+  return best;
+}
+
 export function isActive(festivity, date = new Date()) {
-  const now = atUtcMidnight(date);
-  const year = date.getUTCFullYear();
+  const now = medianoche(date);
+  const year = date.getFullYear();
   // Se prueba tambien el año anterior por los rangos que cruzan enero.
   for (const y of [year, year - 1]) {
     const { start, end } = resolveWindow(festivity, y);
@@ -135,8 +201,8 @@ export function isActive(festivity, date = new Date()) {
 /** Dias que faltan para que empiece (0 si ya esta activa). */
 export function daysUntil(festivity, date = new Date()) {
   if (isActive(festivity, date)) return 0;
-  const now = atUtcMidnight(date);
-  const year = date.getUTCFullYear();
+  const now = medianoche(date);
+  const year = date.getFullYear();
   let best = Infinity;
   for (const y of [year, year + 1]) {
     const { start } = resolveWindow(festivity, y);

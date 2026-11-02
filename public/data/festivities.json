@@ -7,10 +7,12 @@
     "accent2": "#8b5cf6",
     "priority": 90,
     "tagline": "Especiales de terror y episodios embrujados",
+    "greeting": "¡Feliz Halloween!",
     "rule": {
       "type": "fixed-range",
       "from": "10-18",
-      "to": "10-31"
+      "to": "10-31",
+      "peak": "10-31"
     }
   },
   {
@@ -21,10 +23,12 @@
     "accent2": "#f59e0b",
     "priority": 85,
     "tagline": "Ofrendas, calaveras y visitas del más allá",
+    "greeting": "¡Feliz Día de Muertos!",
     "rule": {
       "type": "fixed-range",
       "from": "11-01",
-      "to": "11-02"
+      "to": "11-02",
+      "peak": "11-02"
     }
   },
   {
@@ -35,6 +39,7 @@
     "accent2": "#dc2626",
     "priority": 60,
     "tagline": "Cenas familiares que salen mal",
+    "greeting": "¡Feliz Día de Acción de Gracias!",
     "rule": {
       "type": "nth-weekday",
       "month": 11,
@@ -51,10 +56,12 @@
     "accent2": "#16a34a",
     "priority": 95,
     "tagline": "Especiales navideños de toda la vida",
+    "greeting": "¡Feliz Navidad!",
     "rule": {
       "type": "fixed-range",
       "from": "12-01",
-      "to": "12-26"
+      "to": "12-26",
+      "peak": "12-25"
     }
   },
   {
@@ -65,10 +72,12 @@
     "accent2": "#cbd5e1",
     "priority": 80,
     "tagline": "Cuenta regresiva y propósitos imposibles",
+    "greeting": "¡Feliz Año Nuevo!",
     "rule": {
       "type": "fixed-range",
       "from": "12-27",
-      "to": "01-06"
+      "to": "01-06",
+      "peak": "01-01"
     }
   },
   {
@@ -79,6 +88,7 @@
     "accent2": "#f43f5e",
     "priority": 70,
     "tagline": "Amor, desamor y triángulos animados",
+    "greeting": "¡Feliz San Valentín!",
     "rule": {
       "type": "fixed-day",
       "month": 2,
@@ -94,6 +104,7 @@
     "accent2": "#facc15",
     "priority": 50,
     "tagline": "Disfraces, desfiles y caos",
+    "greeting": "¡Feliz Carnaval!",
     "rule": {
       "type": "easter-offset",
       "offset": -47,
@@ -109,6 +120,7 @@
     "accent2": "#f9a8d4",
     "priority": 55,
     "tagline": "Conejos, huevos y búsquedas del tesoro",
+    "greeting": "¡Felices Pascuas!",
     "rule": {
       "type": "easter-offset",
       "offset": 0,
@@ -123,6 +135,7 @@
     "accent2": "#c4b5fd",
     "priority": 45,
     "tagline": "Episodios dedicados a mamá",
+    "greeting": "¡Feliz Día de las Madres!",
     "rule": {
       "type": "fixed-day",
       "month": 5,
@@ -138,6 +151,7 @@
     "accent2": "#fbbf24",
     "priority": 20,
     "tagline": "Playa, campamento y vacaciones sin fin",
+    "greeting": "¡Llegó el verano!",
     "rule": {
       "type": "fixed-range",
       "from": "06-21",
@@ -152,6 +166,7 @@
     "accent2": "#facc15",
     "priority": 40,
     "tagline": "El primer día nunca sale bien",
+    "greeting": "¡De vuelta a clases!",
     "rule": {
       "type": "fixed-range",
       "from": "08-21",

@@ -100,6 +100,13 @@ export function embedUrl(source) {
 }
 
 export const isIframe = (source) => source?.kind === 'iframe';
+
+/**
+ * Un playlist HLS se reconoce por la extension, no por el proveedor: el stream
+ * de un canal y un mp4 alojado entran los dos como `mp4`. Lo usa el Player
+ * para no fiarse solo de `kind`.
+ */
+export const isHlsUrl = (url) => typeof url === 'string' && HLS.test(url);
 export const providerLabel = (source) =>
   source ? (PROVIDERS[source.provider]?.label ?? source.provider) : '';
 export const providerKind = (provider) => PROVIDERS[provider]?.kind ?? null;

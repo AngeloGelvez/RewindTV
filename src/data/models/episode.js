@@ -17,6 +17,7 @@
 import { intern } from '../../patterns/flyweight.js';
 import { Festivity } from './festivity.js';
 import { parseSources } from './embed.js';
+import { imageUrl } from './images.js';
 
 export function createEpisode(raw, title, season) {
   // El contexto solo se usa en el aviso de consola cuando una fuente es
@@ -30,6 +31,10 @@ export function createEpisode(raw, title, season) {
     name: raw.name,
     synopsis: raw.synopsis ?? '',
     runtime: raw.min ?? title.runtime,
+    // `st`: fotograma del capitulo, guardado como nombre de fichero igual que
+    // las portadas. Todavia no lo trae ningun capitulo; la vista de ficha cae
+    // al fondo de la serie mientras tanto.
+    still: imageUrl(raw.st, 'still'),
     sources,
     // Compat: las vistas que solo entienden una fuente siguen funcionando.
     source: sources[0] ?? null,

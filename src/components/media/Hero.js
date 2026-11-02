@@ -29,11 +29,23 @@ import { applyTheme, inkFor, shade } from '../../core/theme.js';
 /** Alias historico: el tema completo vive en core/theme.js. */
 export const applyFestivityTheme = applyTheme;
 
-const INTERVALO = 7000;
+/**
+ * Dos minutos entre diapositivas. Siete segundos era un escaparate de tienda:
+ * para cuando decides mirar una portada, ya se fue. A dos minutos el hero
+ * cambia si te quedas leyendo la portada, y no te quita de delante lo que
+ * estabas mirando.
+ */
+const INTERVALO = 120_000;
 const MAX = 5;
 
+/** Dias de antelacion con los que empieza la cuenta atras (ver repository). */
+const AVISO = 7;
+
 export const Hero = defineComponent({
-  setup({ festivity, items = [], upcoming }, { onDispose }) {
+  setup({ stage, items = [], upcoming }, { onDispose }) {
+    // `stage` es la festividad en cartel: la que corre hoy o la que llega en
+    // menos de una semana, con los dias que faltan.
+    const festivity = stage?.festivity ?? null;
     const slides = items.filter(Boolean).slice(0, MAX);
     let i = 0;
 
@@ -49,7 +61,12 @@ export const Hero = defineComponent({
     const lienzo = el('div', { class: 'absolute inset-0 -z-10 overflow-hidden' }, [
       arte,
       foto,
+      // Dos velos, no uno: el lateral sostiene el titulo y el inferior sostiene
+      // la firma y los botones. Con portadas reales hay de todo —fondos claros,
+      // amarillos, con el personaje justo detras del texto— y uno solo no
+      // aguanta los dos casos.
       el('div', { class: 'absolute inset-0 scrim-side' }),
+      el('div', { class: 'absolute inset-x-0 bottom-0 h-3/5 scrim opacity-85' }),
       // Remate inferior: funde el hero con la pagina sin una linea dura.
       el('div', {
         class: 'absolute inset-x-0 bottom-0 h-28',
@@ -169,7 +186,7 @@ export const Hero = defineComponent({
         `radial-gradient(75% 95% at 92% 0%, ${shade(base, 0.52)}, transparent 64%),` +
         'linear-gradient(118deg, #16161d, #0a0a0c)';
 
-      const backdrop = t.backdrop && !t.backdrop.includes('placeholder') ? t.backdrop : null;
+      const backdrop = t.backdrop ?? null;
       if (backdrop) {
         foto.dataset.src = backdrop;
         hydrateImage(foto);
@@ -200,8 +217,21 @@ export const Hero = defineComponent({
       timer = null;
     }
 
+    /**
+     * El rotulo cuenta la festividad en cuatro actos segun lo cerca que este
+     * su dia: el nombre a secas mientras dura la temporada, la cuenta atras la
+     * ultima semana, "mañana es" la vispera y el saludo el dia en cuestion.
+     * Es la misma festividad y el mismo color; solo cambia el texto.
+     */
     if (festivity) {
-      insignia.textContent = `${festivity.emoji} ${festivity.label}`;
+      const dias = stage?.days ?? null;
+      insignia.textContent = stage?.active
+        ? `${festivity.emoji} ${festivity.greeting}`
+        : dias === 1
+          ? `${festivity.emoji} Mañana es ${festivity.label}`
+          : dias !== null && dias <= AVISO
+            ? `${festivity.emoji} Faltan ${dias} dias para ${festivity.label}`
+            : `${festivity.emoji} ${festivity.label}`;
       insignia.style.background = 'var(--fest)';
       insignia.style.color = 'var(--fest-ink)';
     } else {
