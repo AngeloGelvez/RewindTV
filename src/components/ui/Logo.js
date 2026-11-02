@@ -53,8 +53,12 @@ export function logo({ wordmark = true, size = 'size-9' } = {}) {
       ]),
       // En movil solo queda el simbolo: el nombre escrito le robaria al
       // buscador el ancho que necesita para ser usable.
+      //
+      // `data-wordmark` existe para el rail de television, que lo esconde
+      // mientras esta plegado y lo enseña al desplegarse. Es ancho, no
+      // anchura de pantalla: por eso no basta con el punto de corte.
       wordmark
-        ? el('span', { class: 'hidden font-display text-[1.35rem] font-extrabold leading-none tracking-tight sm:block' }, [
+        ? el('span', { 'data-wordmark': '', class: 'hidden font-display text-[1.35rem] font-extrabold leading-none tracking-tight sm:block' }, [
             el('span', { class: 'text-ink-0' }, 'Rewind'),
             el('span', { style: 'color: var(--fest-text)' }, 'Tv'),
           ])

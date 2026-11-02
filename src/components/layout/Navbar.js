@@ -51,8 +51,10 @@ export const Rail = defineComponent({
       },
       [
         // Solo se ve en television, donde el rail sustituye a la barra de
-        // arriba y hace falta algo que diga de quien es la pantalla.
-        el('span', { 'data-rail-logo': '', class: 'hidden' }, [logo({ wordmark: false, size: 'size-10' })]),
+        // arriba y hace falta algo que diga de quien es la pantalla. Va con su
+        // nombre escrito: el CSS del modo TV lo esconde mientras el rail esta
+        // plegado y lo enseña al desplegarse, igual que los rotulos.
+        el('span', { 'data-rail-logo': '', class: 'hidden' }, [logo({ size: 'size-10' })]),
         ...items,
       ],
     );

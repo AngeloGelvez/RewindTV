@@ -345,11 +345,23 @@
     display: inline;
   }
 
-  /* El isotipo corona el rail; el nombre escrito no cabe plegado. */
+  /* El isotipo corona el rail. Plegado solo cabe el simbolo; al desplegarse
+     aparece el nombre escrito y el conjunto se alinea con los rotulos de
+     abajo, en vez de quedarse centrado a medias. */
   html.tv [data-rail-logo] {
     display: grid;
     place-items: center;
     padding: 0.25rem 0 1rem;
+  }
+  html.tv [data-rail-logo] [data-wordmark] {
+    display: none;
+  }
+  html.tv [data-rail]:focus-within [data-rail-logo] {
+    place-items: center start;
+    padding-left: 1.1rem;
+  }
+  html.tv [data-rail]:focus-within [data-rail-logo] [data-wordmark] {
+    display: block;
   }
 
   /* Sin barra superior: su sitio lo ocupa el contenido. */
