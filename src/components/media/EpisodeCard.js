@@ -8,7 +8,7 @@
  * el navegador resuelve en el compositor: actualizarla durante la reproduccion
  * no provoca layout.
  */
-import { template } from '../../core/dom.js';
+import { template, resetLayout } from '../../core/dom.js';
 import { createPool } from '../../patterns/objectPool.js';
 import { hydrateImage, resetImage, initials } from '../ui/LazyImage.js';
 import { runtime } from '../../utils/format.js';
@@ -65,7 +65,7 @@ export const episodePool = createPool({
     node.removeAttribute('href');
     node.removeAttribute('aria-current');
     node.classList.remove('ring-fest');
-    node.style.left = '';
+    resetLayout(node);
   },
   prime: 10,
   max: 60,

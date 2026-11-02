@@ -61,3 +61,26 @@ export function delegate(root, selector, type, handler) {
   root.addEventListener(type, onEvent, { passive: type === 'touchstart' });
   return () => root.removeEventListener(type, onEvent);
 }
+
+/**
+ * Devuelve un nodo reciclado a su estado de maquetacion neutro.
+ *
+ * Los pools de tarjetas se comparten entre vistas, y cada una las coloca a su
+ * manera: el carrusel y la grilla virtual las posicionan en absoluto (clase
+ * `.v-item` mas top/left/width en linea), mientras que la rejilla de "En vivo"
+ * las quiere en flujo normal.
+ *
+ * Sin esto, una tarjeta usada antes en la portada llegaba a la rejilla
+ * conservando `position: absolute` y aparecia flotando sobre el titulo, en la
+ * esquina superior. Limpiar los atributos de contenido no basta: hay que
+ * limpiar tambien como estaba colocada.
+ */
+export function resetLayout(node) {
+  node.classList.remove('v-item');
+  node.style.position = '';
+  node.style.top = '';
+  node.style.left = '';
+  node.style.width = '';
+  node.style.transform = '';
+  node.style.paddingRight = '';
+}

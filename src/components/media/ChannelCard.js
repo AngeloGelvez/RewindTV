@@ -17,7 +17,7 @@
  *
  * Es un <a> real (ver TitleCard): alcanzable con teclado y con mando.
  */
-import { template } from '../../core/dom.js';
+import { template, resetLayout } from '../../core/dom.js';
 import { createPool } from '../../patterns/objectPool.js';
 import { hydrateImage, resetImage, initials } from '../ui/LazyImage.js';
 
@@ -77,7 +77,7 @@ export const channelPool = createPool({
     node.removeAttribute('data-id');
     node.removeAttribute('href');
     node.removeAttribute('aria-label');
-    node.style.left = '';
+    resetLayout(node);
   },
   prime: 10,
   max: 60,

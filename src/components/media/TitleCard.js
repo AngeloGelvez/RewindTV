@@ -20,7 +20,7 @@
  * degradado que oscurece la foto y aun asi falla con imagenes claras. Solo los
  * dos chips de estado van dentro, que es donde se esperan.
  */
-import { template } from '../../core/dom.js';
+import { template, resetLayout } from '../../core/dom.js';
 import { createPool } from '../../patterns/objectPool.js';
 import { hydrateImage, resetImage, initials } from '../ui/LazyImage.js';
 import { inkFor, shade } from '../../core/theme.js';
@@ -93,10 +93,10 @@ export const cardPool = createPool({
     node.removeAttribute('data-id');
     node.removeAttribute('href');
     node.removeAttribute('aria-label');
-    node.style.transform = '';
-    // La grilla anade separacion con padding; el carril no. Sin limpiarlo, una
-    // tarjeta reciclada de una vista se lleva el hueco a la otra.
-    node.style.paddingRight = '';
+    // Incluye la separacion que anade la grilla y la posicion absoluta que
+    // ponen carrusel y grilla: sin eso la tarjeta se lleva la colocacion de
+    // una vista a la siguiente.
+    resetLayout(node);
   },
   prime: 18,
   max: 90,
