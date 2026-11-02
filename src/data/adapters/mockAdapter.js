@@ -65,13 +65,13 @@ export const adapter = {
    * nueva de los trozos.
    */
   async loadChannelIndex() {
-    const key = 'channels:index';
-    let raw = await cache.get(key, { maxAge: 30 * 60_000 });
-    if (!raw) {
-      raw = await fetchJson('/data/channels/index.json');
-      cache.set(key, raw);
-    }
-    return raw;
+    // SIN cache propia, a proposito. El indice es lo que dice que version de
+    // los trozos toca leer: cachearlo 30 minutos hacia que una lista nueva
+    // tardara media hora en verse (la cabecera seguia contando los canales
+    // viejos). Son 7 KB y el navegador ya los gestiona con su cache HTTP; lo
+    // que merece cache de IndexedDB son los trozos, y esos llevan la version
+    // del indice en la clave.
+    return fetchJson('/data/channels/index.json');
   },
 
   /**
