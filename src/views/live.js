@@ -3,13 +3,14 @@
  * El reproductor no se monta hasta que eliges canal, y aun entonces usa la
  * facade: hls.js solo se descarga al pulsar play.
  */
-import { el, delegate } from '../core/dom.js';
+import { el, delegate, clear } from '../core/dom.js';
 import { createView } from './_view.js';
+import { write } from '../core/scheduler.js';
+import { observeIntersection } from '../patterns/observer.js';
 import {
   loadChannels, getChannels, getChannel, getChannelsByCategory, channelCategories,
 } from '../data/repository.js';
 import { renderChannel, recycleChannel } from '../components/media/ChannelCard.js';
-import VirtualGrid from '../components/media/VirtualGrid.js';
 import { Player } from '../components/media/Player.js';
 import { createSource } from '../data/models/embed.js';
 
@@ -29,23 +30,50 @@ export default async function liveView({ outlet, query }) {
   const escenario = el('div', { class: 'mb-8' });
 
   /*
-   * Rejilla virtualizada, no una grilla CSS con todo dentro.
+   * Rejilla que CRECE con el scroll de la pagina, no una caja con scroll
+   * propio.
    *
-   * Con 50 canales daba igual; la lista pasa de 1.800 y pintar 1.800 tarjetas
-   * de golpe son ~20.000 nodos en el DOM, que es exactamente lo que este
-   * proyecto evita en el catalogo. El mismo componente del catalogo sirve
-   * aqui: solo cambia la tarjeta y el alto de fila, que en un canal es fijo
-   * (logo + dos lineas + chips) y no depende del ancho.
+   * Antes era una rejilla virtualizada con su contenedor de alto fijo y su
+   * `overflow`. Rendia bien, pero metia una barra de scroll dentro de otra: la
+   * rueda movia unas veces la pagina y otras la caja, y en movil el gesto se
+   * peleaba con el del sistema.
+   *
+   * Ahora entran LOTE canales y los siguientes se añaden cuando el centinela
+   * del final se acerca a la ventana. El coste de pintar lo acota la propia
+   * tarjeta con `content-visibility` (ver .card-surface): lo que queda fuera de
+   * la ventana no se pinta ni se mide, aunque este en el DOM.
    */
-  const grid = VirtualGrid({
-    items: [],
-    minColumnWidth: 270,
-    render: renderChannel,
-    recycle: recycleChannel,
-    itemHeight: (_ancho, k) => 138 * k,
-    onSelect: (id) => reproducir(id),
+  const LOTE = 50;
+  let lista = [];
+  let mostrados = 0;
+  let montadas = [];
+
+  const grid = el('div', {
+    class: 'grid grid-cols-[repeat(auto-fill,minmax(270px,1fr))] gap-4',
   });
-  piezas.push(grid);
+
+  const contador = el('p', { class: 'pt-6 text-center text-sm text-ink-2' });
+  // Va DEBAJO de la rejilla y se observa con margen: pide el lote siguiente
+  // antes de que se llegue al final, no cuando ya se ve el hueco.
+  const centinela = el('div', { class: 'h-px w-full', 'aria-hidden': 'true' });
+
+  function mostrarMas() {
+    if (mostrados >= lista.length) return;
+    const hasta = Math.min(mostrados + LOTE, lista.length);
+    const frag = document.createDocumentFragment();
+    for (let i = mostrados; i < hasta; i++) {
+      const node = renderChannel(lista[i]);
+      node.classList.add('cursor-pointer');
+      montadas.push(node);
+      frag.appendChild(node);
+    }
+    mostrados = hasta;
+    write(() => {
+      grid.appendChild(frag);
+      contador.textContent =
+        mostrados < lista.length ? `${mostrados} de ${lista.length} canales` : '';
+    });
+  }
 
   let categoriaActiva = null;
 
@@ -72,7 +100,16 @@ export default async function liveView({ outlet, query }) {
       chip.setAttribute('aria-pressed', String(activo));
     }
 
-    grid.update({ items: cat ? getChannelsByCategory(cat) : getChannels() });
+    // Cambiar de categoria empieza de cero: se devuelven las tarjetas al pool
+    // y vuelve a entrar el primer lote.
+    lista = cat ? getChannelsByCategory(cat) : getChannels();
+    mostrados = 0;
+    write(() => {
+      for (const node of montadas) recycleChannel(node);
+      montadas = [];
+      clear(grid);
+      mostrarMas();
+    });
   }
 
   function reproducir(id) {
@@ -111,9 +148,9 @@ export default async function liveView({ outlet, query }) {
     escenario.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
-  const node = el('div', { class: 'px-4 py-8 md:px-8' }, [
+  const node = el('div', { class: 'px-4 py-7 md:px-6 md:py-9 lg:px-8' }, [
     el('header', { class: 'mb-6 space-y-2' }, [
-      el('h1', { class: 'font-display text-4xl tracking-wide md:text-5xl' }, 'En vivo'),
+      el('h1', { class: 'font-display text-3xl font-extrabold tracking-tight md:text-4xl' }, 'En vivo'),
       el(
         'p',
         { class: 'text-sm text-ink-1' },
@@ -131,17 +168,39 @@ export default async function liveView({ outlet, query }) {
     ]),
     escenario,
     el('div', { class: 'mb-6 flex flex-wrap gap-2', role: 'group', 'aria-label': 'Filtrar por categoria' }, chips),
-    grid.node,
+    grid,
+    centinela,
+    contador,
   ]);
 
   const quitarChips = delegate(node, '[data-cat]', 'click', (_e, target) => {
     pintar(target.dataset.cat || null);
   });
+
+  const quitarGrid = delegate(grid, '[data-id]', 'click', (event, target) => {
+    if (event.ctrlKey || event.metaKey || event.shiftKey) return;
+    event.preventDefault();
+    reproducir(target.dataset.id);
+  });
+
+  // 600 px de colchon: a velocidad de scroll normal el lote siguiente ya esta
+  // montado cuando el final de la rejilla llegaria a verse.
+  const dejarDeObservar = observeIntersection(
+    centinela,
+    (entry) => {
+      if (entry.isIntersecting) mostrarMas();
+    },
+    { rootMargin: '600px' },
+  );
   pintar(null);
   if (query.c) reproducir(query.c);
 
   return createView(node, outlet, () => {
     quitarChips();
+    quitarGrid();
+    dejarDeObservar();
+    for (const n of montadas) recycleChannel(n);
+    montadas = [];
     for (const p of piezas) p.destroy?.();
   });
 }

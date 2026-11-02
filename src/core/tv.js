@@ -23,17 +23,29 @@ const KEY = 'rewind:tv';
 function forced() {
   try {
     const q = new URLSearchParams(location.search).get('tv');
-    if (q === '1' || q === '0') localStorage.setItem(KEY, q);
-    return localStorage.getItem(KEY);
+    // `?tv=1` se recuerda, que es lo util en un televisor que no se
+    // identifica. `?tv=0` BORRA la marca en vez de guardar un "no": si se
+    // guardara, un PC que probo el modo TV se quedaria con una preferencia
+    // pegada para siempre, y un televisor que lo desactivo una vez no volveria
+    // a detectarse solo.
+    if (q === '1') localStorage.setItem(KEY, '1');
+    else if (q === '0') localStorage.removeItem(KEY);
+    const guardado = localStorage.getItem(KEY);
+    // Un '0' guardado viene de la version anterior, cuando el "no" tambien se
+    // recordaba. Se limpia al pasar: si no, ese navegador no volveria a
+    // detectar un televisor nunca.
+    if (guardado === '0') {
+      localStorage.removeItem(KEY);
+      return null;
+    }
+    return guardado;
   } catch {
     return null;
   }
 }
 
 export function isTv() {
-  const f = forced();
-  if (f === '1') return true;
-  if (f === '0') return false;
+  if (forced() === '1') return true;
   return UA_TV.test(navigator.userAgent);
 }
 

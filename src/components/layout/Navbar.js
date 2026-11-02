@@ -47,9 +47,14 @@ export const Rail = defineComponent({
         'aria-label': 'Principal',
         'data-rail': '',
         class:
-          'fixed inset-x-0 bottom-0 z-50 flex h-[4.25rem] items-stretch border-t glass pb-[env(safe-area-inset-bottom)] hairline md:hidden',
+          'fixed inset-x-0 bottom-0 z-50 flex h-[4.25rem] items-stretch border-t glass pb-[env(safe-area-inset-bottom)] hairline lg:hidden',
       },
-      items,
+      [
+        // Solo se ve en television, donde el rail sustituye a la barra de
+        // arriba y hace falta algo que diga de quien es la pantalla.
+        el('span', { 'data-rail-logo': '', class: 'hidden' }, [logo({ wordmark: false, size: 'size-10' })]),
+        ...items,
+      ],
     );
 
     onDispose(
@@ -127,6 +132,8 @@ export const Topbar = defineComponent({
     );
 
     // Enlaces con rotulo: solo en escritorio, donde hay sitio para leerlos.
+    // Con rotulo y desde 1024. Por debajo manda la barra inferior, que en una
+    // tablet tactil se alcanza mejor que una fila de enlaces arriba.
     const enlaces = LINKS.slice(0, 4).map((link) =>
       el(
         'a',

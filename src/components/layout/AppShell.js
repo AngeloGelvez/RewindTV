@@ -25,7 +25,7 @@ export function mountShell(root) {
     tabindex: '-1',
     // El hueco de abajo es el alto de la barra movil: sin el, la ultima fila
     // queda debajo de ella y no se puede pulsar.
-    class: 'mx-auto w-full max-w-[1600px] flex-1 pb-28 outline-none md:pb-14',
+    class: 'mx-auto w-full max-w-[1600px] flex-1 pb-28 outline-none lg:pb-14',
   });
 
   const saltar = el(
