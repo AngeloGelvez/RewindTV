@@ -64,7 +64,7 @@ export const adapter = {
    * stream responde, y eso lo revalida `scripts/check-channels.mjs`.
    */
   async loadChannels() {
-    const key = 'channels:v2'; // v2: 50 canales (se quitaron 5 con la variante muerta)
+    const key = 'channels:v3'; // v3: 1.864 canales (fusion de la lista nueva)
     let raw = await cache.get(key, { maxAge: 7 * 86_400_000 });
     if (!raw) {
       raw = await fetchJson('/data/channels.json');

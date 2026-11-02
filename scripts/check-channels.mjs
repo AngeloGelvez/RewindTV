@@ -15,7 +15,10 @@ const FILE = new URL('../public/data/channels.json', import.meta.url);
 // 15 s y no 9: hay canales lentos pero vivos, y un corte por impaciencia se
 // parece demasiado a un canal muerto.
 const TIMEOUT = 15_000;
-const CONCURRENCY = 24;
+// Sube con el tamano de la lista: con 50 canales daba igual, con casi 2.000
+// a 24 en paralelo la pasada se iba a veinte minutos. Un timeout no borra
+// nada (ver --prune), asi que apretar aqui no cuesta canales.
+const CONCURRENCY = 48;
 const prune = process.argv.includes('--prune');
 
 const channels = JSON.parse(await readFile(FILE, 'utf8'));

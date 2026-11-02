@@ -2,7 +2,11 @@
  * VIRTUAL GRID (windowing)
  * ========================
  * Renderiza solo las filas visibles mas un colchon. Con 5.000 titulos el DOM
- * mantiene ~40 nodos, y los que salen vuelven al pool de TitleCard.
+ * mantiene ~40 nodos, y los que salen vuelven al pool de su tarjeta.
+ *
+ * Sirve para CUALQUIER tarjeta con pool: por defecto monta TitleCard, pero
+ * recibe `render`/`recycle` y el alto de fila, que es lo que necesita la
+ * rejilla de canales (tarjeta de alto fijo en vez de 16:9 + texto).
  *
  * Cooperaciones:
  *  - scheduler.read/write  -> medir y pintar en fases separadas
@@ -26,7 +30,22 @@ const HUECO = 14; // separacion entre tarjetas
 const BUFFER_ROWS = 2;
 
 export const VirtualGrid = defineComponent({
-  setup({ items = [], minColumnWidth: baseColumn = 180, onSelect }, { onDispose }) {
+  setup(
+    {
+      items = [],
+      minColumnWidth: baseColumn = 180,
+      onSelect,
+      render = renderCard,
+      recycle = recycleCard,
+      // Alto de la tarjeta a partir del ancho de columna. El de serie es el de
+      // TitleCard: miniatura 16:9 mas dos lineas de texto.
+      itemHeight = (ancho, k) => (ancho * 9) / 16 + TEXTO * k,
+      // Releer una tarjeta ya montada sin recrearla. Solo lo sabe hacer quien
+      // conoce la tarjeta; sin esto, refresh() vuelve a montar la ventana.
+      fill = render === renderCard ? fillCard : null,
+    },
+    { onDispose },
+  ) {
     // En modo TV la fuente raiz crece y las tarjetas con ella (ver Carousel).
     // Se recalcula en measure(), no solo al montar.
     let k = 0;
@@ -53,7 +72,7 @@ export const VirtualGrid = defineComponent({
         const next = Math.max(1, Math.floor(width / minColumnWidth));
         // El alto sale del ancho real de columna, no de una constante: si no,
         // al estrechar la ventana las tarjetas se solapan con la fila de abajo.
-        const alto = Math.round(((width / next - hueco) * 9) / 16 + TEXTO * k + hueco);
+        const alto = Math.round(itemHeight(width / next - hueco, k) + hueco);
         const cambioAlto = alto !== ROW_HEIGHT;
         ROW_HEIGHT = alto;
         if (next !== columns || cambio || cambioAlto) {
@@ -83,7 +102,7 @@ export const VirtualGrid = defineComponent({
         for (const [index, node] of mounted) {
           if (index < from || index > to || force) {
             node.remove();
-            recycleCard(node);
+            recycle(node);
             mounted.delete(index);
           }
         }
@@ -93,7 +112,7 @@ export const VirtualGrid = defineComponent({
         const cellWidth = 100 / columns;
         for (let index = from; index <= to; index++) {
           if (mounted.has(index)) continue;
-          const node = renderCard(data[index]);
+          const node = render(data[index]);
           node.classList.add('v-item');
           node.style.top = `${Math.floor(index / columns) * ROW_HEIGHT}px`;
           node.style.left = `${(index % columns) * cellWidth}%`;
@@ -121,7 +140,7 @@ export const VirtualGrid = defineComponent({
       }),
     );
     onDispose(() => {
-      for (const node of mounted.values()) recycleCard(node);
+      for (const node of mounted.values()) recycle(node);
       mounted.clear();
     });
 
@@ -137,7 +156,8 @@ export const VirtualGrid = defineComponent({
       },
       /** Actualiza en sitio sin recrear nodos (p. ej. tras marcar favoritos). */
       refresh() {
-        for (const [index, node] of mounted) fillCard(node, data[index]);
+        if (!fill) return reflow(true);
+        for (const [index, node] of mounted) fill(node, data[index]);
       },
     };
   },

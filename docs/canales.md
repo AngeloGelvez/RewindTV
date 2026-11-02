@@ -98,6 +98,37 @@ Se descompone en campos:
 Un apunte: el etiquetado de origen tiene errores que no corregi porque vienen
 del m3u original — "Frecuencia Musical TV" esta marcado como `anime`.
 
+## Segunda remesa: 1.864 canales
+
+A la lista verificada se le sumo un volcado externo de 3.814 lineas
+(`canal;grupo;tipo;listas;url;logo`) con `scripts/import-canales.mjs`, que
+SUMA sin tocar lo que ya estaba. De esas 3.814 filas entraron 1.853:
+
+| Descartado | N.º | Por que |
+| --- | ---: | --- |
+| Radio | 1.396 | Esto es un catalogo de television. Una emisora sin imagen en una rejilla de tarjetas con logo es una tarjeta que no hace nada |
+| `http://` | 323 | El navegador bloquea mixed content en una web HTTPS, sin aviso util: entrarian solo para fallar al pulsarlas |
+| No es HLS | 224 | .mpd (DASH) y ficheros sueltos; un "canal en vivo" que es un mp4 en bucle no es un canal |
+| Ya estaban | 18 | Misma URL que uno de los 50 |
+
+169 comparten nombre con otro (una cadena con dos señales) y se numera el id
+en vez de pisarlo.
+
+El nombre trae cuatro datos pegados y se parten con las mismas convenciones
+que la primera remesa: `Telefe (1080p) [Not 24/7] | AR` da nombre, calidad,
+franjas y pais.
+
+Despues de pasar el verificador: **1.864 vivos de 1.903** (39 caidos, casi
+todos 403 y 404). La lista final cubre 35 paises.
+
+### La rejilla tuvo que virtualizarse
+
+Con 50 canales, `live.js` pintaba una grilla CSS con todos dentro. Con 1.864
+eso son ~20.000 nodos en el DOM, justo lo que el catalogo evita desde el
+principio. Ahora usa el mismo `VirtualGrid` del catalogo —generalizado para
+aceptar cualquier tarjeta con pool— y mantiene **40-50 tarjetas vivas**
+recorriendo los 56.000 px de alto de la lista.
+
 ## Revalidacion periodica
 
 Los streams publicos se caen constantemente. Hay script permanente:
@@ -114,8 +145,8 @@ vivos y sellando `checkedAt`:
 node scripts/check-channels.mjs --prune
 ```
 
-Verificado el 2 de noviembre de 2026: **50 / 55 vivos**. Los cinco caidos se
-quitaron del fichero.
+Verificado el 2 de noviembre de 2026: **50 / 55 vivos** en la primera lista.
+Los cinco caidos se quitaron del fichero.
 
 ### El master vivo no basta
 
@@ -136,7 +167,12 @@ Dos reglas que salieron de ahi:
 
 ## Sobre el tamano del dataset
 
-55 canales son ~14 KB: cabe de sobra en un solo fichero. Si la lista crece a
-varios cientos, el corte natural es por categoria
-(`channels/musica.json`, `channels/deportes.json`), igual que ya hacemos con
-`episodes/<titleId>.json`. Con el volumen actual seria complicar sin ganar nada.
+1.864 canales son ~520 KB de JSON. Sigue en un solo fichero y de momento se
+sostiene: no entra en el arranque —solo lo pide quien abre "En vivo"— y queda
+en IndexedDB siete dias, asi que se baja una vez.
+
+El corte natural, si molesta, es por categoria (`channels/musica.json`,
+`channels/deportes.json`), igual que con `episodes/<titleId>.json`. Pero hoy
+ganaria poco: 1.246 de los 1.864 caen en `general`, asi que el fichero gordo
+seguiria siendo gordo. Lo que de verdad hacia falta no era partir el fichero,
+sino no pintarlo entero de golpe, y eso ya esta.

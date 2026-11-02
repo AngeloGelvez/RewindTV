@@ -3,13 +3,13 @@
  * El reproductor no se monta hasta que eliges canal, y aun entonces usa la
  * facade: hls.js solo se descarga al pulsar play.
  */
-import { el, delegate, clear } from '../core/dom.js';
+import { el, delegate } from '../core/dom.js';
 import { createView } from './_view.js';
-import { write } from '../core/scheduler.js';
 import {
   loadChannels, getChannels, getChannel, getChannelsByCategory, channelCategories,
 } from '../data/repository.js';
 import { renderChannel, recycleChannel } from '../components/media/ChannelCard.js';
+import VirtualGrid from '../components/media/VirtualGrid.js';
 import { Player } from '../components/media/Player.js';
 import { createSource } from '../data/models/embed.js';
 
@@ -24,13 +24,28 @@ export default async function liveView({ outlet, query }) {
   await loadChannels();
 
   const piezas = [];
-  let montadas = [];
   let player = null;
 
   const escenario = el('div', { class: 'mb-8' });
-  const grid = el('div', {
-    class: 'grid grid-cols-[repeat(auto-fill,minmax(270px,1fr))] gap-4',
+
+  /*
+   * Rejilla virtualizada, no una grilla CSS con todo dentro.
+   *
+   * Con 50 canales daba igual; la lista pasa de 1.800 y pintar 1.800 tarjetas
+   * de golpe son ~20.000 nodos en el DOM, que es exactamente lo que este
+   * proyecto evita en el catalogo. El mismo componente del catalogo sirve
+   * aqui: solo cambia la tarjeta y el alto de fila, que en un canal es fijo
+   * (logo + dos lineas + chips) y no depende del ancho.
+   */
+  const grid = VirtualGrid({
+    items: [],
+    minColumnWidth: 270,
+    render: renderChannel,
+    recycle: recycleChannel,
+    itemHeight: (_ancho, k) => 138 * k,
+    onSelect: (id) => reproducir(id),
   });
+  piezas.push(grid);
 
   let categoriaActiva = null;
 
@@ -57,20 +72,7 @@ export default async function liveView({ outlet, query }) {
       chip.setAttribute('aria-pressed', String(activo));
     }
 
-    const lista = cat ? getChannelsByCategory(cat) : getChannels();
-    write(() => {
-      for (const node of montadas) recycleChannel(node);
-      montadas = [];
-      clear(grid);
-      const frag = document.createDocumentFragment();
-      for (const canal of lista) {
-        const node = renderChannel(canal);
-        node.classList.add('cursor-pointer');
-        montadas.push(node);
-        frag.appendChild(node);
-      }
-      grid.appendChild(frag);
-    });
+    grid.update({ items: cat ? getChannelsByCategory(cat) : getChannels() });
   }
 
   function reproducir(id) {
@@ -120,26 +122,17 @@ export default async function liveView({ outlet, query }) {
     ]),
     escenario,
     el('div', { class: 'mb-6 flex flex-wrap gap-2', role: 'group', 'aria-label': 'Filtrar por categoria' }, chips),
-    grid,
+    grid.node,
   ]);
 
   const quitarChips = delegate(node, '[data-cat]', 'click', (_e, target) => {
     pintar(target.dataset.cat || null);
   });
-  const quitarGrid = delegate(grid, '[data-id]', 'click', (event, target) => {
-    if (event.ctrlKey || event.metaKey || event.shiftKey) return;
-    event.preventDefault();
-    reproducir(target.dataset.id);
-  });
-
   pintar(null);
   if (query.c) reproducir(query.c);
 
   return createView(node, outlet, () => {
     quitarChips();
-    quitarGrid();
-    for (const node of montadas) recycleChannel(node);
-    montadas = [];
     for (const p of piezas) p.destroy?.();
   });
 }
