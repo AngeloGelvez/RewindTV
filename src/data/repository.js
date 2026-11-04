@@ -12,6 +12,7 @@ import { memoize } from '../patterns/memoize.js';
 import { idle } from '../core/scheduler.js';
 import { isActive, daysUntil, daysToPeak } from './models/festivity.js';
 import { hydrate as hydrateSourceHealth } from './sourceHealth.js';
+import { createChannel } from './models/channel.js';
 
 let bootstrapped = null;
 
@@ -234,17 +235,35 @@ export const query = memoize(
 
 let searchIndex = null;
 
+/**
+ * Texto comparable: sin acentos y en minusculas.
+ *
+ * Es la diferencia entre que el buscador sirva o no. Medio catalogo lleva
+ * tilde —"El Capitán Planeta", "Día de Muertos", "Dragón"— y nadie las escribe
+ * al buscar: antes, "capitan" encontraba UN titulo de cuatro, y el que no
+ * llevaba tilde. La normalizacion va en los dos lados, indice y consulta.
+ */
+const normalizar = (texto) =>
+  texto
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .toLowerCase();
+
 function buildSearchIndex() {
   if (searchIndex) return;
   searchIndex = index.titles.map((title) => ({
     title,
-    haystack: `${title.name} ${title.year} ${title.genres.map((g) => g.label).join(' ')}`.toLowerCase(),
+    // La cadena entra en el indice: "cartoon network" es una busqueda legitima
+    // y el genero aqui es "animacion" en los 503, asi que no distingue nada.
+    haystack: normalizar(
+      `${title.name} ${title.year} ${title.network?.name ?? ''} ${title.genres.map((g) => g.label).join(' ')}`,
+    ),
   }));
 }
 
 export const search = memoize(
   (term) => {
-    const needle = term.trim().toLowerCase();
+    const needle = normalizar(term.trim());
     if (needle.length < 2) return [];
     buildSearchIndex();
     const out = [];
@@ -256,26 +275,108 @@ export const search = memoize(
   { limit: 32 },
 );
 
+/**
+ * Busqueda de canales. El buscador prometia "series, pelis o canales" y solo
+ * miraba el catalogo: escribir "ESPN" con 1.864 canales dentro no devolvia
+ * nada. El indice se arma la primera vez que se busca, no al cargar los
+ * canales: quien entra a "En vivo" y no busca no paga ese trabajo.
+ */
+let channelSearchIndex = null;
+
+export const searchChannels = memoize(
+  (term) => {
+    const needle = normalizar(term.trim());
+    if (needle.length < 2 || !channelIndex.all.length) return [];
+    if (!channelSearchIndex) {
+      channelSearchIndex = channelIndex.all.map((channel) => ({
+        channel,
+        haystack: normalizar(
+          `${channel.name} ${channel.category} ${channel.country ?? ''} ${channel.genres.map((g) => g.label).join(' ')}`,
+        ),
+      }));
+    }
+    const out = [];
+    for (let i = 0; i < channelSearchIndex.length && out.length < 40; i++) {
+      if (channelSearchIndex[i].haystack.includes(needle)) out.push(channelSearchIndex[i].channel);
+    }
+    return out;
+  },
+  { limit: 32 },
+);
+
 // -------------------------------------------------------------------- canales
 
-let channelsPromise = null;
-const channelIndex = { all: [], byId: new Map(), byCategory: new Map() };
+/**
+ * Canales en vivo.
+ *
+ * La lista son ~8.000 canales y no se baja entera. Se pide:
+ *   1. el INDICE (categorias, cuantos hay y los destacados de la portada), y
+ *   2. cada TROZO de ~1.000 canales cuando hace falta: la rejilla de "En vivo"
+ *      pide el siguiente al hacer scroll y el buscador los pide todos la
+ *      primera vez que se escribe algo.
+ *
+ * `channelIndex` solo contiene lo YA cargado; `getChannel` devuelve undefined
+ * para un canal cuyo trozo no se ha pedido, y quien necesite uno concreto debe
+ * cargar antes su categoria (`loadChannelCategory`).
+ */
+let indicePromise = null;
+let indice = null;
+const channelIndex = { all: [], byId: new Map() };
+const trozosCargados = new Map(); // "categoria/fichero" -> Promise<Channel[]>
 
-/** Canales en vivo. Carga diferida: la portada no los necesita. */
-export function loadChannels() {
-  if (channelsPromise) return channelsPromise;
-  channelsPromise = adapter.loadChannels().then((channels) => {
-    channelIndex.all = channels;
-    for (const channel of channels) {
-      channelIndex.byId.set(channel.id, channel);
-      pushTo(channelIndex.byCategory, channel.category, channel);
-    }
-    return channels;
-  });
-  return channelsPromise;
+function registrar(canales) {
+  for (const c of canales) {
+    if (channelIndex.byId.has(c.id)) continue;
+    channelIndex.byId.set(c.id, c);
+    channelIndex.all.push(c);
+  }
+  channelSearchIndex = null; // el indice de busqueda se rehace con lo nuevo
 }
 
+/** Categorias, totales y destacados. Es lo unico que pide la portada. */
+export function loadChannelIndex() {
+  if (indicePromise) return indicePromise;
+  indicePromise = adapter.loadChannelIndex().then((raw) => {
+    indice = raw;
+    registrar(raw.destacados.map((c, i) => createChannel(c, i)));
+    return raw;
+  });
+  return indicePromise;
+}
+
+/** Un trozo concreto, con deduplicacion: dos peticiones a la vez son una. */
+export async function loadChannelChunk(categoria, fichero) {
+  const idx = await loadChannelIndex();
+  const clave = `${categoria}/${fichero}`;
+  let pendiente = trozosCargados.get(clave);
+  if (!pendiente) {
+    pendiente = adapter.loadChannelChunk(idx.version, categoria, fichero).then((canales) => {
+      registrar(canales);
+      return canales;
+    });
+    trozosCargados.set(clave, pendiente);
+  }
+  return pendiente;
+}
+
+/** Todos los trozos de una categoria. */
+export async function loadChannelCategory(slug) {
+  const idx = await loadChannelIndex();
+  const cat = idx.categorias.find((c) => c.slug === slug);
+  if (!cat) return [];
+  const partes = await Promise.all(cat.trozos.map((t) => loadChannelChunk(slug, t.file)));
+  return partes.flat();
+}
+
+/** Todo. Solo para quien lo necesita entero: el buscador y los enlaces sin categoria. */
+export async function loadAllChannels() {
+  const idx = await loadChannelIndex();
+  await Promise.all(idx.categorias.map((c) => loadChannelCategory(c.slug)));
+  return channelIndex.all;
+}
+
+export const channelsCatalog = () => indice;
+export const channelCategories = () => indice?.categorias ?? [];
 export const getChannel = (id) => channelIndex.byId.get(id);
 export const getChannels = () => channelIndex.all;
-export const getChannelsByCategory = (category) => channelIndex.byCategory.get(category) ?? [];
-export const channelCategories = () => [...channelIndex.byCategory.keys()];
+export const getFeaturedChannels = () => indice?.destacados.map((c) => channelIndex.byId.get(c.id)).filter(Boolean) ?? [];

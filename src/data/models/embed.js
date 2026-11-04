@@ -32,8 +32,21 @@ const PROVIDERS = {
   // servicio con dos formas de URL (el id va en el path o en el fragmento), y
   // por eso son dos entradas: lo que cambia es como se construye, que es
   // justo lo que este registro guarda.
-  rpmvid: { kind: 'iframe', label: 'Cube', build: (id) => `https://cubeembed.rpmvid.com/#${id}` },
-  cubeembed: { kind: 'iframe', label: 'Cube', build: (id) => `https://cubeembed.com/v/${id}` },
+  //
+  // `ping` es la direccion que el Player sondea para avisar si el servicio esta
+  // caido: Cube se queda en negro sin decir nada, y un iframe no deja saberlo.
+  rpmvid: {
+    kind: 'iframe',
+    label: 'Cube',
+    build: (id) => `https://cubeembed.rpmvid.com/#${id}`,
+    ping: 'https://cubeembed.rpmvid.com/',
+  },
+  cubeembed: {
+    kind: 'iframe',
+    label: 'Cube',
+    build: (id) => `https://cubeembed.com/v/${id}`,
+    ping: 'https://cubeembed.com/',
+  },
   dhtpre: { kind: 'iframe', label: 'Dhtpre', build: (id) => `https://dhtpre.com/embed/${id}` },
   sendvid: { kind: 'iframe', label: 'Sendvid', build: (id) => `https://sendvid.com/embed/${id}` },
   yourupload: {
@@ -109,5 +122,6 @@ export const isIframe = (source) => source?.kind === 'iframe';
 export const isHlsUrl = (url) => typeof url === 'string' && HLS.test(url);
 export const providerLabel = (source) =>
   source ? (PROVIDERS[source.provider]?.label ?? source.provider) : '';
+export const providerPing = (source) => PROVIDERS[source?.provider]?.ping ?? null;
 export const providerKind = (provider) => PROVIDERS[provider]?.kind ?? null;
 export const knownProviders = () => Object.keys(PROVIDERS);

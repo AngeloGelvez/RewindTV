@@ -59,18 +59,36 @@ export const adapter = {
   },
 
   /**
-   * Canales HLS en vivo. Solo los pide quien entra al modo en vivo.
-   * Cache larga (7 dias) porque la lista cambia poco; lo que cambia es si el
-   * stream responde, y eso lo revalida `scripts/check-channels.mjs`.
+   * Indice de canales: categorias con sus trozos, y los destacados de la
+   * portada. Es lo unico que se pide al entrar; el resto va bajo demanda.
+   * Pesa unos KB, asi que su cache es corta: es lo que avisa de una version
+   * nueva de los trozos.
    */
-  async loadChannels() {
-    const key = 'channels:v3'; // v3: 1.864 canales (fusion de la lista nueva)
+  async loadChannelIndex() {
+    // SIN cache propia, a proposito. El indice es lo que dice que version de
+    // los trozos toca leer: cachearlo 30 minutos hacia que una lista nueva
+    // tardara media hora en verse (la cabecera seguia contando los canales
+    // viejos). Son 7 KB y el navegador ya los gestiona con su cache HTTP; lo
+    // que merece cache de IndexedDB son los trozos, y esos llevan la version
+    // del indice en la clave.
+    return fetchJson('/data/channels/index.json');
+  },
+
+  /**
+   * Un trozo de ~1.000 canales. La clave lleva la VERSION del indice: cada vez
+   * que se regenera la lista cambia, y el trozo viejo deja de leerse solo, sin
+   * tener que acordarse de subir un numero a mano (que es lo que habia que
+   * hacer con `channels:v4` y se olvidaba).
+   */
+  async loadChannelChunk(version, categoria, fichero) {
+    const key = `channels:${version}:${fichero}`;
     let raw = await cache.get(key, { maxAge: 7 * 86_400_000 });
     if (!raw) {
-      raw = await fetchJson('/data/channels.json');
+      raw = await fetchJson(`/data/channels/${fichero}`);
       cache.set(key, raw);
     }
-    return raw.map(createChannel);
+    // La categoria va implicita en el fichero: no se repite en cada registro.
+    return raw.map((c, i) => createChannel({ ...c, category: categoria }, i));
   },
 
   /** Guia de programacion del catalogo propio (distinta de los canales HLS). */

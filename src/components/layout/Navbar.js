@@ -16,6 +16,7 @@ import { defineComponent } from '../base/Component.js';
 import { icon } from '../ui/icons.js';
 import { logo } from '../ui/Logo.js';
 import { getMode, toggleMode } from '../../core/theme.js';
+import { toggleTv } from '../../core/tv.js';
 
 const LINKS = [
   { href: '/', label: 'Inicio', route: 'home', ico: 'home' },
@@ -47,9 +48,16 @@ export const Rail = defineComponent({
         'aria-label': 'Principal',
         'data-rail': '',
         class:
-          'fixed inset-x-0 bottom-0 z-50 flex h-[4.25rem] items-stretch border-t glass pb-[env(safe-area-inset-bottom)] hairline md:hidden',
+          'fixed inset-x-0 bottom-0 z-50 flex h-[4.25rem] items-stretch border-t glass pb-[env(safe-area-inset-bottom)] hairline lg:hidden',
       },
-      items,
+      [
+        // Solo se ve en television, donde el rail sustituye a la barra de
+        // arriba y hace falta algo que diga de quien es la pantalla. Va con su
+        // nombre escrito: el CSS del modo TV lo esconde mientras el rail esta
+        // plegado y lo enseña al desplegarse, igual que los rotulos.
+        el('span', { 'data-rail-logo': '', class: 'hidden' }, [logo({ size: 'size-5' })]),
+        ...items,
+      ],
     );
 
     onDispose(
@@ -67,6 +75,24 @@ export const Rail = defineComponent({
     return { node };
   },
 });
+
+/**
+ * Probar la interfaz de televisor desde el PC, sin escribir `?tv=1`. Solo existe
+ * en desarrollo: quien usa la web no tiene por que verlo. Atajo: Alt+T.
+ */
+function tvToggle(visibility = '') {
+  return el(
+    'button',
+    {
+      type: 'button',
+      class: `${visibility} size-10 shrink-0 place-items-center rounded-pill border text-ink-1 transition hairline hover:border-[var(--fest-text)] hover:text-ink-0`,
+      'aria-label': 'Modo televisor',
+      title: 'Modo televisor (Alt+T)',
+      onClick: toggleTv,
+    },
+    [icon('tv', 'size-[18px]')],
+  );
+}
 
 /** Boton claro/oscuro. Los dos iconos viven montados y solo se alterna cual se ve. */
 function modeToggle() {
@@ -127,6 +153,8 @@ export const Topbar = defineComponent({
     );
 
     // Enlaces con rotulo: solo en escritorio, donde hay sitio para leerlos.
+    // Con rotulo y desde 1024. Por debajo manda la barra inferior, que en una
+    // tablet tactil se alcanza mejor que una fila de enlaces arriba.
     const enlaces = LINKS.slice(0, 4).map((link) =>
       el(
         'a',
@@ -149,6 +177,7 @@ export const Topbar = defineComponent({
           // El buscador se come el espacio sobrante y queda centrado.
           el('div', { class: 'ml-auto flex min-w-0 flex-1 justify-end md:justify-center' }, [buscador]),
           el('div', { class: 'flex shrink-0 items-center gap-2' }, [
+            import.meta.env.DEV ? tvToggle('hidden lg:grid') : null,
             modeToggle(),
             el(
               'a',

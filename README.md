@@ -170,14 +170,23 @@ pintado, para que la app no arranque violeta y salte al color del dia.
 
 ### Responsive
 
-Un solo juego de componentes para movil, tablet, escritorio y television:
+Un solo juego de componentes para los **cuatro** tamanos. La navegacion es la
+pieza que mas cambia, y la regla es que siempre hay una y solo una:
 
-| Ancho | Que cambia |
-| --- | --- |
-| < 640 | Solo el simbolo del logo (el buscador necesita el ancho), navegacion en barra inferior al alcance del pulgar, 1,5 tarjetas por fila |
-| 640-1024 | Vuelve el nombre escrito y el boton "En vivo" |
-| > 1024 | Enlaces con rotulo en la barra superior, hasta 6 tarjetas por fila |
-| TV (`html.tv`) | La barra inferior vuelve a ser rail lateral y todo escala con la fuente raiz |
+| Tamano | Navegacion | Lo demas |
+| --- | --- | --- |
+| **Movil** (< 640) | Barra inferior con icono y rotulo, al alcance del pulgar | Solo el simbolo del logo: el buscador necesita el ancho. 1 columna |
+| **Tablet** (640-1023) | La misma barra inferior: una tablet es tactil, y abajo se alcanza mejor que arriba | Vuelve el nombre escrito y el boton "En vivo". 2 columnas |
+| **Escritorio** (>= 1024) | Enlaces con rotulo en la barra superior; la barra inferior desaparece | Hasta 6 tarjetas por fila |
+| **TV** (`html.tv`) | Rail lateral PLEGADO (solo iconos, 4,5rem) que se despliega al entrar el foco y enseña los rotulos. Sin barra superior | Todo escala con la fuente raiz |
+
+El corte movil/tablet esta en 1024 y no en 768 a proposito: entre 768 y 1023 los
+enlaces con rotulo no caben junto al buscador, y antes ese hueco se quedaba
+**sin ninguna navegacion**.
+
+En TV el rail se despliega ENCIMA del contenido —el relleno de la pagina es el
+del rail plegado— para que abrirlo no recoloque la rejilla entera, y el isotipo
+corona el rail porque ahi arriba ya no hay barra.
 
 Las filas no usan media queries: `Carousel` y `VirtualGrid` reciben el ancho de
 tarjeta como **funcion del ancho disponible**, asi que el numero de columnas y
@@ -216,7 +225,7 @@ o Fire TV actualizado. Por debajo faltan `aspect-ratio` y `:focus-visible`.
 | `/explorar` | Filtros de tipo y orden + grilla virtualizada |
 | `/titulo/:slug` | Ficha con poster, badge de cadena, tabs de temporada y rejilla de episodios |
 | `/ver/:slug/tN/cN` | Reproductor + lista de la temporada con el capitulo activo marcado + Anterior/Siguiente |
-| `/en-vivo` | 55 canales verificados, chips por categoria, reproductor HLS |
+| `/en-vivo` | 1.864 canales verificados, chips por categoria, reproductor HLS. La rejilla crece con el scroll de la pagina en lotes de 50 |
 | `/buscar` | Busqueda con debounce sobre el indice construido en idle |
 | `/guia` | Programacion del canal propio |
 
