@@ -21,9 +21,13 @@
 import { el } from '../../core/dom.js';
 import { defineComponent } from '../base/Component.js';
 import { icon } from '../ui/icons.js';
-import { embedUrl, isIframe, isHlsUrl, providerLabel } from '../../data/models/embed.js';
+import { embedUrl, isIframe, isHlsUrl, providerLabel, providerPing } from '../../data/models/embed.js';
 import { rank, markOk, markFailed } from '../../data/sourceHealth.js';
 import { emit, EVENTS } from '../../core/eventBus.js';
+
+// Cloudflare tarda mas que esto en devolver su error 522, asi que un servicio
+// caido se detecta por no contestar a tiempo.
+const PLAZO_SONDA = 8000;
 
 export const Player = defineComponent({
   setup({ source, sources, poster, label, autoplay = false }, { onDispose }) {
@@ -38,6 +42,7 @@ export const Player = defineComponent({
     let arrancado = false;
     let orden = [];
     let indice = 0;
+    let sonda = null;
 
     const caratula = el('button', {
       type: 'button',
@@ -90,6 +95,8 @@ export const Player = defineComponent({
 
     /** Cierra lo que haya montado y deja el marco vacio. */
     function limpiarMedia() {
+      sonda?.abort();
+      sonda = null;
       hls?.destroy();
       hls = null;
       const video = marco.querySelector('video');
@@ -144,7 +151,78 @@ export const Player = defineComponent({
       // No hay evento fiable que distinga "cargo" de "el proveedor dice que no
       // existe", asi que la decision la toma quien esta mirando.
       if (indice < orden.length - 1) marco.appendChild(botonOtraFuente());
+      vigilarProveedor(actual);
       marco.appendChild(insignia());
+    }
+
+    /**
+     * Avisa si el servicio del proveedor no contesta, en vez de dejar la
+     * pantalla en negro. El iframe ya esta cargando detras: quien funciona no
+     * espera nada, y el aviso solo aparece si la sonda falla.
+     *
+     * `no-cors` no deja leer el codigo de respuesta, asi que solo se distingue
+     * "contesta" de "no contesta". Un servicio que contesta y luego no carga el
+     * video sigue sin detectarse.
+     */
+    async function vigilarProveedor(actual) {
+      const ping = providerPing(actual);
+      if (!ping) return;
+      const control = new AbortController();
+      sonda = control;
+      const plazo = setTimeout(() => control.abort(), PLAZO_SONDA);
+      let caido = false;
+      try {
+        await fetch(ping, {
+          mode: 'no-cors',
+          cache: 'no-store',
+          credentials: 'omit',
+          referrerPolicy: 'no-referrer',
+          signal: control.signal,
+        });
+      } catch {
+        caido = true;
+      } finally {
+        clearTimeout(plazo);
+      }
+      // Otra sonda u otra fuente ocupo su lugar, o la vista ya se cerro.
+      if (sonda !== control) return;
+      sonda = null;
+      if (caido) mostrarAvisoProveedor(actual);
+    }
+
+    function mostrarAvisoProveedor(actual) {
+      const reintentar = el(
+        'button',
+        {
+          type: 'button',
+          class: 'rounded-pill border border-surface-3 px-4 py-1.5 text-xs text-ink-0 hover:border-[var(--fest-text)]',
+          onClick: () => {
+            limpiarMedia();
+            montar();
+          },
+        },
+        'Reintentar',
+      );
+      // La sonda puede equivocarse (un bloqueador, una red lenta): el aviso no
+      // debe impedir ver un video que si esta cargando detras.
+      const aviso = el('div', { class: 'absolute inset-0 z-20 grid place-content-center gap-3 bg-surface-1 p-6 text-center', role: 'alert' }, [
+        el('p', { class: 'text-sm font-semibold text-ink-0' }, `${providerLabel(actual)} no responde ahora mismo`),
+        el('p', { class: 'text-xs text-ink-1' }, 'Puede ser una caida temporal del proveedor del video. Prueba de nuevo en un rato.'),
+        el('div', { class: 'flex justify-center gap-2' }, [
+          reintentar,
+          el(
+            'button',
+            {
+              type: 'button',
+              class: 'rounded-pill px-4 py-1.5 text-xs text-ink-1 hover:text-ink-0',
+              onClick: () => aviso.remove(),
+            },
+            'Ver de todos modos',
+          ),
+        ]),
+      ]);
+      marco.appendChild(aviso);
+      reintentar.focus();
     }
 
     async function montarVideo(actual) {

@@ -304,17 +304,26 @@
    * Se despliega ENCIMA del contenido —el relleno de la pagina es el del rail
    * plegado— para que abrirlo no recoloque la rejilla entera.
    */
+  html.tv {
+    --rail-w: 4.5rem;
+    --rail-ico: 1.25rem;
+    /* Centra el icono en el rail plegado. Es el mismo relleno plegado y
+       desplegado, asi que los iconos no saltan al abrirse. */
+    --rail-pad: calc((var(--rail-w) - var(--rail-ico)) / 2);
+  }
+
+  /* Pegado al borde de la pantalla y al contenido: ni margen, ni marco, ni
+     esquinas. El rail y la pagina se leen como una sola superficie. */
   html.tv [data-rail] {
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 0.5rem;
-    inset: 3vh auto 3vh 2vw;
-    width: 4.5rem;
+    inset: 0 auto 0 0;
+    width: var(--rail-w);
     height: auto;
     padding: 0.75rem 0;
-    border: 1px solid var(--line);
-    border-radius: 1.25rem;
+    border: 0;
     transition: width 0.22s var(--ease-out-quint);
     overflow: hidden;
   }
@@ -325,13 +334,29 @@
   }
 
   html.tv [data-rail] > a {
+    display: flex;
     flex: 0 0 auto;
     flex-direction: row;
+    align-items: center;
     justify-content: flex-start;
     gap: 0.9rem;
     height: auto;
-    padding: 0.7rem 1.1rem;
+    padding: 0.7rem var(--rail-pad);
     border-radius: 0.9rem;
+  }
+
+  /* Iconos e isotipo con la misma caja: asi comparten eje vertical. */
+  html.tv [data-rail] svg {
+    width: var(--rail-ico);
+    height: var(--rail-ico);
+    flex: none;
+  }
+
+  /* Los enlaces llenan el rail y este recorta lo que sobresale: con el
+     desplazamiento general (+4px) el anillo de foco quedaria cortado. */
+  html.tv [data-rail] a:focus-visible,
+  html.tv [data-rail] a:focus {
+    outline-offset: -4px;
   }
 
   /* Plegado: el nombre no esta. El lector de pantalla no lo echa en falta,
@@ -349,16 +374,16 @@
      aparece el nombre escrito y el conjunto se alinea con los rotulos de
      abajo, en vez de quedarse centrado a medias. */
   html.tv [data-rail-logo] {
-    display: grid;
-    place-items: center;
-    padding: 0.25rem 0 1rem;
+    display: flex;
+    padding: 0.25rem var(--rail-pad) 1rem;
+  }
+  html.tv [data-rail-logo] > a {
+    gap: 0.9rem;
   }
   html.tv [data-rail-logo] [data-wordmark] {
     display: none;
-  }
-  html.tv [data-rail]:focus-within [data-rail-logo] {
-    place-items: center start;
-    padding-left: 1.1rem;
+    font-size: 1.1rem;
+    white-space: nowrap;
   }
   html.tv [data-rail]:focus-within [data-rail-logo] [data-wordmark] {
     display: block;
@@ -369,13 +394,27 @@
     display: none;
   }
 
-  html.tv [data-content] {
-    padding-left: calc(4.5rem + 4vw);
-    padding-right: 2vw;
+  /* En television el contenido ocupa todo el ancho que deja el rail: el tope
+     de 1600px solo tiene sentido en un monitor, y en una pantalla de 1920+
+     dejaba franjas vacias a los lados. */
+  html.tv #outlet {
+    max-width: none;
+    margin-inline: 0;
   }
 
-  /* La cabecera sticky ya no esta, asi que el foco no necesita hueco arriba. */
+  /* El contenido arranca donde acaba el rail y llega hasta el borde derecho. */
+  html.tv [data-content] {
+    padding-left: var(--rail-w);
+    padding-right: 0;
+  }
+
+  /* La cabecera sticky ya no esta, asi que el foco no necesita hueco arriba.
+     Sin barra de scroll: con mando no se usa y dejaba una franja a la derecha. */
   html.tv {
     scroll-padding-top: 2rem;
+    scrollbar-width: none;
+  }
+  html.tv::-webkit-scrollbar {
+    display: none;
   }
 }

@@ -52,7 +52,31 @@ export function isTv() {
 export function initTv() {
   const tv = isTv();
   document.documentElement.classList.toggle('tv', tv);
+
+  // Alt+T alterna el modo TV en desarrollo. Es la via para probarlo en un PC
+  // sin tocar la URL, y la salida cuando el modo TV esconde la cabecera (donde
+  // esta el boton de entrar).
+  if (import.meta.env.DEV) {
+    addEventListener('keydown', (event) => {
+      if (event.altKey && !event.ctrlKey && !event.metaKey && event.key.toLowerCase() === 't') {
+        event.preventDefault();
+        toggleTv();
+      }
+    });
+  }
   return tv;
+}
+
+/**
+ * Entra o sale del modo TV (herramienta de desarrollo). Recarga la pagina: la fuente raiz cambia y con
+ * ella las medidas en px del carrusel y la grilla virtualizada, que se
+ * calculan una vez. Reutiliza `?tv=1|0`, asi que el resultado es el mismo que
+ * escribir la URL a mano.
+ */
+export function toggleTv() {
+  const url = new URL(location.href);
+  url.searchParams.set('tv', document.documentElement.classList.contains('tv') ? '0' : '1');
+  location.assign(url);
 }
 
 /**
