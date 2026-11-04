@@ -27,33 +27,8 @@
  * Un canal sin CORS todavia puede salvarse por el reproductor nativo, que no
  * lo necesita; solo se marca el que falla por los DOS caminos.
  *
- * Como se saca la lista (consola del navegador, en una pagina del sitio)
- * ---------------------------------------------------------------------
- * Conviene abrirla en algo estatico (/placeholder.svg) y no en la app: el HMR
- * de Vite recarga la pestaña en cuanto tocas un fichero y se lleva la medicion.
- *
- *   const ch = await fetch('/data/channels.json').then(r => r.json());
- *   const nativo = (c) => new Promise((ok) => {
- *     const v = document.createElement('video'); v.muted = true; v.preload = 'metadata';
- *     const fin = (r) => { v.removeAttribute('src'); v.load(); ok(r); };
- *     const t = setTimeout(() => fin(false), 6000);
- *     v.addEventListener('loadedmetadata', () => (clearTimeout(t), fin(true)), { once: true });
- *     v.addEventListener('error', () => (clearTimeout(t), fin(false)), { once: true });
- *     v.src = c.stream;
- *   });
- *   const malos = [];
- *   for (const c of ch) {
- *     let motivo = null;
- *     try {
- *       const r = await fetch(c.stream);
- *       const txt = await r.text();
- *       const m = txt.match(/CODECS="([^"]+)"/);
- *       if (!r.ok) motivo = 'http-' + r.status;
- *       else if (m && !MediaSource.isTypeSupported(`video/mp4; codecs="${m[1]}"`)) motivo = 'codec';
- *     } catch { motivo = 'cors'; }
- *     if (motivo && !(await nativo(c))) malos.push({ id: c.id, motivo });
- *   }
- *   copy(JSON.stringify(malos));   // y pegarlo en un .json
+ * La lista sale de scripts/sonda-reproduccion.js, que se pega en la consola
+ * del navegador y solo da por bueno un canal cuyo video avanza.
  */
 import { readFile } from 'node:fs/promises';
 import { leerMaestro, escribirMaestro, ordenar } from './lib/canales.mjs';
