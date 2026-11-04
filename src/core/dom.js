@@ -3,6 +3,7 @@
  * que se repite: es mas rapido, no reparsea HTML y evita inyeccion.
  * `html` queda disponible solo para bloques estaticos de una sola vez.
  */
+import { withBase } from './base.js';
 export function el(tag, attrs, children) {
   const node = document.createElement(tag);
   if (attrs) {
@@ -13,7 +14,8 @@ export function el(tag, attrs, children) {
       else if (key === 'dataset') Object.assign(node.dataset, value);
       else if (key.charCodeAt(0) === 111 && key.charCodeAt(1) === 110) {
         node.addEventListener(key.slice(2).toLowerCase(), value);
-      } else node.setAttribute(key, value === true ? '' : value);
+      } else if (key === 'href' && value[0] === '/') node.setAttribute(key, withBase(value));
+      else node.setAttribute(key, value === true ? '' : value);
     }
   }
   if (children != null) append(node, children);

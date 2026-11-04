@@ -19,6 +19,7 @@
  * marca su contenedor con [data-nav-own]. Lo que no deba recibir foco por
  * flechas lleva [data-nav-skip].
  */
+import { stripBase } from './base.js';
 import { navigate } from './router.js';
 
 const FOCUSABLE =
@@ -137,7 +138,7 @@ function move(dir) {
 }
 
 function goBack() {
-  if (location.pathname === '/') return;
+  if (stripBase(location.pathname) === '/') return;
   if (history.length > 1) history.back();
   else navigate('/');
 }

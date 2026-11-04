@@ -18,6 +18,7 @@ import { createProgram } from '../models/program.js';
 import { parseSeasons } from '../models/episode.js';
 import { Festivity } from '../models/festivity.js';
 import * as cache from '../cache.js';
+import { withBase } from '../../core/base.js';
 
 // v6: las festividades traen saludo (`greeting`) y dia señalado (`rule.peak`).
 //
@@ -28,7 +29,7 @@ import * as cache from '../cache.js';
 const CATALOG_KEY = 'catalog:v6';
 
 async function fetchJson(path) {
-  const res = await fetch(path, { headers: { accept: 'application/json' } });
+  const res = await fetch(withBase(path), { headers: { accept: 'application/json' } });
   if (!res.ok) throw new Error(`[mockAdapter] ${path} -> ${res.status}`);
   return res.json();
 }
