@@ -303,6 +303,30 @@ Los marcados van al final de su categoria, atenuados y con su aviso, asi que en
 cada pestana lo que reproduce sale primero. La marca se quita sola: en esta
 pasada 24 canales que estaban marcados volvieron a responder y se desmarcaron.
 
+### Revision: el Referer y la sonda equivocada
+
+Reproduciendo de verdad cada canal marcado (que el video avance) resulto que la
+sonda de arriba se equivocaba. Marcas: **1.945 → 1.436**.
+
+| Marca anterior | Medidos | Reproducen de verdad |
+| --- | ---: | ---: |
+| codec | 237 | 216 |
+| http | 92 | 84 |
+| cors, sin Pluto | 280 | 209 |
+| cors, Pluto y jmp2.uk | muestra de 24, de 1.336 | 0 |
+
+Dos causas:
+
+- **El Referer.** Muchos servidores contestan 403 a una peticion que dice venir de
+  otra web. `index.html` ahora pide `no-referrer`, y esos canales pasan a 200.
+- **La sonda.** Miraba el atributo CODECS y un `fetch` en vez de reproducir.
+  `scripts/sonda-reproduccion.js` la sustituye.
+
+Lo que sigue marcado: los 1.336 de Pluto, porque su servidor solo autoriza a
+`pluto.tv` (`Access-Control-Allow-Origin: http://pluto.tv`) y hace falta un proxy,
+y otros 100 que fallaron tambien en esta prueba. La medicion se hizo en Chromium,
+en `localhost`; un televisor o Safari pueden dar otro resultado.
+
 **El indice no se cachea en IndexedDB.** Se hizo asi al principio (30 minutos) y
 una lista nueva tardaba media hora en verse: la cabecera seguia contando los
 canales viejos. El indice es lo que dice que version de los trozos toca leer,

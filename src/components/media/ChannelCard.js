@@ -18,6 +18,7 @@
  * Es un <a> real (ver TitleCard): alcanzable con teclado y con mando.
  */
 import { template, resetLayout } from '../../core/dom.js';
+import { withBase } from '../../core/base.js';
 import { createPool } from '../../patterns/objectPool.js';
 import { hydrateImage, resetImage, initials } from '../ui/LazyImage.js';
 
@@ -108,7 +109,7 @@ export function renderChannel(channel) {
   node.dataset.id = channel.id;
   // `k` es la categoria: con ella la vista de En vivo pide solo su trozo y no
   // los ocho mil canales para encontrar este.
-  node.href = `/en-vivo?c=${encodeURIComponent(channel.id)}&k=${encodeURIComponent(channel.category)}`;
+  node.href = withBase(`/en-vivo?c=${encodeURIComponent(channel.id)}&k=${encodeURIComponent(channel.category)}`);
   fallback.textContent = initials(channel.name);
 
   img.alt = '';

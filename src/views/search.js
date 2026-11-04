@@ -12,6 +12,7 @@
 import { el, delegate, clear } from '../core/dom.js';
 import { createView } from './_view.js';
 import { write } from '../core/scheduler.js';
+import { withBase } from '../core/base.js';
 import { navigate } from '../core/router.js';
 import { debounce } from '../utils/timing.js';
 import { bootstrap, search, searchChannels, getTitleById, loadAllChannels } from '../data/repository.js';
@@ -124,7 +125,7 @@ export default async function searchView({ outlet, query: qs }) {
 
   const alEscribir = debounce((event) => {
     const term = event.target.value;
-    history.replaceState(null, '', term ? `/buscar?q=${encodeURIComponent(term)}` : '/buscar');
+    history.replaceState(null, '', withBase(term ? `/buscar?q=${encodeURIComponent(term)}` : '/buscar'));
     pintar(term);
   }, 180);
   input.addEventListener('input', alEscribir);

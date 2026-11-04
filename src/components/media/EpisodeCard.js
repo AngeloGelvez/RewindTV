@@ -8,6 +8,7 @@
  * el navegador resuelve en el compositor: actualizarla durante la reproduccion
  * no provoca layout.
  */
+import { withBase } from '../../core/base.js';
 import { template, resetLayout } from '../../core/dom.js';
 import { createPool } from '../../patterns/objectPool.js';
 import { hydrateImage, resetImage, initials } from '../ui/LazyImage.js';
@@ -86,7 +87,7 @@ export function renderEpisode(episode, { still, activo, progreso = 0, href, seri
   const { img, fallback, name, num, dur, progress, serie } = node.__refs;
 
   node.dataset.id = episode.id;
-  if (href) node.href = href;
+  if (href) node.href = withBase(href);
   fallback.textContent = initials(episode.name);
 
   img.alt = '';

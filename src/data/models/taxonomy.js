@@ -7,6 +7,7 @@
  * a tocar el CSS cada vez que entra una cadena nueva. Aqui es un dato.
  */
 import { createFlyweightFactory, intern } from '../../patterns/flyweight.js';
+import { withBase } from '../../core/base.js';
 
 export const Genre = createFlyweightFactory(
   'Genre',
@@ -69,7 +70,7 @@ export const Network = createFlyweightFactory(
       name: intern(name),
       slug,
       color: NETWORK_COLORS[slug] ?? NETWORK_COLORS.otros,
-      logo: NETWORK_LOGOS[slug] ?? null,
+      logo: NETWORK_LOGOS[slug] ? withBase(NETWORK_LOGOS[slug]) : null,
     };
   },
   (name) => name,

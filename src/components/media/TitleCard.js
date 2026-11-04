@@ -20,6 +20,7 @@
  * degradado que oscurece la foto y aun asi falla con imagenes claras. Solo los
  * dos chips de estado van dentro, que es donde se esperan.
  */
+import { withBase } from '../../core/base.js';
 import { template, resetLayout } from '../../core/dom.js';
 import { createPool } from '../../patterns/objectPool.js';
 import { hydrateImage, resetImage, initials } from '../ui/LazyImage.js';
@@ -106,7 +107,7 @@ export const cardPool = createPool({
 export function fillCard(node, title) {
   const { img, art, fallback, name, meta, avatar, net, count, score, scoreValue } = node.__refs;
   node.dataset.id = title.id;
-  node.href = `/titulo/${title.slug}`;
+  node.href = withBase(`/titulo/${title.slug}`);
 
   const color = title.network?.color ?? '#6e6e80';
   const tinta = inkFor(color);

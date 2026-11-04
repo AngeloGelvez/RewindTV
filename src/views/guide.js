@@ -3,12 +3,13 @@
  * Pendiente: grilla virtualizada en dos ejes (canales x tiempo). De momento
  * lista la programacion del dia a partir de schedule.json.
  */
+import { withBase } from '../core/base.js';
 import { el } from '../core/dom.js';
 import { createView } from './_view.js';
 import { clock } from '../utils/format.js';
 
 export default async function guideView({ outlet }) {
-  const programas = await fetch('/data/schedule.json').then((r) => r.json()).catch(() => []);
+  const programas = await fetch(withBase('/data/schedule.json')).then((r) => r.json()).catch(() => []);
 
   const filas = programas
     .map((p) => ({ ...p, inicio: Date.parse(p.startsAt) }))

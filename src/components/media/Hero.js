@@ -20,6 +20,7 @@
  * con `prefers-reduced-motion`: un carrusel que se mueve mientras intentas
  * leerlo o pulsarlo es una trampa, no una gracia.
  */
+import { withBase } from '../../core/base.js';
 import { el } from '../../core/dom.js';
 import { defineComponent } from '../base/Component.js';
 import { icon } from '../ui/icons.js';
@@ -163,8 +164,8 @@ export const Hero = defineComponent({
       avatar.style.color = inkFor(t.network?.color ?? '#6e6e80');
       autor.textContent = t.network?.name ?? 'RewindTv';
 
-      ver.href = `/ver/${t.slug}/t1/c1`;
-      ficha.href = `/titulo/${t.slug}`;
+      ver.href = withBase(`/ver/${t.slug}/t1/c1`);
+      ficha.href = withBase(`/titulo/${t.slug}`);
 
       dato.replaceChildren(
         icon('eye', 'size-3.5'),

@@ -8,6 +8,7 @@
 import { emit, EVENTS } from './eventBus.js';
 import { patch } from './store.js';
 import { idle } from './scheduler.js';
+import { withBase, stripBase } from './base.js';
 
 const routes = [
   { name: 'home', pattern: '/', load: () => import('../views/home.js') },
@@ -78,14 +79,14 @@ export function prefetch(pathname) {
 }
 
 export async function navigate(to, { replace = false } = {}) {
-  const url = new URL(to, location.origin);
+  const url = new URL(withBase(to), location.origin);
   if (url.pathname === location.pathname && url.search === location.search) return;
   history[replace ? 'replaceState' : 'pushState'](null, '', url);
   await render();
 }
 
 async function render() {
-  const { route, params } = match(location.pathname);
+  const { route, params } = match(stripBase(location.pathname));
   const query = Object.fromEntries(new URLSearchParams(location.search));
 
   emit(EVENTS.ROUTE_LOADING, route.name);
@@ -112,14 +113,14 @@ export function startRouter(mountPoint) {
     const url = new URL(anchor.href, location.origin);
     if (url.origin !== location.origin) return;
     event.preventDefault();
-    navigate(url.pathname + url.search);
+    navigate(stripBase(url.pathname) + url.search);
   });
 
   document.addEventListener(
     'pointerover',
     (event) => {
       const anchor = event.target.closest?.('a[href^="/"]');
-      if (anchor) prefetch(new URL(anchor.href, location.origin).pathname);
+      if (anchor) prefetch(stripBase(new URL(anchor.href, location.origin).pathname));
     },
     { passive: true },
   );
