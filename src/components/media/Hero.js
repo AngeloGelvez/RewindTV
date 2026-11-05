@@ -26,17 +26,17 @@ import { defineComponent } from '../base/Component.js';
 import { icon } from '../ui/icons.js';
 import { hydrateImage, initials } from '../ui/LazyImage.js';
 import { applyTheme, inkFor, shade } from '../../core/theme.js';
+import { esTv } from '../../core/tv.js';
 
 /** Alias historico: el tema completo vive en core/theme.js. */
 export const applyFestivityTheme = applyTheme;
 
 /**
- * Dos minutos entre diapositivas. Siete segundos era un escaparate de tienda:
- * para cuando decides mirar una portada, ya se fue. A dos minutos el hero
- * cambia si te quedas leyendo la portada, y no te quita de delante lo que
- * estabas mirando.
+ * 40 segundos entre diapositivas. Siete segundos era un escaparate de tienda:
+ * para cuando decides mirar una portada, ya se fue. Dos minutos se quedaba
+ * corto por el otro lado: en un televisor parecia que el hero no cambiaba.
  */
-const INTERVALO = 120_000;
+const INTERVALO = 40_000;
 const MAX = 5;
 
 /** Dias de antelacion con los que empieza la cuenta atras (ver repository). */
@@ -207,7 +207,9 @@ export const Hero = defineComponent({
 
     // --- rotacion -----------------------------------------------------------
     let timer = null;
-    const quieto = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // En televisor el cambio ya es un corte sin animacion (ver main.css), y es de
+    // los pocos aparatos donde esta preferencia suele venir activada de fabrica.
+    const quieto = !esTv() && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     function arrancar() {
       if (timer || quieto || slides.length < 2) return;
@@ -247,11 +249,17 @@ export const Hero = defineComponent({
         class:
           'relative isolate flex min-h-[26rem] flex-col justify-end overflow-hidden px-4 pb-12 pt-24 ' +
           'sm:min-h-[30rem] md:min-h-[34rem] md:px-10 md:pb-16 lg:min-h-[36rem] lg:px-14',
+        'data-hero': '',
         'aria-roledescription': 'carrusel',
         'aria-label': 'Destacados',
         onMouseenter: parar,
         onMouseleave: arrancar,
-        onFocusin: parar,
+        // Con raton o teclado, tener el foco dentro pausa. En televisor no: el
+        // foco arranca en "Ver ahora" y el hero no volveria a moverse nunca.
+        onFocusin: () => {
+          if (!esTv()) parar();
+        },
+        onFocusout: arrancar,
       },
       [
         lienzo,

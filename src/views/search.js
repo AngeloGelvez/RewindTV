@@ -14,13 +14,54 @@ import { createView } from './_view.js';
 import { write } from '../core/scheduler.js';
 import { withBase } from '../core/base.js';
 import { navigate } from '../core/router.js';
+import { esTv } from '../core/tv.js';
 import { debounce } from '../utils/timing.js';
 import { bootstrap, search, searchChannels, getTitleById, loadAllChannels } from '../data/repository.js';
 import { renderCard, recycleCard } from '../components/media/TitleCard.js';
 import { renderChannel, recycleChannel } from '../components/media/ChannelCard.js';
 
+const MAX_TV = 24;
+const FILAS_TECLADO = ['1234567890', 'qwertyuiop', 'asdfghjklñ', 'zxcvbnm'];
+
+function crearTeclado(input, alCambiar) {
+  const cambiar = (valor) => {
+    input.value = valor;
+    alCambiar(valor);
+  };
+  const tecla = (texto, accion, extra = {}) =>
+    el(
+      'button',
+      {
+        type: 'button',
+        class:
+          'min-w-[2.75rem] rounded-lg border bg-surface-1 px-3 py-2 text-sm font-semibold text-ink-0 hairline',
+        onClick: accion,
+        ...extra,
+      },
+      texto,
+    );
+
+  return el('div', { class: 'space-y-1.5', role: 'group', 'aria-label': 'Teclado' }, [
+    ...FILAS_TECLADO.map((fila, f) =>
+      el(
+        'div',
+        { class: 'flex flex-wrap gap-1.5' },
+        [...fila].map((letra, i) =>
+          tecla(letra, () => cambiar(input.value + letra), f === 1 && i === 0 ? { 'data-autofocus': '' } : {}),
+        ),
+      ),
+    ),
+    el('div', { class: 'flex flex-wrap gap-1.5' }, [
+      tecla('Espacio', () => cambiar(input.value + ' ')),
+      tecla('Borrar', () => cambiar(input.value.slice(0, -1))),
+      tecla('Limpiar', () => cambiar('')),
+    ]),
+  ]);
+}
+
 export default async function searchView({ outlet, query: qs }) {
   await bootstrap();
+  const tv = esTv();
 
   let montadas = [];
   let montadasCanal = [];
@@ -72,8 +113,11 @@ export default async function searchView({ outlet, query: qs }) {
   function pintar(term) {
     ultimo = term ?? '';
     if (ultimo.trim().length >= 2) pedirCanales();
-    const titulos = search(ultimo);
-    const canales = canalesListos ? searchChannels(ultimo) : [];
+    const todosTitulos = search(ultimo);
+    const todosCanales = canalesListos ? searchChannels(ultimo) : [];
+    // En televisor, los primeros resultados: montar cientos de tarjetas lo atasca.
+    const titulos = tv ? todosTitulos.slice(0, MAX_TV) : todosTitulos;
+    const canales = tv ? todosCanales.slice(0, MAX_TV) : todosCanales;
 
     write(() => {
       for (const n of montadas) recycleCard(n);
@@ -90,7 +134,7 @@ export default async function searchView({ outlet, query: qs }) {
         return;
       }
 
-      const total = titulos.length + canales.length;
+      const total = todosTitulos.length + todosCanales.length;
       estado.textContent = total
         ? `${total} resultado(s) para "${ultimo}"`
         : `Sin resultados para "${ultimo}"`;
@@ -130,10 +174,19 @@ export default async function searchView({ outlet, query: qs }) {
   }, 180);
   input.addEventListener('input', alEscribir);
 
+  /*
+   * Teclado en pantalla para el mando. El navegador de un televisor no siempre
+   * abre su teclado al enfocar un campo, y sin el no hay forma de escribir. El
+   * campo queda de solo lectura: enseña lo escrito y nada mas.
+   */
+  const teclado = tv ? crearTeclado(input, (valor) => alEscribir({ target: { value: valor } })) : null;
+  if (tv) input.readOnly = true;
+
   const node = el('div', { class: 'px-4 py-7 md:px-6 md:py-9 lg:px-8' }, [
     el('header', { class: 'mb-6 space-y-4' }, [
       el('h1', { class: 'font-display text-3xl font-extrabold tracking-tight md:text-4xl' }, 'Buscar'),
       input,
+      teclado,
       estado,
     ]),
     el('section', {}, [tituloTitulos, grid]),
@@ -154,7 +207,7 @@ export default async function searchView({ outlet, query: qs }) {
   });
 
   if (qs.q) pintar(qs.q);
-  write(() => input.focus());
+  if (!tv) write(() => input.focus());
 
   return createView(node, outlet, () => {
     alEscribir.cancel();
