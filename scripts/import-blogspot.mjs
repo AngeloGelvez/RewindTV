@@ -116,7 +116,6 @@ const EXTRACTORES = [
   ['blogger', /^https?:\/\/(?:www\.)?blogger\.com\/video\.g\?(\S+)/],
   ['okru', /^https?:\/\/(?:www\.)?ok\.ru\/videoembed\/([^/?#]+)/],
   ['dailymotion', /^https?:\/\/(?:www\.)?dailymotion\.com\/embed\/video\/([^/?#]+)/],
-  ['sendvid', /^https?:\/\/(?:www\.)?sendvid\.com\/(?:embed\/)?([^/?#]+)/],
   ['yourupload', /^https?:\/\/(?:www\.)?yourupload\.com\/embed\/([^/?#]+)/],
 ];
 

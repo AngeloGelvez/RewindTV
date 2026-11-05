@@ -594,24 +594,6 @@
     "adFree": true
   },
   {
-    "id": "t34",
-    "slug": "titan-sim-bionico",
-    "name": "Titán Sim-Biónico",
-    "year": 2010,
-    "kind": "serie",
-    "seasonCount": 1,
-    "episodeCount": 20,
-    "score": 8,
-    "poster": "e1HgZg7ReDfS4UXDho7CTSRcGXr.jpg",
-    "backdrop": "t90PlosoEJY442x8JbCdYs768bx.jpg",
-    "synopsis": "",
-    "genres": [
-      "animacion"
-    ],
-    "network": "Cartoon Network",
-    "adFree": false
-  },
-  {
     "id": "t35",
     "slug": "tom-y-jerry",
     "name": "Tom y Jerry",
@@ -2355,22 +2337,6 @@
     "adFree": true
   },
   {
-    "id": "t135",
-    "slug": "50-clasicos-de-disney",
-    "name": "50 Clasicos de Disney",
-    "year": 1937,
-    "kind": "serie",
-    "seasonCount": 1,
-    "episodeCount": 50,
-    "score": 8,
-    "synopsis": "",
-    "genres": [
-      "animacion"
-    ],
-    "network": "Disney Channel",
-    "adFree": false
-  },
-  {
     "id": "t136",
     "slug": "aladdin-la-serie-animada",
     "name": "Aladdin La serie Animada",
@@ -2479,24 +2445,6 @@
     "adFree": false
   },
   {
-    "id": "t142",
-    "slug": "catdog",
-    "name": "CatDog",
-    "year": 1998,
-    "kind": "serie",
-    "seasonCount": 4,
-    "episodeCount": 64,
-    "score": 7,
-    "poster": "fkSCg9negcHAVO3gXohqEidqrsX.jpg",
-    "backdrop": "ujmeZPV9A5AdwfTEuRWR1eqOMDR.jpg",
-    "synopsis": "",
-    "genres": [
-      "animacion"
-    ],
-    "network": "Nickelodeon",
-    "adFree": false
-  },
-  {
     "id": "t143",
     "slug": "dave-el-barbaro",
     "name": "Dave El Barbaro",
@@ -2587,24 +2535,6 @@
     "adFree": false
   },
   {
-    "id": "t148",
-    "slug": "el-club-winx",
-    "name": "El Club Winx",
-    "year": 2004,
-    "kind": "serie",
-    "seasonCount": 6,
-    "episodeCount": 156,
-    "score": 6,
-    "poster": "eKSZ3EYxnlu6gbnhhKxBziN65hI.jpg",
-    "backdrop": "gPLVnGRW1lXb8wBauIG41kQkoCX.jpg",
-    "synopsis": "",
-    "genres": [
-      "animacion"
-    ],
-    "network": "Nickelodeon",
-    "adFree": false
-  },
-  {
     "id": "t149",
     "slug": "creepie",
     "name": "Creepie",
@@ -2669,24 +2599,6 @@
     "score": 8,
     "poster": "ftRkgMhF1CofVSLMeonh9Hjz7a4.jpg",
     "backdrop": "aAHC2D9XaLcFtJ5cWPf1BYARuJn.jpg",
-    "synopsis": "",
-    "genres": [
-      "animacion"
-    ],
-    "network": "Nickelodeon",
-    "adFree": false
-  },
-  {
-    "id": "t153",
-    "slug": "la-robot-adolescente",
-    "name": "La Robot Adolescente",
-    "year": 2003,
-    "kind": "serie",
-    "seasonCount": 1,
-    "episodeCount": 76,
-    "score": 7,
-    "poster": "fH1eFx0FgQ6EoGhitzvfvT1hgGV.jpg",
-    "backdrop": "cCy8zz9QcI3bzzfMtbvixk7hYmq.jpg",
     "synopsis": "",
     "genres": [
       "animacion"
@@ -2803,24 +2715,6 @@
     "adFree": true
   },
   {
-    "id": "t160",
-    "slug": "mighty-b-la-super-abeja",
-    "name": "Mighty B!, La Sùper Abeja",
-    "year": 2008,
-    "kind": "serie",
-    "seasonCount": 2,
-    "episodeCount": 39,
-    "score": 5,
-    "poster": "9LKMCLpxbCxp8ZZQDSIsOIMG4G4.jpg",
-    "backdrop": "fwMwwjN8N6b5APrfKou9ZW1alAM.jpg",
-    "synopsis": "",
-    "genres": [
-      "animacion"
-    ],
-    "network": "Nickelodeon",
-    "adFree": false
-  },
-  {
     "id": "t161",
     "slug": "rocket-power",
     "name": "Rocket Power",
@@ -2873,60 +2767,6 @@
     ],
     "network": "Nickelodeon",
     "adFree": true
-  },
-  {
-    "id": "t164",
-    "slug": "sam-cat",
-    "name": "Sam & Cat",
-    "year": 2013,
-    "kind": "serie",
-    "seasonCount": 1,
-    "episodeCount": 35,
-    "score": 6,
-    "poster": "n8KKvblV7UqCg6UC4Owor2PZvmP.jpg",
-    "backdrop": "dilTZGypINQKfXB5ZFs2nSfcN94.jpg",
-    "synopsis": "",
-    "genres": [
-      "animacion"
-    ],
-    "network": "Nickelodeon",
-    "adFree": false
-  },
-  {
-    "id": "t165",
-    "slug": "victorius",
-    "name": "Victorius",
-    "year": 2010,
-    "kind": "serie",
-    "seasonCount": 4,
-    "episodeCount": 57,
-    "score": 7,
-    "poster": "2Jc4L48qEwN9HyzqsdaSX1BCGMJ.jpg",
-    "backdrop": "jpR7mT5nFAzWSGPseLpfFisoUtN.jpg",
-    "synopsis": "",
-    "genres": [
-      "animacion"
-    ],
-    "network": "Nickelodeon",
-    "adFree": false
-  },
-  {
-    "id": "t166",
-    "slug": "zoey-101",
-    "name": "Zoey 101",
-    "year": 2005,
-    "kind": "serie",
-    "seasonCount": 4,
-    "episodeCount": 63,
-    "score": 6,
-    "poster": "3eOM57RTccTSvqcYFhWwm9DAba8.jpg",
-    "backdrop": "92adEq7w76pC5Lry50N0PTsjJ1.jpg",
-    "synopsis": "",
-    "genres": [
-      "animacion"
-    ],
-    "network": "Nickelodeon",
-    "adFree": false
   },
   {
     "id": "t167",
@@ -3215,24 +3055,6 @@
     "adFree": true
   },
   {
-    "id": "t183",
-    "slug": "las-aventuras-de-jackie-chang",
-    "name": "Las Aventuras de Jackie Chang",
-    "year": 2000,
-    "kind": "serie",
-    "seasonCount": 1,
-    "episodeCount": 95,
-    "score": 7,
-    "poster": "by2GTFpd2BQ5uJxWPlfcmfrNrfB.jpg",
-    "backdrop": "cjvyqIvCKQtUzd3J5TbVnCFbSNZ.jpg",
-    "synopsis": "",
-    "genres": [
-      "animacion"
-    ],
-    "network": "Cartoon Network",
-    "adFree": false
-  },
-  {
     "id": "t184",
     "slug": "yu-gi-oh",
     "name": "Yu-Gi-Oh!",
@@ -3248,24 +3070,6 @@
       "animacion"
     ],
     "network": "Nickelodeon",
-    "adFree": false
-  },
-  {
-    "id": "t185",
-    "slug": "pato-aventuras",
-    "name": "Pato Aventuras",
-    "year": 1987,
-    "kind": "serie",
-    "seasonCount": 3,
-    "episodeCount": 100,
-    "score": 8,
-    "poster": "yMbid6REvonvpYm25MPJIsbrYjE.jpg",
-    "backdrop": "xITlloKrbhwDsY1L8eaMMHHXCf.jpg",
-    "synopsis": "",
-    "genres": [
-      "animacion"
-    ],
-    "network": "Disney Channel",
     "adFree": false
   },
   {
@@ -3428,24 +3232,6 @@
       "animacion"
     ],
     "network": "Cartoon Network",
-    "adFree": false
-  },
-  {
-    "id": "t195",
-    "slug": "megaman-nt-warriors",
-    "name": "Megaman NT Warriors",
-    "year": 2001,
-    "kind": "serie",
-    "seasonCount": 1,
-    "episodeCount": 56,
-    "score": 7,
-    "poster": "roZllkX4mOoDAKljFtpYJzD41Kn.jpg",
-    "backdrop": "evF4Go6zuLKmL1yHsLILFxPVYbm.jpg",
-    "synopsis": "",
-    "genres": [
-      "animacion"
-    ],
-    "network": "Fox Kids",
     "adFree": false
   },
   {
@@ -6542,24 +6328,6 @@
     "adFree": true
   },
   {
-    "id": "t371",
-    "slug": "ren-y-stimpy",
-    "name": "Ren y Stimpy",
-    "year": 1991,
-    "kind": "serie",
-    "seasonCount": 1,
-    "episodeCount": 49,
-    "score": 8,
-    "poster": "u4YZhMms48mgP756hniUcw6PQPU.jpg",
-    "backdrop": "c8m4NAE774Vsn5AZvn2bFarUtDX.jpg",
-    "synopsis": "",
-    "genres": [
-      "animacion"
-    ],
-    "network": "Nickelodeon",
-    "adFree": false
-  },
-  {
     "id": "t372",
     "slug": "blanco-y-negro",
     "name": "Blanco y Negro",
@@ -6864,24 +6632,6 @@
     "adFree": false
   },
   {
-    "id": "t391",
-    "slug": "el-espectacular-hombre-arana",
-    "name": "El Espectacular Hombre Araña",
-    "year": 2008,
-    "kind": "serie",
-    "seasonCount": 2,
-    "episodeCount": 26,
-    "score": 8,
-    "poster": "957mnVq6w3xIZwhO1isb4RWPatr.jpg",
-    "backdrop": "fypGcrQCyb9vQ7L8AM6PHCjQSBC.jpg",
-    "synopsis": "",
-    "genres": [
-      "animacion"
-    ],
-    "network": "Marvel",
-    "adFree": false
-  },
-  {
     "id": "t392",
     "slug": "las-3-mellizas",
     "name": "Las 3 Mellizas",
@@ -6996,7 +6746,7 @@
     "year": 2002,
     "kind": "serie",
     "seasonCount": 2,
-    "episodeCount": 26,
+    "episodeCount": 25,
     "score": 6,
     "poster": "qKeJoMiimrPWSGK89KX8t8B6WJC.jpg",
     "backdrop": "9GELUumAKHkFDcs0ZbF4gaFpdxG.jpg",
@@ -7005,7 +6755,7 @@
       "animacion"
     ],
     "network": "Nickelodeon",
-    "adFree": false
+    "adFree": true
   },
   {
     "id": "t400",
@@ -7050,7 +6800,7 @@
     "year": 1986,
     "kind": "serie",
     "seasonCount": 6,
-    "episodeCount": 130,
+    "episodeCount": 129,
     "score": 8,
     "poster": "kLquadlhGPfpKHkVNRgrq0tzHkL.jpg",
     "backdrop": "vA0rSXM1gwpiefyJamQBvMbIb4B.jpg",
@@ -7059,7 +6809,7 @@
       "animacion"
     ],
     "network": "Cartoon Network",
-    "adFree": false
+    "adFree": true
   },
   {
     "id": "t403",
@@ -7531,7 +7281,7 @@
     "year": 1998,
     "kind": "serie",
     "seasonCount": 2,
-    "episodeCount": 26,
+    "episodeCount": 25,
     "score": 8,
     "poster": "w7kHTXMBeUUyTOZ6vDZEyIe04Y1.jpg",
     "backdrop": "dpdF8gIduJgzd8pRfH0SpEia4UN.jpg",
@@ -7540,7 +7290,7 @@
       "animacion"
     ],
     "network": "Otros",
-    "adFree": false
+    "adFree": true
   },
   {
     "id": "t430",
@@ -7633,24 +7383,6 @@
     "adFree": true
   },
   {
-    "id": "t435",
-    "slug": "daria",
-    "name": "Daria",
-    "year": 1997,
-    "kind": "serie",
-    "seasonCount": 5,
-    "episodeCount": 65,
-    "score": 8,
-    "poster": "iEcFbXXnxUS60HT4yFQe7huuajA.jpg",
-    "backdrop": "AelRiewpDPxMiEALf8GtnHxle9b.jpg",
-    "synopsis": "",
-    "genres": [
-      "animacion"
-    ],
-    "network": "Otros",
-    "adFree": false
-  },
-  {
     "id": "t436",
     "slug": "escuela-de-heroes",
     "name": "Escuela De Heroes",
@@ -7665,24 +7397,6 @@
     ],
     "network": "Otros",
     "adFree": true
-  },
-  {
-    "id": "t437",
-    "slug": "las-aventuras-de-brandy-y-el-senor-bigotes",
-    "name": "Las Aventuras de Brandy y El Señor Bigotes",
-    "year": 2004,
-    "kind": "serie",
-    "seasonCount": 2,
-    "episodeCount": 39,
-    "score": 6,
-    "poster": "lTZG7IAPQhhyvoU0A2ple3O3J84.jpg",
-    "backdrop": "1X7jac5eNqfjyka4zh6kaiJrsaX.jpg",
-    "synopsis": "",
-    "genres": [
-      "animacion"
-    ],
-    "network": "Disney Channel",
-    "adFree": false
   },
   {
     "id": "t438",
@@ -7881,24 +7595,6 @@
     ],
     "network": "Nickelodeon",
     "adFree": true
-  },
-  {
-    "id": "t449",
-    "slug": "los-pequenos-looney-tunes",
-    "name": "Los Pequeños Looney Tunes",
-    "year": 2002,
-    "kind": "serie",
-    "seasonCount": 1,
-    "episodeCount": 40,
-    "score": 6,
-    "poster": "l7SLxIuRdyrpIVWSEDBdtxCOSCI.jpg",
-    "backdrop": "Mo7Dmx1bhOe6fMich6uHXKcHey.jpg",
-    "synopsis": "",
-    "genres": [
-      "animacion"
-    ],
-    "network": "Cartoon Network",
-    "adFree": false
   },
   {
     "id": "t450",

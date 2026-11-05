@@ -261,7 +261,7 @@ solo baja si pulsas play en un canal.
 
 ## Datos
 
-El catalogo son **503 series y 29.199 capitulos** importados de un volcado CSV
+El catalogo son **487 series y 28.200 capitulos** importados de un volcado CSV
 de lacartoons.com. No se escribio a mano: `scripts/import-lacartoons.mjs` lo
 convierte al esquema del proyecto (una fila por capitulo -> `titles.json` +
 `episodes/<id>.json`) y de paso valida proveedores, duplicados y filas sin
