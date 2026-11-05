@@ -10,13 +10,20 @@
  *      forzarlo en un televisor que no se identifique bien.
  *   2. User agent de las plataformas conocidas (Tizen, webOS, Android TV,
  *      Fire TV, Chromecast, HbbTV, VIDAA...).
+ *   3. Lo que el aparato puede hacer. Muchos televisores Android no dicen "TV"
+ *      en su user agent, y algunos navegadores se presentan como un movil. Lo
+ *      que no pueden fingir es el hardware: sin pantalla tactil y sin raton solo
+ *      queda el mando.
+ *
+ * `?tv=info` ensena en pantalla lo que ve esta deteccion, para diagnosticar un
+ * televisor concreto sin consola.
  *
  * La navegacion por flechas (spatialNav.js) funciona SIEMPRE, no solo aqui:
  * un teclado tambien tiene flechas.
  */
 
 const UA_TV =
-  /SmartTV|SMART-TV|Tizen|Web0S|webOS|NetCast|HbbTV|BRAVIA|AFT[A-Z]|CrKey|Android TV|GoogleTV|AndroidTV|Roku|PhilipsTV|VIDAA|Hisense|Viera|DTV|TV Safari/i;
+  /SmartTV|SMART-TV|Tizen|Web0S|webOS|NetCast|HbbTV|BRAVIA|AFT[A-Z]|CrKey|Android TV|GoogleTV|AndroidTV|Roku|PhilipsTV|VIDAA|Hisense|Viera|DTV|TV Safari|TV|MiTV|MiBOX|Chromecast|SHIELD/i;
 
 const KEY = 'rewind:tv';
 
@@ -44,14 +51,49 @@ function forced() {
   }
 }
 
+/** La decision en si, sin tocar el navegador. */
+export function pareceTv({ ua, toques, punteroFino, hover, ancho, alto }) {
+  if (UA_TV.test(ua)) return true;
+  // Un movil o una tablet siempre tienen pantalla tactil. Y por si alguno no lo
+  // declara: un televisor es grande y apaisado, y un telefono no.
+  if (toques > 0 || ancho < 960 || ancho <= alto) return false;
+  // Ni tactil, ni raton, ni nada que pase por encima: un mando.
+  if (!punteroFino && !hover) return true;
+  // Android sin "Mobile" y sin tactil, aunque el mando se comporte como puntero.
+  return /Android/i.test(ua) && !/Mobile/i.test(ua);
+}
+
+function rasgos() {
+  return {
+    ua: navigator.userAgent,
+    toques: navigator.maxTouchPoints ?? 0,
+    punteroFino: matchMedia('(any-pointer: fine)').matches,
+    hover: matchMedia('(any-hover: hover)').matches,
+    ancho: screen.width,
+    alto: screen.height,
+  };
+}
+
 export function isTv() {
   if (forced() === '1') return true;
-  return UA_TV.test(navigator.userAgent);
+  return pareceTv(rasgos());
 }
+
+function mostrarDiagnostico(tv) {
+  const caja = document.createElement('pre');
+  caja.style.cssText =
+    'position:fixed;inset:auto 0 0 0;z-index:9999;margin:0;padding:1rem;background:#000;color:#fff;font-size:1rem;white-space:pre-wrap';
+  caja.textContent = JSON.stringify({ tv, ...rasgos(), ventana: `${innerWidth}x${innerHeight}`, dpr: devicePixelRatio }, null, 1);
+  document.body.appendChild(caja);
+}
+
+/** Para decidir en JS lo que en CSS decide `html.tv`. */
+export const esTv = () => document.documentElement.classList.contains('tv');
 
 export function initTv() {
   const tv = isTv();
   document.documentElement.classList.toggle('tv', tv);
+  if (new URLSearchParams(location.search).get('tv') === 'info') mostrarDiagnostico(tv);
 
   // Alt+T alterna el modo TV en desarrollo. Es la via para probarlo en un PC
   // sin tocar la URL, y la salida cuando el modo TV esconde la cabecera (donde
