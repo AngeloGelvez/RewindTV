@@ -23,7 +23,7 @@
  */
 
 const UA_TV =
-  /SmartTV|SMART-TV|Tizen|Web0S|webOS|NetCast|HbbTV|BRAVIA|AFT[A-Z]|CrKey|Android TV|GoogleTV|AndroidTV|Roku|PhilipsTV|VIDAA|Hisense|Viera|DTV|TV Safari|TV|MiTV|MiBOX|Chromecast|SHIELD/i;
+  /SmartTV|SMART-TV|Tizen|Web0S|webOS|NetCast|HbbTV|BRAVIA|AFT[A-Z]|CrKey|Android TV|GoogleTV|AndroidTV|Roku|PhilipsTV|VIDAA|Hisense|Viera|DTV|TV Safari|\bTV\b|MiTV|MiBOX|Chromecast|SHIELD/i;
 
 const KEY = 'rewind:tv';
 
@@ -59,8 +59,9 @@ export function pareceTv({ ua, toques, punteroFino, hover, ancho, alto }) {
   if (toques > 0 || ancho < 960 || ancho <= alto) return false;
   // Ni tactil, ni raton, ni nada que pase por encima: un mando.
   if (!punteroFino && !hover) return true;
-  // Android sin "Mobile" y sin tactil, aunque el mando se comporte como puntero.
-  return /Android/i.test(ua) && !/Mobile/i.test(ua);
+  // Android sin tactil en pantalla grande, aunque el mando se comporte como
+  // puntero y el navegador diga "Mobile": asi se presenta el de los TCL.
+  return /Android/i.test(ua);
 }
 
 function rasgos() {
