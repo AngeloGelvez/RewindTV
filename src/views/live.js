@@ -18,10 +18,15 @@ import {
 import { renderChannel, recycleChannel } from '../components/media/ChannelCard.js';
 import { Player } from '../components/media/Player.js';
 import { createSource } from '../data/models/embed.js';
-
-const LOTE = 50;
+import { esTv } from '../core/tv.js';
 
 export default async function liveView({ outlet, query }) {
+  // Un televisor tiene mucha menos potencia que un PC y se ve a tres metros:
+  // pocas tarjetas y mas grandes, y el lote siguiente solo cuando ya hace falta.
+  const tv = esTv();
+  const LOTE = tv ? 12 : 50;
+  const COLCHON = tv ? 200 : 600;
+
   const catalogo = await loadChannelIndex();
 
   // Un enlace a un canal concreto necesita ese canal en memoria. Con la
@@ -56,6 +61,7 @@ export default async function liveView({ outlet, query }) {
   let totalVista = 0;
 
   const grid = el('div', {
+    'data-canales': '',
     class: 'grid grid-cols-[repeat(auto-fill,minmax(270px,1fr))] gap-4',
   });
 
@@ -109,7 +115,7 @@ export default async function liveView({ outlet, query }) {
       // lote sigue dentro del margen —una pantalla alta, un televisor— no
       // volveria a avisar y la rejilla se quedaria corta.
       requestAnimationFrame(() => {
-        if (centinela.getBoundingClientRect().top < innerHeight + 600) mostrarMas();
+        if (centinela.getBoundingClientRect().top < innerHeight + COLCHON) mostrarMas();
       });
     });
   }
@@ -231,14 +237,14 @@ export default async function liveView({ outlet, query }) {
     reproducir(target.dataset.id);
   });
 
-  // 600 px de colchon: a velocidad de scroll normal el lote siguiente ya esta
-  // montado cuando el final de la rejilla llegaria a verse.
+  // El colchon hace que, a velocidad normal, el lote siguiente ya este montado
+  // cuando el final de la rejilla llegaria a verse.
   const dejarDeObservar = observeIntersection(
     centinela,
     (entry) => {
       if (entry.isIntersecting) mostrarMas();
     },
-    { rootMargin: '600px' },
+    { rootMargin: `${COLCHON}px` },
   );
 
   // Un enlace con categoria abre directamente esa pestana.

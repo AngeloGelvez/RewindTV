@@ -389,6 +389,35 @@
     display: block;
   }
 
+  /* Rendimiento: un televisor no da para desenfocar lo que hay detras, animar
+     cada cambio ni pintar lo que esta fuera de pantalla. */
+  html.tv .glass,
+  html.tv .chip-glass {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  html.tv .glass {
+    background-color: var(--color-surface-0);
+  }
+  html.tv .animate-pulse {
+    animation: none;
+  }
+  html.tv *:not([data-rail]) {
+    transition: none;
+  }
+  html.tv {
+    scroll-behavior: auto;
+  }
+
+  /* Canales mas grandes: caben menos por fila y la vista respira. */
+  html.tv [data-canales] {
+    grid-template-columns: repeat(auto-fill, minmax(22rem, 1fr));
+  }
+  html.tv [data-canales] > a {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 9rem;
+  }
+
   /* Sin barra superior: su sitio lo ocupa el contenido. */
   html.tv header {
     display: none;
