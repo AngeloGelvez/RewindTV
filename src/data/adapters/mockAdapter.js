@@ -26,7 +26,7 @@ import { withBase } from '../../core/base.js';
 // cambia la forma del dato: el adaptador guarda el JSON crudo en IndexedDB, y
 // quien ya visito la web seguiria leyendo la version anterior —sin saludo, sin
 // portadas— durante un dia entero. Esta es la tercera vez que pasa.
-const CATALOG_KEY = 'catalog:v7';
+const CATALOG_KEY = 'catalog:v8';
 
 // Y esta es la cuarta, pero en el otro fichero: `episodes:<id>` no llevaba
 // version, asi que el aviso de arriba no protegia a los capitulos. Al cambiar
@@ -37,7 +37,7 @@ const CATALOG_KEY = 'catalog:v7';
 // La version va en la clave, no en un borrado al arrancar: una clave nueva
 // deja la vieja muerta sin tocar nada mas, y `cache.get` ya la descarta a las
 // 24 h por antigüedad.
-const EPISODES_VERSION = 'v2';
+const EPISODES_VERSION = 'v3';
 const episodesKey = (id) => `episodes:${EPISODES_VERSION}:${id}`;
 
 async function fetchJson(path) {

@@ -51,7 +51,6 @@ const PROVIDERS = {
     ping: 'https://cubeembed.com/',
   },
   dhtpre: { kind: 'iframe', label: 'Dhtpre', build: (id) => `https://dhtpre.com/embed/${id}` },
-  sendvid: { kind: 'iframe', label: 'Sendvid', build: (id) => `https://sendvid.com/embed/${id}` },
   yourupload: {
     kind: 'iframe',
     label: 'YourUpload',

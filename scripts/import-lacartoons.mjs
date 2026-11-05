@@ -90,9 +90,6 @@ const EXTRACTORES = [
   ['rpmvid', /^https?:\/\/cubeembed\.rpmvid\.com\/#([^/?#]+)/],
   ['cubeembed', /^https?:\/\/(?:www\.)?cubeembed\.com\/v\/([^/?#]+)/],
   ['dhtpre', /^https?:\/\/(?:www\.)?dhtpre\.com\/embed\/([^/?#]+)/],
-  // sendvid aparece de dos formas: el embed y la pagina de ver. El id es el
-  // mismo, asi que la segunda se normaliza a la primera en vez de descartarla.
-  ['sendvid', /^https?:\/\/(?:www\.)?sendvid\.com\/(?:embed\/)?([^/?#]+)/],
   ['yourupload', /^https?:\/\/(?:www\.)?yourupload\.com\/embed\/([^/?#]+)/],
 ];
 
@@ -158,7 +155,10 @@ function festividades(titulo) {
 
 // --------------------------------------------------------------------- lectura
 
-const filas = parseCsv((await readFile(csvPath, 'utf8')).replace(/^﻿/, ''));
+// Sendvid salio del catalogo por sus anuncios: reimportar no debe traerlo de vuelta.
+const filas = parseCsv((await readFile(csvPath, 'utf8')).replace(/^﻿/, '')).filter(
+  (f) => !/sendvid\.com/i.test(f.url_embed ?? ''),
+);
 
 /**
  * Portadas ya importadas, por id. Este script reescribe titles.json entero,

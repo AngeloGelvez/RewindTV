@@ -11,7 +11,7 @@ portada se carga al inicio; todo lo demas, bajo demanda.**
 
 | Fichero | Cuando se carga | Tamano esperado |
 | --- | --- | --- |
-| `titles.json` | al arrancar | ~260 bytes por titulo (504 series = 190 KB reales) |
+| `titles.json` | al arrancar | ~260 bytes por titulo (487 series = 190 KB reales) |
 | `festivities.json` | al arrancar | ~2 KB, fijo |
 | `picks.json` | al arrancar | pocos KB — **generado**, no se escribe a mano |
 | `episodes/<titleId>.json` | al abrir una serie | ~80 bytes por capitulo |
@@ -112,7 +112,7 @@ que reescribir miles de registros.
 Guardando `["okru", "1392690399817"]`, la URL se construye en
 `src/data/models/embed.js` y cambiar de proveedor es tocar una funcion.
 Proveedores soportados: `okru`, `vk`, `dailymotion`, `rpmvid`, `cubeembed`,
-`dhtpre`, `sendvid`, `yourupload`, `mp4`.
+`dhtpre`, `yourupload`, `blogger`, `mp4`.
 
 `rpmvid` y `cubeembed` son el mismo servicio con dos formas de URL (el id va en
 el fragmento o en el path). Son dos entradas del registro porque lo que cambia
@@ -350,6 +350,10 @@ garantiza.
 
 Reparto de fuentes: `okru` 15.904, `rpmvid` 9.770, `dhtpre` 1.856,
 `sendvid` 1.033, `cubeembed` 379, `yourupload` 249.
+
+Estas cifras son las de la importacion. Despues se elimino Sendvid por sus
+anuncios, con 17 series y 3 capitulos sueltos: hoy son **487 titulos y 28.200
+capitulos**, y `import-lacartoons.mjs` ya no lo vuelve a traer.
 
 ### Las tres decisiones que no son obvias
 
