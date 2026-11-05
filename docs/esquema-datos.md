@@ -11,7 +11,7 @@ portada se carga al inicio; todo lo demas, bajo demanda.**
 
 | Fichero | Cuando se carga | Tamano esperado |
 | --- | --- | --- |
-| `titles.json` | al arrancar | ~260 bytes por titulo (503 series = 129 KB reales) |
+| `titles.json` | al arrancar | ~260 bytes por titulo (504 series = 190 KB reales) |
 | `festivities.json` | al arrancar | ~2 KB, fijo |
 | `picks.json` | al arrancar | pocos KB — **generado**, no se escribe a mano |
 | `episodes/<titleId>.json` | al abrir una serie | ~80 bytes por capitulo |
@@ -56,8 +56,8 @@ convive con las de TMDB. Un titulo sin portada no lleva el campo: la tarjeta
 pinta el color de su cadena con las iniciales.
 
 Las portadas entran con `node scripts/import-portadas.mjs <csv>`, que parchea
-`titles.json` sin tocar nada mas. De 503 titulos, 494 tienen portada vertical y
-489 apaisada; 27 coincidencias quedaron marcadas para revisar y el script las
+`titles.json` sin tocar nada mas. De 504 titulos, 495 tienen portada vertical y
+490 apaisada; 27 coincidencias quedaron marcadas para revisar y el script las
 lista en cada pasada.
 
 `genres` y `network` son **strings**, no objetos. Al parsear se convierten en
@@ -97,7 +97,7 @@ nombres de campo pesan mas que los datos.
 | `min` | duracion en minutos (opcional, hereda del titulo) |
 | `fest` | festividades a las que pertenece (opcional) |
 | `synopsis` | opcional |
-| `st` | fotograma del capitulo (nombre de fichero, como las portadas); aun sin datos |
+| `st` | fotograma del capitulo (nombre de fichero, como las portadas, o URL propia); por ahora solo en `t518` |
 
 El `id` del episodio no se guarda: se deriva (`t1-1-1`). Un campo menos por
 cada capitulo.
@@ -117,6 +117,28 @@ Proveedores soportados: `okru`, `vk`, `dailymotion`, `rpmvid`, `cubeembed`,
 `rpmvid` y `cubeembed` son el mismo servicio con dos formas de URL (el id va en
 el fragmento o en el path). Son dos entradas del registro porque lo que cambia
 es como se construye la URL, que es justo lo que el registro guarda.
+
+`blogger` guarda en el id **la query entera**, no solo el token, igual que
+`vk`. No es un capricho de formato: el blog embebe
+`video.g?token=...&origin=<su dominio>` y ese `origin` viaja hasta el
+reproductor de YouTube que `video.g` monta por dentro. Sin el, el reproductor
+carga, dice `isPlayable: true` y se queda en buffering con **0 bytes** hasta
+rendirse con "Se produjo un error. Vuelve a intentarlo mas tarde".
+
+Eso fue exactamente lo que paso la primera vez: el volcado del blog guardaba
+solo `token=...`, se perdio el `origin` y los 34 capitulos daban ese error. La
+regla que queda: **replicar el embed del blog tal cual**, parametros incluidos.
+
+La otra leccion es sobre como se comprueba. Desde Node el enlace devuelve el
+MP4 (206, `ftypmp42`, 22 minutos) tanto con `origin` como sin el, asi que un
+sondeo desde Node daba los 34 por buenos mientras ninguno se veia. Node puede
+decir que el video **existe**; que se **reproduce** solo lo dice un navegador.
+Por eso `check-sources.mjs` marca `muerta` unicamente cuando la pagina ya no
+trae stream, y `indicio` cuando lo trae.
+
+El token caduca y rota, pero no es lo critico: uno del volcado original, de
+años atras, sigue devolviendo stream. Aun asi el importador los relee del blog
+en cada pasada, que es gratis y evita la duda.
 
 Un proveedor que no este en ese registro **no rompe la vista**: la fuente se
 descarta al parsear, el capitulo cae a la siguiente y la consola avisa una vez.
@@ -158,9 +180,14 @@ y un acierto a los 7 dias, para que un corte de red no entierre un enlace bueno.
 El sondeo de verdad corre en Node, donde no hay origen cruzado:
 
 ```bash
-node scripts/check-sources.mjs           # solo reporta
-node scripts/check-sources.mjs --prune   # borra las fuentes demostradas muertas
+node scripts/check-sources.mjs             # solo reporta
+node scripts/check-sources.mjs --prune     # borra las fuentes demostradas muertas
+node scripts/check-sources.mjs --solo t518 # una sola serie
 ```
+
+`--solo` importa en la practica: el catalogo entero son 29.000 peticiones y mas
+de una hora. Despues de importar una serie, lo que hay que comprobar es esa
+serie.
 
 `--prune` solo quita lo que fallo de forma concluyente. El estado HTTP de un
 embed queda como `indicio` y nunca se borra: una senal debil no justifica
@@ -300,7 +327,7 @@ la vez.
 
 ## El catalogo actual: importado, no escrito a mano
 
-`titles.json` y los 503 ficheros de `episodes/` salen de un volcado CSV del
+503 de los 504 ficheros de `episodes/` salen de un volcado CSV del
 catalogo de lacartoons.com (una fila por capitulo, 29.199 filas) convertido por:
 
 ```bash
@@ -352,3 +379,87 @@ contenido.
 
 `openload.co` no esta en el registro de proveedores: el servicio cerro en 2020.
 Sus 5 enlaces entran como capitulo sin fuente, no como fuente muerta.
+
+## La segunda fuente: un blog por serie
+
+No todo el catalogo sale de lacartoons. Hay series que solo existen en un blog
+dedicado, con una entrada por capitulo y el video alojado en el propio Blogger.
+Para esas esta `scripts/import-blogspot.mjs`:
+
+```bash
+node scripts/import-blogspot.mjs <ruta-del-csv> <clave-de-serie> --dry
+node scripts/import-blogspot.mjs <ruta-del-csv> <clave-de-serie>
+npm run data
+```
+
+La diferencia con el otro importador manda en todo el diseño: aquel convierte
+un catalogo (503 series en un CSV y reescribe `titles.json` entero), este
+convierte **una** serie y **parchea** `titles.json`. El CSV no trae nombre de
+serie, ni año, ni cadena, porque el blog entero ES la serie: eso vive en el
+registro `SERIES` del script, que es ademas la constancia de de donde salio
+cada una.
+
+| | |
+| --- | ---: |
+| Series por esta via | 1 (`t518`, El Show de los Looney Tunes) |
+| Capitulos | 34 |
+| Capitulos con fotograma | 28 |
+| Embeds con la forma del blog | 34 / 34 |
+| Tokens que devuelven stream | 34 / 34 |
+
+Es la primera serie del catalogo con `st` (fotograma por capitulo) con datos
+reales: el blog publica una imagen por entrada.
+
+### Las tres decisiones de este importador
+
+**El orden es el del blog, no el de emision.** El CSV no trae temporada ni
+numero: un blog es una lista de entradas y lo unico que afirma sobre el orden
+es la fecha de publicacion. Se numera por fecha ascendente y, dentro del mismo
+dia, invirtiendo el orden del CSV (el blog lista de nuevo a viejo, asi que
+darle la vuelta restaura el orden en que se publico). Deducir la temporada del
+nombre del fichero de la portada (`tlts_212.png`) es tentador, pero el volcado
+mezcla tres numeraciones de tres alojamientos y se contradicen: entra todo como
+una temporada. El resultado se puede comprobar — el capitulo 1 queda en
+"Mejores Amigos", que es el piloto real.
+
+**Una imagen de un host muerto no entra.** Misma decision que `openload.co`:
+6 de las 34 portadas estan en `sNN.postimg.org`, que no resuelve desde que
+postimg se mudo a postimg.cc. Esos capitulos se quedan sin `st` y caen al fondo
+de la serie. Las otras 28 suben a `https`: servimg sirve las mismas imagenes
+por TLS y una web HTTPS no carga una imagen `http` — el navegador la bloquea
+sin avisar al usuario.
+
+**Un titulo sin `score` queda enterrado.** `build-picks.mjs` ordena cada fila de
+festividad por la puntuacion del titulo y corta a 60; sin `score` cuenta como 0.
+Comprobado: el especial navideño de esta serie no entraba en la portada de
+Navidad hasta ponerle puntuacion. Dejar el campo vacio no es neutral.
+
+### La cache de episodios tambien lleva version
+
+Cambiar la forma de `src` tiene una trampa que no se ve en los JSON: el
+adaptador guarda el fichero crudo en IndexedDB, y la clave `episodes:<id>` no
+llevaba version (la del catalogo si). Quien ya hubiera abierto la serie seguia
+construyendo la URL con el dato viejo durante 24 h, y el reproductor salia en
+blanco aunque el fichero del disco ya fuera correcto. Reproducido plantando la
+entrada vieja a mano antes de arreglarlo.
+
+Ahora la clave es `episodes:v2:<id>`. **Al cambiar la forma de un campo de
+episodios hay que subir `EPISODES_VERSION`** en `src/data/adapters/mockAdapter.js`,
+igual que con `CATALOG_KEY`.
+
+Hay un segundo efecto, este sin arreglar todavia, que conviene conocer antes de
+dar una serie por rota: **una serie nueva no aparece hasta 24 h despues** para
+quien ya habia visitado la web. `catalog:v6` se guarda entero y `loadAll` lo usa
+tal cual si existe; no revalida contra la red pese a lo que dice la cabecera de
+`cache.js`. Visto en vivo: un Chrome con el catalogo de 22 h daba "No encontrado"
+en `/titulo/el-show-de-los-looney-tunes` mientras `titles.json` ya tenia los 504
+titulos. Subir `CATALOG_KEY` al publicar contenido nuevo lo resuelve a mano;
+revalidar en segundo plano lo resolveria solo.
+
+### Reimportar el catalogo ya no se lleva estas series
+
+`import-lacartoons.mjs` reescribe `titles.json` entero y borra los
+`episodes/*.json` que ningun titulo respalda. Tal cual estaba, la siguiente
+reimportacion del catalogo habria borrado `t518` y su fichero. Ahora recoge los
+titulos que no salen de su CSV y los devuelve intactos al final, y los lista
+al terminar (`de otra fuente: 1 (conservados: t518)`).

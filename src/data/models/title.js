@@ -24,6 +24,7 @@ export function createTitle(raw) {
     backdrop: imageUrl(raw.backdrop, 'backdrop'),
     synopsis: raw.synopsis,
     rating: intern(raw.rating ?? 'NR'),
+    adFree: raw.adFree === true,
     score: raw.score ?? null, // 0-10, el "7 estrella" de la tarjeta
     // --- referencias compartidas, no copias ---
     genres: raw.genres.map(Genre.get),

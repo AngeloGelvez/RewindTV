@@ -21,7 +21,7 @@
 import { el } from '../../core/dom.js';
 import { defineComponent } from '../base/Component.js';
 import { icon } from '../ui/icons.js';
-import { embedUrl, isIframe, isHlsUrl, providerLabel, providerPing } from '../../data/models/embed.js';
+import { embedUrl, isIframe, isHlsUrl, providerLabel, providerPing, providerSandbox } from '../../data/models/embed.js';
 import { rank, markOk, markFailed } from '../../data/sourceHealth.js';
 import { emit, EVENTS } from '../../core/eventBus.js';
 
@@ -146,6 +146,12 @@ export const Player = defineComponent({
           referrerpolicy: 'origin',
           loading: 'lazy',
           title: label ?? 'Reproductor',
+          // Sin allow-popups ni allow-top-navigation: los anuncios no pueden abrir
+          // ventanas ni llevarse esta pagina. Un anuncio dibujado dentro del
+          // reproductor no se puede tocar desde aqui.
+          sandbox: providerSandbox(actual)
+            ? 'allow-scripts allow-same-origin allow-forms allow-presentation'
+            : null,
         }),
       );
       // No hay evento fiable que distinga "cargo" de "el proveedor dice que no

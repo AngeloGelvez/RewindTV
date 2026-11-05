@@ -15,6 +15,7 @@
  */
 import { readFile, writeFile, readdir } from 'node:fs/promises';
 import { join } from 'node:path';
+import { providerClean } from '../src/data/models/embed.js';
 
 const DATA = new URL('../public/data/', import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1');
 const EPISODES_DIR = join(DATA, 'episodes');
@@ -38,6 +39,11 @@ for (const file of await readdir(EPISODES_DIR)) {
     console.warn(`  ! ${file}: titleId "${raw.titleId}" no existe en titles.json`);
     continue;
   }
+
+  // `adFree`: todos sus capitulos con fuente van por un proveedor sin ventanas
+  // de anuncios. El catalogo pone estas series primero (ver `query`).
+  const fuentes = raw.seasons.flatMap((s) => s.episodes.filter((e) => e.src).map((e) => e.src[0]));
+  title.adFree = fuentes.length > 0 && fuentes.every(providerClean);
 
   for (const season of raw.seasons) {
     for (const episode of season.episodes) {
@@ -71,6 +77,7 @@ for (const slug of Object.keys(picks)) {
 }
 
 await writeFile(join(DATA, 'picks.json'), JSON.stringify(picks), 'utf8');
+await writeFile(join(DATA, 'titles.json'), JSON.stringify(titles, null, 2), 'utf8');
 
 console.log(`\npicks.json generado`);
 console.log(`  ficheros de episodios : ${stats.ficheros}`);

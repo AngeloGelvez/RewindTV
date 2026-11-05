@@ -28,6 +28,13 @@ const PUBLIC = new URL('../public/', import.meta.url);
 const TIMEOUT = 9000;
 const CONCURRENCY = 12;
 const prune = process.argv.includes('--prune');
+/**
+ * `--solo t518` limita la pasada a esos ficheros. Sondear el catalogo entero
+ * son 29.000 peticiones y mas de una hora; despues de importar UNA serie lo
+ * que hace falta es comprobar esa serie.
+ */
+const solo = process.argv.find((a) => a.startsWith('--solo='))?.slice(7)
+  ?? (process.argv.includes('--solo') ? process.argv[process.argv.indexOf('--solo') + 1] : null);
 
 const UA = { 'user-agent': 'Mozilla/5.0', accept: '*/*' };
 
@@ -102,8 +109,44 @@ async function probeIframe(url) {
   }
 }
 
+/**
+ * `video.g` trae dentro la URL del stream en googlevideo, asi que desde Node
+ * se puede comprobar que el video sigue existiendo. Es mas de lo que se puede
+ * decir de ok.ru, pero sigue sin ser prueba de reproduccion: lo que reproduce
+ * es un embed de YouTube dentro de la pagina, y eso solo se puede juzgar en un
+ * navegador de verdad.
+ *
+ * El caso que lo enseño: los 34 capitulos de t518 daban stream desde Node y
+ * aun asi salia "Se produjo un error. Vuelve a intentarlo mas tarde", porque a
+ * la URL le faltaba el `&origin=<dominio del blog>` que el blog si pone. El
+ * dato estaba vivo y el embed mal construido, y un sondeo desde Node no
+ * distingue una cosa de la otra.
+ *
+ * Asi que aqui solo se afirma lo negativo: si la pagina NO trae stream, el
+ * video ya no existe (`muerta`). Si lo trae, es `indicio` y nada mas.
+ */
+async function probeBlogger(url) {
+  try {
+    const res = await pedir(url);
+    if (res.status === 404 || res.status === 410) return { estado: 'muerta', motivo: `HTTP ${res.status}` };
+    if (!res.ok) return { estado: 'indicio', motivo: `HTTP ${res.status}` };
+    const body = await res.text();
+    if (!/googlevideo\.com\/videoplayback/.test(body)) {
+      return { estado: 'muerta', motivo: 'la pagina no trae stream (token caducado o video borrado)' };
+    }
+    return { estado: 'indicio', detalle: 'el video existe (no prueba que el embed reproduzca)' };
+  } catch (err) {
+    return { estado: 'indicio', motivo: err.name === 'AbortError' ? 'timeout' : (err.cause?.code ?? err.message) };
+  }
+}
+
+/** Proveedores con un sondeo propio que si es concluyente. */
+const PROBES = { blogger: probeBlogger };
+
 function probe(source) {
   const url = embedUrl(source);
+  const propio = PROBES[source.provider];
+  if (propio) return propio(url);
   if (source.kind === 'iframe') return probeIframe(url);
   if (source.kind === 'hls') return probeHls(url);
   if (url.startsWith('/')) return probeLocal(url);
@@ -112,9 +155,11 @@ function probe(source) {
 
 // ------------------------------------------------------------------ recorrido
 
-const ficheros = (await readdir(DIR)).filter((f) => f.endsWith('.json'));
+const ficheros = (await readdir(DIR))
+  .filter((f) => f.endsWith('.json'))
+  .filter((f) => !solo || f.includes(solo));
 if (!ficheros.length) {
-  console.log('no hay ficheros en public/data/episodes/');
+  console.log(solo ? `ningun fichero de episodios coincide con "${solo}"` : 'no hay ficheros en public/data/episodes/');
   process.exit(0);
 }
 

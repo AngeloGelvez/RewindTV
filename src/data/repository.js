@@ -228,6 +228,10 @@ export const query = memoize(
     else if (sort === 'year-asc') sorted.sort((a, b) => a.year - b.year);
     else if (sort === 'name') sorted.sort((a, b) => a.name.localeCompare(b.name));
     else if (sort === 'score') sorted.sort((a, b) => (b.score ?? 0) - (a.score ?? 0));
+    // Primero lo que se ve sin ventanas de anuncios. Es estable: dentro de cada
+    // grupo manda el orden elegido. A-Z se respeta tal cual, porque quien lo
+    // pide busca una letra.
+    if (sort !== 'name') sorted.sort((a, b) => Number(b.adFree) - Number(a.adFree));
     return sorted;
   },
   { keyOf: (f) => `${f.genre}|${f.decade}|${f.kind}|${f.sort}` },
