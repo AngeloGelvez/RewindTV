@@ -94,7 +94,7 @@ const cola = new Map(
     porCategoria
       .get(slug)
       .filter(buenos)
-      .sort((a, b) => Number(PAISES.has(b.country)) - Number(PAISES.has(a.country)))
+      .sort((a, b) => Number(b.lang === 'spa') - Number(a.lang === 'spa') || Number(PAISES.has(b.country)) - Number(PAISES.has(a.country)))
       .slice(0, DESTACADOS),
   ]),
 );

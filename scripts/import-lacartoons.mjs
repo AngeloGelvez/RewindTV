@@ -167,9 +167,19 @@ const filas = parseCsv((await readFile(csvPath, 'utf8')).replace(/^﻿/, ''));
  * tampoco son suyas para tirarlas.
  */
 const arte = new Map();
+/**
+ * Titulos que NO salen de este CSV (los que mete scripts/import-blogspot.mjs,
+ * por ejemplo). Este script reescribe titles.json entero y borra los
+ * episodes/*.json que ningun titulo respalda, asi que sin esto una
+ * reimportacion del catalogo se llevaria por delante series enteras que no son
+ * suyas. Se recogen ahora y se devuelven al final, intactas.
+ */
+const ajenos = [];
 try {
   const previos = JSON.parse(await readFile(join(DATA, 'titles.json'), 'utf8'));
   for (const t of previos) if (t.poster || t.backdrop) arte.set(t.id, { poster: t.poster, backdrop: t.backdrop });
+  const delCsv = new Set(filas.map((f) => `t${f.serie_id}`));
+  for (const t of previos) if (!delCsv.has(t.id)) ajenos.push(t);
 } catch {
   /* primera importacion: todavia no hay titles.json */
 }
@@ -275,11 +285,16 @@ for (const serie of [...series.values()].sort((a, b) => Number(a.id.slice(1)) - 
   });
 }
 
+// Las series de otra fuente vuelven a su sitio y el conjunto se reordena por
+// id: titles.json queda igual que antes de esta pasada salvo por lo del CSV.
+titles.push(...ajenos);
+titles.sort((a, b) => Number(a.id.slice(1)) - Number(b.id.slice(1)));
+
 if (!dry) {
   await mkdir(EPISODES_DIR, { recursive: true });
   // Los ficheros de episodios que ya no respalda ningun titulo se borran: un
   // episodes/t9.json huerfano no lo pide nadie, pero despista al siguiente.
-  const vivos = new Set(ficheros.map((f) => f.file));
+  const vivos = new Set([...ficheros.map((f) => f.file), ...ajenos.map((t) => `${t.id}.json`)]);
   for (const file of await readdir(EPISODES_DIR)) {
     if (file.endsWith('.json') && !vivos.has(file)) await unlink(join(EPISODES_DIR, file));
   }
@@ -294,6 +309,7 @@ const kb = (obj) => `${(Buffer.byteLength(JSON.stringify(obj)) / 1024).toFixed(0
 console.log(`\n${dry ? '[dry] ' : ''}importacion desde ${csvPath}`);
 console.log(`  filas leidas       : ${stats.filas}`);
 console.log(`  titulos            : ${titles.length}  (titles.json ${kb(titles)})`);
+if (ajenos.length) console.log(`  de otra fuente     : ${ajenos.length}  (conservados: ${ajenos.map((t) => t.id).join(', ')})`);
 console.log(`  capitulos          : ${titles.reduce((n, t) => n + t.episodeCount, 0)}`);
 console.log(`  renumerados        : ${stats.renumerados}`);
 console.log(`  sin fuente usable  : ${stats.sinFuente}`);

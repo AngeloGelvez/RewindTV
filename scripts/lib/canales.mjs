@@ -179,12 +179,13 @@ export function esRadio({ grupo = '', listas = '', url = '', nombre = '' }) {
 
 const ORDEN_CAT = new Map(CATEGORIAS.map((c, i) => [c.slug, i]));
 
-/** Orden estable de la lista maestra: categoria, lo que reproduce, nombre. */
+/** Orden estable de la lista maestra: categoria, lo que reproduce, español primero, nombre. */
 export function ordenar(canales) {
   return canales.sort(
     (a, b) =>
       (ORDEN_CAT.get(a.category) ?? 99) - (ORDEN_CAT.get(b.category) ?? 99) ||
       (a.webPlayable === false) - (b.webPlayable === false) ||
+      (a.lang !== 'spa') - (b.lang !== 'spa') ||
       a.name.localeCompare(b.name),
   );
 }

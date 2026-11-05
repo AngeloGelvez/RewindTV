@@ -26,7 +26,19 @@ import { withBase } from '../../core/base.js';
 // cambia la forma del dato: el adaptador guarda el JSON crudo en IndexedDB, y
 // quien ya visito la web seguiria leyendo la version anterior —sin saludo, sin
 // portadas— durante un dia entero. Esta es la tercera vez que pasa.
-const CATALOG_KEY = 'catalog:v6';
+const CATALOG_KEY = 'catalog:v7';
+
+// Y esta es la cuarta, pero en el otro fichero: `episodes:<id>` no llevaba
+// version, asi que el aviso de arriba no protegia a los capitulos. Al cambiar
+// la forma de `src` en las fuentes de Blogger (de token suelto a la query
+// entera), quien ya habia abierto la serie seguia construyendo la URL vieja y
+// el reproductor salia en blanco. Comprobado en caliente antes de arreglarlo.
+//
+// La version va en la clave, no en un borrado al arrancar: una clave nueva
+// deja la vieja muerta sin tocar nada mas, y `cache.get` ya la descarta a las
+// 24 h por antigüedad.
+const EPISODES_VERSION = 'v2';
+const episodesKey = (id) => `episodes:${EPISODES_VERSION}:${id}`;
 
 async function fetchJson(path) {
   const res = await fetch(withBase(path), { headers: { accept: 'application/json' } });
@@ -50,7 +62,7 @@ export const adapter = {
 
   /** Capitulos de un titulo. Un fichero por serie: solo bajas lo que abres. */
   async loadEpisodes(title) {
-    const key = `episodes:${title.id}`;
+    const key = episodesKey(title.id);
     let raw = await cache.get(key);
     if (!raw) {
       raw = await fetchJson(`/data/episodes/${title.id}.json`);

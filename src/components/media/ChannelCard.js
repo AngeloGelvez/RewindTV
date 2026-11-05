@@ -33,6 +33,7 @@ const cloneCard = template(`
 
       <span class="min-w-0 flex-1">
         <span class="flex items-center gap-1.5">
+          <img class="hidden h-3.5 w-5 shrink-0 rounded-[3px] object-cover" alt="" loading="lazy" decoding="async" data-flag />
           <span class="truncate text-[0.95rem] font-semibold text-ink-0" data-name></span>
           <svg viewBox="0 0 24 24" class="size-3.5 shrink-0" fill="currentColor" style="color: var(--fest-text)" aria-hidden="true" data-check>
             <path d="m12 2 2.4 1.8 3-.2.9 2.9 2.4 1.7-1.1 2.8 1.1 2.8-2.4 1.7-.9 2.9-3-.2L12 22l-2.4-1.8-3 .2-.9-2.9-2.4-1.7L4.4 13 3.3 10.2l2.4-1.7.9-2.9 3 .2z" opacity=".22"/>
@@ -61,7 +62,8 @@ export const channelPool = createPool({
   create() {
     const node = cloneCard();
     node.__refs = {
-      img: node.querySelector('img'),
+      img: node.querySelector('img:not([data-flag])'),
+      flag: node.querySelector('[data-flag]'),
       fallback: node.querySelector('[data-fallback]'),
       name: node.querySelector('[data-name]'),
       vivo: node.querySelector('[data-vivo]'),
@@ -73,7 +75,10 @@ export const channelPool = createPool({
     return node;
   },
   reset(node) {
-    const { img, fallback, name, meta, tag, q, vivo, aviso } = node.__refs;
+    const { img, flag, fallback, name, meta, tag, q, vivo, aviso } = node.__refs;
+    flag.classList.add('hidden');
+    flag.removeAttribute('src');
+    flag.removeAttribute('title');
     vivo.classList.remove('hidden');
     vivo.classList.add('inline-flex');
     aviso.classList.add('hidden');
@@ -95,16 +100,19 @@ export const channelPool = createPool({
   max: 60,
 });
 
-const PAIS = {
-  mx: 'Mexico', es: 'Espana', co: 'Colombia', ar: 'Argentina', cl: 'Chile',
-  pe: 'Peru', us: 'Estados Unidos', ca: 'Canada', it: 'Italia', de: 'Alemania',
-  gr: 'Grecia', nl: 'Paises Bajos', pt: 'Portugal', ro: 'Rumania', at: 'Austria',
-  bg: 'Bulgaria', gt: 'Guatemala', hn: 'Honduras', sm: 'San Marino', ae: 'Emiratos', sx: 'San Martin',
-};
+// Nombres en español para cualquier codigo de pais, sin mantener una tabla.
+const NOMBRE_PAIS = new Intl.DisplayNames(['es'], { type: 'region' });
+function nombrePais(code) {
+  try {
+    return NOMBRE_PAIS.of(code.toUpperCase());
+  } catch {
+    return code.toUpperCase();
+  }
+}
 
 export function renderChannel(channel) {
   const node = channelPool.acquire();
-  const { img, fallback, name, meta, tag, q, vivo, aviso } = node.__refs;
+  const { img, flag, fallback, name, meta, tag, q, vivo, aviso } = node.__refs;
 
   node.dataset.id = channel.id;
   // `k` es la categoria: con ella la vista de En vivo pide solo su trozo y no
@@ -116,7 +124,13 @@ export function renderChannel(channel) {
   img.dataset.src = channel.logo;
   name.textContent = channel.name;
 
-  const pais = PAIS[channel.country] ?? channel.country?.toUpperCase();
+  const pais = channel.country ? nombrePais(channel.country) : null;
+  // Imagen y no emoji: Windows no dibuja las banderas emoji, solo dos letras.
+  if (channel.country) {
+    flag.src = `https://flagcdn.com/w40/${channel.country}.png`;
+    flag.title = pais;
+    flag.classList.remove('hidden');
+  }
   meta.textContent = [pais, channel.genres[0]?.label, channel.always ? 'Emite 24/7' : 'Por franjas']
     .filter(Boolean)
     .join(' · ');

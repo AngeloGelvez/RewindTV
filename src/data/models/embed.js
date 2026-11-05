@@ -20,7 +20,10 @@
 import { intern } from '../../patterns/flyweight.js';
 
 const PROVIDERS = {
-  okru: { kind: 'iframe', label: 'OK.ru', build: (id) => `https://ok.ru/videoembed/${id}` },
+  // `sandbox: true`: el Player le corta las ventanas emergentes y las
+  // redirecciones. Solo donde se comprobo que el video sigue reproduciendo:
+  // Dhtpre lo detecta y se niega, y Cube sigue en mantenimiento sin poder medirlo.
+  okru: { kind: 'iframe', label: 'OK.ru', sandbox: true, clean: true, build: (id) => `https://ok.ru/videoembed/${id}` },
   vk: { kind: 'iframe', label: 'VK', build: (id) => `https://vk.com/video_ext.php?${id}` },
   dailymotion: {
     kind: 'iframe',
@@ -52,7 +55,29 @@ const PROVIDERS = {
   yourupload: {
     kind: 'iframe',
     label: 'YourUpload',
+    sandbox: true,
+    clean: true,
     build: (id) => `https://www.yourupload.com/embed/${id}`,
+  },
+  // Blogspot aloja el video en el propio Blogger: el embed es `video.g`, que
+  // por dentro monta un reproductor de YouTube.
+  //
+  // El id guarda la QUERY ENTERA, no solo el token, igual que `vk`. No es un
+  // capricho: el blog embebe `video.g?token=...&origin=<su dominio>` y ese
+  // `origin` viaja hasta el reproductor de YouTube. Quitarlo es justo lo que
+  // hacia salir "Se produjo un error. Vuelve a intentarlo mas tarde": el
+  // reproductor cargaba, decia `isPlayable: true` y se quedaba en buffering
+  // con 0 bytes. Se replica el embed del blog tal cual.
+  //
+  // Ademas el token CADUCA: los del volcado original ya no servian y hubo que
+  // volver a leerlos de las entradas del blog. Son estables entre cargas (se
+  // pueden guardar), pero no para siempre; cuando vuelvan a caer, se refrescan
+  // con `node scripts/import-blogspot.mjs <csv> <serie>`, que los relee.
+  blogger: {
+    kind: 'iframe',
+    label: 'Blogger',
+    clean: true,
+    build: (id) => `https://www.blogger.com/video.g?${id}`,
   },
   // `mp4` guarda la URL completa: hosting propio o fichero publico, no hay id
   // que expandir. Cubre tambien HLS, que se distingue por extension (.m3u8) y
@@ -122,6 +147,8 @@ export const isIframe = (source) => source?.kind === 'iframe';
 export const isHlsUrl = (url) => typeof url === 'string' && HLS.test(url);
 export const providerLabel = (source) =>
   source ? (PROVIDERS[source.provider]?.label ?? source.provider) : '';
+export const providerClean = (provider) => PROVIDERS[provider]?.clean === true;
+export const providerSandbox = (source) => PROVIDERS[source?.provider]?.sandbox === true;
 export const providerPing = (source) => PROVIDERS[source?.provider]?.ping ?? null;
 export const providerKind = (provider) => PROVIDERS[provider]?.kind ?? null;
 export const knownProviders = () => Object.keys(PROVIDERS);
