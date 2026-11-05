@@ -305,8 +305,8 @@
    * plegado— para que abrirlo no recoloque la rejilla entera.
    */
   html.tv {
-    --rail-w: 4.5rem;
-    --rail-ico: 1.25rem;
+    --rail-w: 3.25rem;
+    --rail-ico: 1.125rem;
     /* Centra el icono en el rail plegado. Es el mismo relleno plegado y
        desplegado, asi que los iconos no saltan al abrirse. */
     --rail-pad: calc((var(--rail-w) - var(--rail-ico)) / 2);
@@ -329,7 +329,7 @@
   }
 
   html.tv [data-rail]:focus-within {
-    width: 14rem;
+    width: 11rem;
     box-shadow: var(--shadow-card);
   }
 
@@ -407,6 +407,19 @@
   }
   html.tv {
     scroll-behavior: auto;
+  }
+
+  /* El hero tiene que caber entero: los televisores suelen dar 540 px de alto,
+     y con las medidas de escritorio "Ver ahora" quedaba fuera de pantalla. */
+  html.tv [data-hero] {
+    min-height: 82vh;
+    padding: 1.5rem 2.5rem 2rem;
+  }
+  html.tv [data-hero] h1 {
+    font-size: clamp(2rem, 7vh, 3.5rem);
+  }
+  html.tv [data-hero] > .space-y-5 > * + * {
+    margin-top: 0.75rem;
   }
 
   /* Canales mas grandes: caben menos por fila y la vista respira. */
