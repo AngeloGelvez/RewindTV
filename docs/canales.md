@@ -327,6 +327,23 @@ Lo que sigue marcado: los 1.336 de Pluto, porque su servidor solo autoriza a
 y otros 100 que fallaron tambien en esta prueba. La medicion se hizo en Chromium,
 en `localhost`; un televisor o Safari pueden dar otro resultado.
 
+### Pais, idioma y orden
+
+`scripts/asignar-paises.mjs` cruza la lista con iptv-org y con la tabla de regiones
+de Pluto. Deja `country` y `lang` en 7.373 de 7.578 canales; el resto se queda sin
+bandera antes que con una inventada. Hay que volver a correrlo tras importar canales.
+
+Dentro de cada categoria el orden es: lo que reproduce en español, lo que reproduce
+en otro idioma, lo marcado en español y lo marcado en otro idioma. Un canal marcado
+no pasa delante de uno que funciona, aunque este en español.
+
+### Proxy para Pluto: probado, sin desplegar
+
+Con un proxy local que reescribe el playlist y añade CORS, **20 de 20** canales de
+Pluto reprodujeron, entre ellos los cuatro de Bob Esponja. Falta medirlo desde un
+servidor publico: GitHub Pages no ejecuta codigo, asi que iria en otro servicio
+(p. ej. Cloudflare Workers), y Pluto reparte por region segun la IP de quien pide.
+
 **El indice no se cachea en IndexedDB.** Se hizo asi al principio (30 minutos) y
 una lista nueva tardaba media hora en verse: la cabecera seguia contando los
 canales viejos. El indice es lo que dice que version de los trozos toca leer,
