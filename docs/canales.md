@@ -344,6 +344,14 @@ Pluto reprodujeron, entre ellos los cuatro de Bob Esponja. Falta medirlo desde u
 servidor publico: GitHub Pages no ejecuta codigo, asi que iria en otro servicio
 (p. ej. Cloudflare Workers), y Pluto reparte por region segun la IP de quien pide.
 
+### Canales retirados
+
+Se quitaron **CinePride** y los **631 canales de la India** (`country: "in"`), a peticion
+del dueño de la web: la lista queda en **6.946 canales**, 1.430 de ellos marcados. Los
+canales en idioma indio de otros paises (Pakistan, Bangladesh, Reino Unido...) siguen.
+Si se vuelve a importar un CSV con ellos, habria que quitarlos de nuevo: el importador
+no los filtra.
+
 **El indice no se cachea en IndexedDB.** Se hizo asi al principio (30 minutos) y
 una lista nueva tardaba media hora en verse: la cabecera seguia contando los
 canales viejos. El indice es lo que dice que version de los trozos toca leer,
