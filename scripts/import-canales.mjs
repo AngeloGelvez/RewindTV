@@ -30,8 +30,14 @@
  *               ficheros, pero un canal "en vivo" que es un mp4 en bucle no es
  *               un canal.
  *  repetidos    por URL, contra el fichero y dentro del propio CSV.
+ *  excluidos    los de la India y los que emiten en sus idiomas (ver EXCLUIDOS en
+ *               lib/canales.mjs). El pais y el idioma no vienen en el CSV: los
+ *               pone asignar-paises.mjs, que este script lanza al terminar, y es
+ *               ese quien los quita. Sin ese paso volverian con cada lista.
  */
 import { readFile } from 'node:fs/promises';
+import { execFileSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 import { categoriaDe, generosDe, esRadio, slugify, leerMaestro, escribirMaestro } from './lib/canales.mjs';
 
 const args = process.argv.slice(2);
@@ -168,7 +174,7 @@ for (const fila of filas) {
   }
   // Un nombre hecho de '?' es una codificacion perdida en el origen: no hay nada
   // que mostrar ni de donde recuperarlo.
-  if (!name || !/[p{L}p{N}]/u.test(name.replace(/?/g, ''))) {
+  if (!name || !/[\p{L}\p{N}]/u.test(name.replace(/\uFFFD/g, ''))) {
     stats.sinNombre++;
     continue;
   }
@@ -235,4 +241,12 @@ console.log(`  reclasificados     : ${stats.reclasificados}  de los ${canales.le
 console.log(`  total en el fichero: ${salida.length}`);
 console.log(`  por categoria      : ${JSON.stringify(cuenta(salida, 'category'))}`);
 console.log(`  sin logo           : ${salida.filter((c) => !c.logo).length}`);
+// Pais, idioma y exclusiones. En --dry no se escribe nada, asi que tampoco se lanza.
+if (!dry) {
+  console.log('\nasignando pais e idioma y quitando los excluidos...');
+  execFileSync(process.execPath, [fileURLToPath(new URL('./asignar-paises.mjs', import.meta.url))], {
+    stdio: 'inherit',
+  });
+}
+
 console.log(`\nsiguiente paso: npm run channels   (verifica y sella los nuevos)`);

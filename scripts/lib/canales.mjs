@@ -179,6 +179,26 @@ export function esRadio({ grupo = '', listas = '', url = '', nombre = '' }) {
 
 const ORDEN_CAT = new Map(CATEGORIAS.map((c, i) => [c.slug, i]));
 
+/**
+ * Canales que NO entran en esta web, pida lo que pida la lista que se importe.
+ * Se decide por pais o por idioma, no por nombre: los de la India y los que
+ * emiten en sus idiomas desde otros paises (Pakistan, Bangladesh, Nepal, Sri
+ * Lanka, la diaspora en Reino Unido o Canada...).
+ *
+ * Lo aplican `asignar-paises.mjs` —que es quien sabe el pais y el idioma de
+ * cada canal— y, por encima, `import-canales.mjs`, que lo lanza solo. Para
+ * dejar entrar uno de nuevo basta con quitar su pais o su idioma de aqui.
+ */
+export const EXCLUIDOS = {
+  paises: ['in'],
+  // hindi, tamil, telugu, malayalam, canarés, maratí, guyaratí, panyabí, odia,
+  // asamés, bhoyapurí, konkani, maithili, bengalí, urdu, sindhi, nepalí, cingalés
+  idiomas: ['hin', 'tam', 'tel', 'mal', 'kan', 'mar', 'guj', 'pan', 'ori', 'asm', 'bho', 'kok', 'mai', 'ben', 'urd', 'snd', 'nep', 'sin'],
+};
+
+export const esExcluido = (c) =>
+  EXCLUIDOS.paises.includes(c.country) || EXCLUIDOS.idiomas.includes(c.lang);
+
 /** Orden estable de la lista maestra: categoria, lo que reproduce, español primero, nombre. */
 export function ordenar(canales) {
   return canales.sort(

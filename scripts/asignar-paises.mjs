@@ -19,7 +19,7 @@
  * una inventada.
  */
 import { gunzipSync } from 'node:zlib';
-import { leerMaestro, escribirMaestro } from './lib/canales.mjs';
+import { leerMaestro, escribirMaestro, esExcluido } from './lib/canales.mjs';
 
 const dry = process.argv.includes('--dry');
 
@@ -134,8 +134,9 @@ function paisDelDominio(url) {
 
 // --- reparto -------------------------------------------------------------------
 
-const canales = await leerMaestro();
+const todos = await leerMaestro();
 const vias = {};
+let canales = todos;
 
 function resolver(c) {
   const plu = idPluto(c.stream);
@@ -178,11 +179,16 @@ for (const c of canales) {
   else delete c.lang;
 }
 
+// Con pais e idioma ya puestos, se puede decidir quien no entra (ver EXCLUIDOS).
+const excluidos = canales.filter(esExcluido);
+canales = canales.filter((c) => !esExcluido(c));
+
 if (!dry) await escribirMaestro(canales);
 
 const espanol = canales.filter((c) => c.lang === 'spa');
 const top = canales.reduce((m, c) => ((m[c.country ?? '-'] = (m[c.country ?? '-'] ?? 0) + 1), m), {});
 console.log(`\n${dry ? '[dry] ' : ''}paises de ${canales.length} canales`);
+console.log(`  excluidos   : ${excluidos.length}  (${Object.entries(excluidos.reduce((m, c) => ((m[c.lang ?? c.country] = (m[c.lang ?? c.country] ?? 0) + 1), m), {})).map(([k, n]) => `${k} ${n}`).join(', ')})`);
 console.log(`  por via     : ${JSON.stringify(vias)}`);
 console.log(`  en español  : ${espanol.length} (reproducibles: ${espanol.filter((c) => c.webPlayable !== false).length})`);
 console.log(`  mas comunes : ${Object.entries(top).sort((a, b) => b[1] - a[1]).slice(0, 16).map(([k, n]) => `${k} ${n}`).join(', ')}`);

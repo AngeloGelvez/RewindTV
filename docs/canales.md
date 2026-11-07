@@ -344,13 +344,20 @@ Pluto reprodujeron, entre ellos los cuatro de Bob Esponja. Falta medirlo desde u
 servidor publico: GitHub Pages no ejecuta codigo, asi que iria en otro servicio
 (p. ej. Cloudflare Workers), y Pluto reparte por region segun la IP de quien pide.
 
-### Canales retirados
+### Canales excluidos
 
-Se quitaron **CinePride** y los **631 canales de la India** (`country: "in"`), a peticion
-del dueño de la web: la lista queda en **6.946 canales**, 1.430 de ellos marcados. Los
-canales en idioma indio de otros paises (Pakistan, Bangladesh, Reino Unido...) siguen.
-Si se vuelve a importar un CSV con ellos, habria que quitarlos de nuevo: el importador
-no los filtra.
+No entran en esta web los canales de la **India** ni los que emiten en sus idiomas
+desde otros paises (Pakistan, Bangladesh, Nepal, Sri Lanka, Reino Unido, Canada...),
+mas **CinePride**. La regla esta en `EXCLUIDOS` de `scripts/lib/canales.mjs`, por pais
+y por idioma: hindi, tamil, telugu, malayalam, kannada, marathi, gujarati, panyabi,
+odia, asames, bengali, urdu, sindhi, nepali y cingales.
+
+`import-canales.mjs` lanza `asignar-paises.mjs` al terminar, y es este quien pone pais
+e idioma y descarta los excluidos: **una lista nueva no los puede volver a traer**.
+Para dejar entrar un idioma o un pais, se quita de `EXCLUIDOS`. CinePride se quito a
+mano y no esta en la regla.
+
+Tras esto la lista queda en **6.863 canales**.
 
 **El indice no se cachea en IndexedDB.** Se hizo asi al principio (30 minutos) y
 una lista nueva tardaba media hora en verse: la cabecera seguia contando los
