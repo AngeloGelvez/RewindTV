@@ -61,6 +61,7 @@ for (const file of await readdir(EPISODES_DIR)) {
           s: season.number,
           n: episode.n,
           name: episode.name,
+          st: episode.st,
           // Se ordena por puntuacion del titulo: lo mejor valorado va primero.
           _score: title.score ?? 0,
         });

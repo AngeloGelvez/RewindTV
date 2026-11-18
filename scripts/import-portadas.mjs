@@ -82,16 +82,19 @@ for (const fila of filas) {
   // de los 3 MB y va de fondo de un hero que se ve una vez.
   const poster = ficheroTmdb(fila.portada_vertical);
   const backdrop = ficheroTmdb(fila.portada_horizontal_1280 || fila.portada_horizontal);
-
-  if (poster) (title.poster = poster), stats.conPoster++;
-  else (delete title.poster, stats.sinPoster.push(title.name));
-
-  if (backdrop) (title.backdrop = backdrop), stats.conBackdrop++;
-  else (delete title.backdrop, stats.sinBackdrop.push(title.name));
-
   if (fila.revisar?.toLowerCase() === 'si') {
     stats.revisar.push(`${title.name}${fila.nota ? ` — ${fila.nota}` : ''}`);
+    continue;
   }
+  const tmdb = fila.tmdb_url?.match(/^https:\/\/www\.themoviedb\.org\/tv\/(\d+)(?:[-/?#]|$)/);
+  if (tmdb && fila.revisar?.toLowerCase() === 'no') title.tmdbId = Number(tmdb[1]);
+
+  if (poster) (title.poster = poster), stats.conPoster++;
+  else if (!title.poster) stats.sinPoster.push(title.name);
+
+  if (backdrop) (title.backdrop = backdrop), stats.conBackdrop++;
+  else if (!title.backdrop) stats.sinBackdrop.push(title.name);
+
 }
 
 if (!dry) await writeFile(`${DATA}titles.json`, JSON.stringify(titles, null, 2), 'utf8');

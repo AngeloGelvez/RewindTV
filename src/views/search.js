@@ -1,26 +1,13 @@
-/**
- * Busqueda sobre los indices del repositorio.
- *
- * Dos secciones, porque el buscador promete dos cosas —"series, pelis o
- * canales"— y antes solo cumplia una: escribir "ESPN" con 1.864 canales dentro
- * no devolvia nada.
- *
- * Los canales se piden en idle: su lista son ~500 KB y quien busca "simpsons"
- * no deberia esperarla. Cuando llegan, si hay una busqueda escrita se repite
- * sola para que su seccion aparezca sin volver a teclear.
- */
-import { el, delegate, clear } from '../core/dom.js';
+/** Búsqueda bajo demanda en las tres colecciones del catálogo. */
+import { el } from '../core/dom.js';
 import { createView } from './_view.js';
-import { write } from '../core/scheduler.js';
-import { withBase } from '../core/base.js';
-import { navigate } from '../core/router.js';
 import { esTv } from '../core/tv.js';
 import { debounce } from '../utils/timing.js';
-import { bootstrap, search, searchChannels, getTitleById, loadAllChannels } from '../data/repository.js';
+import { bootstrap, search, searchEpisodes, searchChannels, loadAllChannels } from '../data/repository.js';
 import { renderCard, recycleCard } from '../components/media/TitleCard.js';
 import { renderChannel, recycleChannel } from '../components/media/ChannelCard.js';
+import { renderEpisode, recycleEpisode } from '../components/media/EpisodeCard.js';
 
-const MAX_TV = 24;
 const FILAS_TECLADO = ['1234567890', 'qwertyuiop', 'asdfghjklñ', 'zxcvbnm'];
 
 function crearTeclado(input, alCambiar) {
@@ -59,164 +46,115 @@ function crearTeclado(input, alCambiar) {
   ]);
 }
 
-export default async function searchView({ outlet, query: qs }) {
+function episodio(ep) {
+  return renderEpisode(ep, { title: ep.title, serie: ep.title.name, href: ep.href });
+}
+
+function seccion(label, buscar, render, recycle, pageSize) {
+  let matches = [];
+  let cards = [];
+  const heading = el('h2', { class: 'text-lg font-bold' });
+  const grid = el('div', { class: 'grid grid-cols-[repeat(auto-fill,minmax(min(100%,240px),1fr))] gap-4' });
+  const more = el('button', {
+    type: 'button', class: 'rounded-pill border px-4 py-2 text-sm hairline',
+    onClick: () => appendPage(true),
+  }, 'Mostrar más');
+  const node = el('section', { class: 'space-y-3', hidden: true }, [heading, grid, more]);
+
+  function appendPage(focus) {
+    const next = matches.slice(cards.length, cards.length + pageSize).map((item) => render(item));
+    cards.push(...next);
+    grid.append(...next);
+    more.hidden = cards.length >= matches.length;
+    if (focus) next[0]?.focus();
+  }
+  function clear() {
+    grid.replaceChildren();
+    if (recycle) cards.forEach(recycle);
+    cards = [];
+    matches = [];
+    node.hidden = true;
+  }
+  return {
+    node, label, buscar, clear,
+    show(items) {
+      matches = items;
+      heading.textContent = `${label} (${items.length.toLocaleString('es')})`;
+      node.hidden = !items.length;
+      appendPage(false);
+    },
+  };
+}
+
+export default async function searchView({ outlet, query }) {
   await bootstrap();
   const tv = esTv();
-
-  let montadas = [];
-  let montadasCanal = [];
-  let ultimo = qs.q ?? '';
-
-  const grid = el('div', { class: 'grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-4' });
-  const gridCanales = el('div', { class: 'grid grid-cols-[repeat(auto-fill,minmax(270px,1fr))] gap-4' });
-  const estado = el('p', { class: 'text-sm text-ink-2' }, 'Escribe al menos dos letras.');
-
-  const rotulo = (texto) =>
-    el('h2', { class: 'hidden pb-3 text-[1.0625rem] font-bold tracking-tight' }, texto);
-  const tituloTitulos = rotulo('Series y peliculas');
-  const tituloCanales = rotulo('Canales en vivo');
-
+  const pageSize = tv ? 8 : 12;
+  const sections = [
+    seccion('Series y películas', search, renderCard, recycleCard, pageSize),
+    seccion('Episodios', searchEpisodes, episodio, recycleEpisode, pageSize),
+    seccion('Canales en vivo', async (term) => {
+      await loadAllChannels();
+      return searchChannels(term);
+    }, renderChannel, recycleChannel, pageSize),
+  ];
+  const estado = el('p', { class: 'text-sm text-ink-2', role: 'status' });
   const input = el('input', {
-    type: 'search',
-    value: qs.q ?? '',
-    placeholder: 'Serie, pelicula, cadena o canal...',
-    class:
-      'w-full max-w-xl rounded-pill border bg-surface-1 px-5 py-3 text-ink-0 placeholder:text-ink-2 hairline focus:border-[var(--fest-text)] focus:outline-none',
-    'aria-label': 'Buscar en el catalogo y en los canales',
+    type: 'search', value: query.q ?? '', readonly: tv, tabindex: tv ? '-1' : '0',
+    'data-nav-skip': tv, placeholder: 'Serie, episodio, cadena o canal…',
+    'aria-label': 'Buscar en el catálogo',
+    class: 'w-full max-w-xl rounded-pill border bg-surface-1 px-5 py-3 text-ink-0 hairline focus:border-[var(--fest-text)]',
   });
-
-  /*
-   * Los canales se piden la PRIMERA vez que se escribe algo, no al entrar: son
-   * ~1,7 MB en trozos y quien llega aqui a mirar no tiene por que bajarlos.
-   * Hasta que llegan, la busqueda devuelve solo titulos; al llegar se repite
-   * sola. Y no se consulta el indice de canales antes: `searchChannels` se
-   * memoiza por termino, y un resultado calculado con la lista a medias se
-   * quedaria cacheado incompleto.
-   */
-  let canalesListos = false;
-  let canalesPidiendose = false;
-
-  function pedirCanales() {
-    if (canalesListos || canalesPidiendose) return;
-    canalesPidiendose = true;
-    loadAllChannels()
-      .then(() => {
-        canalesListos = true;
-        if (ultimo.trim().length >= 2) pintar(ultimo);
-      })
-      .catch((err) => console.error('[buscar] canales', err))
-      .finally(() => {
-        canalesPidiendose = false;
-      });
+  let version = 0;
+  async function pintar(term, token) {
+    if (token !== version) return;
+    const url = new URL(location.href);
+    if (term) url.searchParams.set('q', term);
+    else url.searchParams.delete('q');
+    history.replaceState(history.state, '', url);
+    sections.forEach((s) => s.clear());
+    retry.hidden = true;
+    if (term.trim().length < 2) {
+      estado.textContent = 'Escribe al menos dos caracteres.';
+      return;
+    }
+    let total = 0;
+    const fallos = [];
+    estado.textContent = 'Buscando…';
+    await Promise.all(sections.map(async (s) => {
+      try {
+        const rows = await s.buscar(term);
+        if (token !== version) return;
+        total += rows.length;
+        s.show(rows);
+      } catch {
+        fallos.push(s.label.toLowerCase());
+      }
+    }));
+    if (token !== version) return;
+    let mensaje = total ? `${total.toLocaleString('es')} ${total === 1 ? 'resultado' : 'resultados'} para «${term}».` : '';
+    if (fallos.length) mensaje += ` No se pudo completar la búsqueda en ${fallos.join(' y ')}.`;
+    estado.textContent = mensaje.trim() || `Sin resultados para «${term}».`;
+    retry.hidden = !fallos.length;
   }
-
-  function pintar(term) {
-    ultimo = term ?? '';
-    if (ultimo.trim().length >= 2) pedirCanales();
-    const todosTitulos = search(ultimo);
-    const todosCanales = canalesListos ? searchChannels(ultimo) : [];
-    // En televisor, los primeros resultados: montar cientos de tarjetas lo atasca.
-    const titulos = tv ? todosTitulos.slice(0, MAX_TV) : todosTitulos;
-    const canales = tv ? todosCanales.slice(0, MAX_TV) : todosCanales;
-
-    write(() => {
-      for (const n of montadas) recycleCard(n);
-      for (const n of montadasCanal) recycleChannel(n);
-      montadas = [];
-      montadasCanal = [];
-      clear(grid);
-      clear(gridCanales);
-      tituloTitulos.classList.add('hidden');
-      tituloCanales.classList.add('hidden');
-
-      if (!ultimo || ultimo.trim().length < 2) {
-        estado.textContent = 'Escribe al menos dos letras.';
-        return;
-      }
-
-      const total = todosTitulos.length + todosCanales.length;
-      estado.textContent = total
-        ? `${total} resultado(s) para "${ultimo}"`
-        : `Sin resultados para "${ultimo}"`;
-
-      // Los rotulos solo salen cuando hay de las dos cosas: con un unico
-      // bloque, "Series y peliculas" encima sobra.
-      const ambos = titulos.length > 0 && canales.length > 0;
-
-      if (titulos.length) {
-        if (ambos) tituloTitulos.classList.remove('hidden');
-        const frag = document.createDocumentFragment();
-        for (const t of titulos) {
-          const n = renderCard(t);
-          montadas.push(n);
-          frag.appendChild(n);
-        }
-        grid.appendChild(frag);
-      }
-
-      if (canales.length) {
-        if (ambos) tituloCanales.classList.remove('hidden');
-        const frag = document.createDocumentFragment();
-        for (const c of canales) {
-          const n = renderChannel(c);
-          montadasCanal.push(n);
-          frag.appendChild(n);
-        }
-        gridCanales.appendChild(frag);
-      }
-    });
-  }
-
-  const alEscribir = debounce((event) => {
-    const term = event.target.value;
-    history.replaceState(null, '', withBase(term ? `/buscar?q=${encodeURIComponent(term)}` : '/buscar'));
-    pintar(term);
-  }, 180);
+  const despuesDeEscribir = debounce(pintar, 180);
+  const alEscribir = () => despuesDeEscribir(input.value, ++version);
   input.addEventListener('input', alEscribir);
-
-  /*
-   * Teclado en pantalla para el mando. El navegador de un televisor no siempre
-   * abre su teclado al enfocar un campo, y sin el no hay forma de escribir. El
-   * campo queda de solo lectura: enseña lo escrito y nada mas.
-   */
-  const teclado = tv ? crearTeclado(input, (valor) => alEscribir({ target: { value: valor } })) : null;
-  if (tv) input.readOnly = true;
-
-  const node = el('div', { class: 'px-4 py-7 md:px-6 md:py-9 lg:px-8' }, [
-    el('header', { class: 'mb-6 space-y-4' }, [
-      el('h1', { class: 'font-display text-3xl font-extrabold tracking-tight md:text-4xl' }, 'Buscar'),
-      input,
-      teclado,
-      estado,
+  const retry = el('button', { type: 'button', hidden: true,
+    class: 'rounded-pill border px-3 py-1 text-sm hairline', onClick: () => pintar(input.value, ++version) }, 'Reintentar');
+  const node = el('div', { class: 'space-y-8 px-4 py-7 md:px-6 lg:px-8' }, [
+    el('header', { class: 'space-y-4' }, [
+      el('h1', { class: 'font-display text-3xl font-extrabold md:text-4xl' }, 'Buscar'),
+      input, tv ? crearTeclado(input, alEscribir) : null, estado, retry,
     ]),
-    el('section', {}, [tituloTitulos, grid]),
-    el('section', { class: 'pt-8' }, [tituloCanales, gridCanales]),
+    ...sections.map((s) => s.node),
   ]);
-
-  const quitar = delegate(grid, '[data-id]', 'click', (event, target) => {
-    if (event.ctrlKey || event.metaKey || event.shiftKey) return;
-    event.preventDefault();
-    const t = getTitleById(target.dataset.id);
-    if (t) navigate(`/titulo/${t.slug}`);
-  });
-
-  const quitarCanales = delegate(gridCanales, '[data-id]', 'click', (event, target) => {
-    if (event.ctrlKey || event.metaKey || event.shiftKey) return;
-    event.preventDefault();
-    navigate(`/en-vivo?c=${encodeURIComponent(target.dataset.id)}`);
-  });
-
-  if (qs.q) pintar(qs.q);
-  if (!tv) write(() => input.focus());
-
-  return createView(node, outlet, () => {
-    alEscribir.cancel();
+  const view = createView(node, outlet, () => {
+    version++;
+    despuesDeEscribir.cancel();
     input.removeEventListener('input', alEscribir);
-    quitar();
-    quitarCanales();
-    for (const n of montadas) recycleCard(n);
-    for (const n of montadasCanal) recycleChannel(n);
-    montadas = [];
-    montadasCanal = [];
+    sections.forEach((s) => s.clear());
   });
+  pintar(input.value, ++version);
+  return view;
 }

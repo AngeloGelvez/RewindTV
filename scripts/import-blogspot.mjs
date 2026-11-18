@@ -20,6 +20,7 @@
  */
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { join } from 'node:path';
+import { preserveEpisodeMetadata } from './lib/episode-metadata.mjs';
 
 const DATA = new URL('../public/data/', import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1');
 const EPISODES_DIR = join(DATA, 'episodes');
@@ -328,10 +329,20 @@ if (chocaSlug !== -1) {
 }
 
 if (previo === -1) titles.push(title);
-else titles[previo] = title;
+else {
+  const anterior = titles[previo];
+  titles[previo] = {
+    ...anterior,
+    ...title,
+    synopsis: anterior.synopsis || title.synopsis,
+    poster: anterior.poster || title.poster,
+    backdrop: anterior.backdrop || title.backdrop,
+  };
+}
 titles.sort((a, b) => Number(a.id.slice(1)) - Number(b.id.slice(1)));
 
 const body = { titleId: title.id, seasons: [{ number: 1, episodes }] };
+await preserveEpisodeMetadata(join(EPISODES_DIR, `${title.id}.json`), body);
 
 if (!dry) {
   await mkdir(EPISODES_DIR, { recursive: true });

@@ -58,7 +58,7 @@ export default async function watchView({ outlet, params }) {
       sources: episode.sources,
       // Solo arte real: el marcador de posicion generico detras del boton de
       // reproducir no aporta nada y se ve como una imagen rota a medio cargar.
-      poster: title.backdrop ?? title.poster ?? null,
+      poster: episode.still ?? title.backdrop ?? title.poster,
       label: `${title.name} T${episode.season}E${episode.number}`,
     });
     piezas.push(player);
@@ -69,7 +69,6 @@ export default async function watchView({ outlet, params }) {
         el('p', { class: 'text-xs font-semibold uppercase tracking-wider', style: 'color: var(--fest-text)' },
           `Temporada ${episode.season} · Episodio ${episode.number}`),
         el('h1', { class: 'text-2xl font-semibold leading-tight' }, episode.name),
-        episode.synopsis ? el('p', { class: 'text-sm text-ink-1' }, episode.synopsis) : null,
         el('div', { class: 'flex flex-wrap gap-2 pt-1' }, [
           botonNav(anterior(), 'Anterior', true),
           botonNav(nextEpisode(title, episode), 'Siguiente', false),

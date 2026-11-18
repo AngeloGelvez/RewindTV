@@ -167,6 +167,10 @@
     border-radius: var(--radius-panel);
   }
 
+  #outlet[data-view='detail'] {
+    max-width: none;
+  }
+
   .hairline {
     border-color: var(--line);
   }
@@ -432,7 +436,7 @@
   }
 
   /* Sin barra superior: su sitio lo ocupa el contenido. */
-  html.tv header {
+  html.tv [data-topbar] {
     display: none;
   }
 

@@ -55,10 +55,10 @@ y el ancho es una decision de la interfaz, no del dato. Una ruta que empieza por
 convive con las de TMDB. Un titulo sin portada no lleva el campo: la tarjeta
 pinta el color de su cadena con las iniciales.
 
-Las portadas entran con `node scripts/import-portadas.mjs <csv>`, que parchea
-`titles.json` sin tocar nada mas. De 504 titulos, 495 tienen portada vertical y
-490 apaisada; 27 coincidencias quedaron marcadas para revisar y el script las
-lista en cada pasada.
+Las portadas entran con `node scripts/import-portadas.mjs <csv>`. Cuando el CSV identifica la
+serie con certeza, `tmdbId` guarda su identificador numérico en TMDB. `synopsis` contiene
+la descripción de la serie y el campo opcional `synopsisSource` acredita su procedencia.
+La ficha muestra el texto completo bajo la portada.
 
 `genres` y `network` son **strings**, no objetos. Al parsear se convierten en
 flyweights compartidos (`Genre.get`, `Network.get`): 500 series que digan
@@ -96,8 +96,7 @@ nombres de campo pesan mas que los datos.
 | `srcs` | lista de tuplas en orden de preferencia (alternativa a `src`) |
 | `min` | duracion en minutos (opcional, hereda del titulo) |
 | `fest` | festividades a las que pertenece (opcional) |
-| `synopsis` | opcional |
-| `st` | fotograma del capitulo (nombre de fichero, como las portadas, o URL propia); por ahora solo en `t518` |
+| `st` | fotograma del episodio, como nombre de fichero en TMDB o URL. Si falta, se muestra la imagen de la serie. |
 
 El `id` del episodio no se guarda: se deriva (`t1-1-1`). Un campo menos por
 cada capitulo.

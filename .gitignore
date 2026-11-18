@@ -4,3 +4,4 @@ dist
 *.local
 # trozos de canales: se regeneran con scripts/build-channels.mjs
 public/data/channels/
+public/data/episode-index.json

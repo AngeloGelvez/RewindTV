@@ -29,11 +29,9 @@ export function createEpisode(raw, title, season) {
     season,
     number: raw.n,
     name: raw.name,
-    synopsis: raw.synopsis ?? '',
     runtime: raw.min ?? title.runtime,
     // `st`: fotograma del capitulo, guardado como nombre de fichero igual que
-    // las portadas. Todavia no lo trae ningun capitulo; la vista de ficha cae
-    // al fondo de la serie mientras tanto.
+    // las portadas o como URL externa. La ficha prefiere este arte al de la serie.
     still: imageUrl(raw.st, 'still'),
     sources,
     // Compat: las vistas que solo entienden una fuente siguen funcionando.

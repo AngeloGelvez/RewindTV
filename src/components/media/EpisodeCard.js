@@ -13,6 +13,7 @@ import { template, resetLayout } from '../../core/dom.js';
 import { createPool } from '../../patterns/objectPool.js';
 import { hydrateImage, resetImage, initials } from '../ui/LazyImage.js';
 import { runtime } from '../../utils/format.js';
+import { atSize } from '../../data/models/images.js';
 
 const cloneCard = template(`
   <a class="card-surface group block select-none overflow-hidden rounded-card bg-surface-1 ring-1 ring-surface-2 transition duration-300 ease-[var(--ease-out-quint)] hover:bg-surface-2 hover:ring-[var(--fest-ring)] focus-visible:bg-surface-2">
@@ -82,19 +83,23 @@ export const episodePool = createPool({
  *   dentro de ella— pero en una fila tematica los capitulos vienen de series
  *   distintas y sin esto no se sabe de que son.
  */
-export function renderEpisode(episode, { still, activo, progreso = 0, href, serie: nombreSerie } = {}) {
+export function renderEpisode(episode, { title, activo, progreso = 0, href, serie: nombreSerie } = {}) {
   const node = episodePool.acquire();
   const { img, fallback, name, num, dur, progress, serie } = node.__refs;
 
   node.dataset.id = episode.id;
   if (href) node.href = withBase(href);
-  fallback.textContent = initials(episode.name);
+  fallback.textContent = initials(title?.name ?? episode.name);
+  fallback.style.backgroundColor = title?.network?.color ?? '';
 
   img.alt = '';
+  const cover = atSize(title?.backdrop ?? title?.poster, 'card');
+  const still = episode.still ?? cover;
   if (still) img.dataset.src = still;
   num.textContent = `T${episode.season} · E${episode.number}`;
   name.textContent = episode.name;
   dur.textContent = runtime(episode.runtime);
+  dur.hidden = !episode.runtime;
   if (nombreSerie) {
     serie.textContent = nombreSerie;
     serie.classList.remove('hidden');
@@ -103,7 +108,9 @@ export function renderEpisode(episode, { still, activo, progreso = 0, href, seri
   node.classList.toggle('ring-fest', Boolean(activo));
   if (activo) node.setAttribute('aria-current', 'true');
 
-  if (still) hydrateImage(img);
+  if (still) hydrateImage(img, { onError: () => {
+    if (cover && img.getAttribute('src') !== cover) img.src = cover;
+  } });
   return node;
 }
 

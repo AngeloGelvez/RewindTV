@@ -22,7 +22,7 @@ const LINKS = [
   { href: '/', label: 'Inicio', route: 'home', ico: 'home' },
   { href: '/explorar', label: 'Explorar', route: 'explore', ico: 'grid' },
   { href: '/en-vivo', label: 'En vivo', route: 'live', ico: 'live' },
-  { href: '/guia', label: 'Guia', route: 'guide', ico: 'guide' },
+  { href: '/guia', label: 'Guía', route: 'guide', ico: 'guide' },
   { href: '/buscar', label: 'Buscar', route: 'search', ico: 'search' },
 ];
 
@@ -126,10 +126,10 @@ export const Topbar = defineComponent({
   setup({ onSearch }, { onDispose }) {
     const input = el('input', {
       type: 'search',
-      placeholder: 'Buscar series, pelis o canales...',
+      placeholder: 'Buscar series, episodios o canales…',
       class:
         'w-full bg-transparent py-2.5 pl-10 pr-3 text-sm text-ink-0 placeholder:text-ink-2 focus:outline-none',
-      'aria-label': 'Buscar series, pelis o canales',
+      'aria-label': 'Buscar series, episodios o canales',
       enterkeyhint: 'search',
     });
 
@@ -169,7 +169,7 @@ export const Topbar = defineComponent({
 
     const node = el(
       'header',
-      { class: 'sticky top-0 z-40 border-b glass hairline' },
+      { 'data-topbar': '', class: 'sticky top-0 z-40 border-b glass hairline' },
       [
         el('div', { class: 'mx-auto flex h-16 max-w-[1600px] items-center gap-3 px-4 md:h-[4.5rem] md:gap-5 md:px-6 lg:px-8' }, [
           logo({ size: 'size-9' }),
@@ -205,6 +205,7 @@ export const Topbar = defineComponent({
           if (activo) enlaces[i].setAttribute('aria-current', 'page');
           else enlaces[i].removeAttribute('aria-current');
         }
+        input.value = route.name === 'search' ? (route.query.q ?? '') : '';
       }),
     );
 

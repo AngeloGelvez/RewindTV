@@ -24,6 +24,7 @@
  */
 import { readFile, writeFile, readdir, unlink, mkdir } from 'node:fs/promises';
 import { join } from 'node:path';
+import { preserveEpisodeMetadata } from './lib/episode-metadata.mjs';
 
 const DATA = new URL('../public/data/', import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1');
 const EPISODES_DIR = join(DATA, 'episodes');
@@ -166,7 +167,7 @@ const filas = parseCsv((await readFile(csvPath, 'utf8')).replace(/^﻿/, '')).fi
  * scripts/import-portadas.mjs. Las imagenes no vienen de este CSV, pero
  * tampoco son suyas para tirarlas.
  */
-const arte = new Map();
+const anteriores = new Map();
 /**
  * Titulos que NO salen de este CSV (los que mete scripts/import-blogspot.mjs,
  * por ejemplo). Este script reescribe titles.json entero y borra los
@@ -177,11 +178,11 @@ const arte = new Map();
 const ajenos = [];
 try {
   const previos = JSON.parse(await readFile(join(DATA, 'titles.json'), 'utf8'));
-  for (const t of previos) if (t.poster || t.backdrop) arte.set(t.id, { poster: t.poster, backdrop: t.backdrop });
+  for (const t of previos) anteriores.set(t.id, t);
   const delCsv = new Set(filas.map((f) => `t${f.serie_id}`));
   for (const t of previos) if (!delCsv.has(t.id)) ajenos.push(t);
-} catch {
-  /* primera importacion: todavia no hay titles.json */
+} catch (error) {
+  if (error.code !== 'ENOENT') throw error;
 }
 
 const series = new Map();
@@ -255,9 +256,10 @@ for (const serie of [...series.values()].sort((a, b) => Number(a.id.slice(1)) - 
   const seasons = [...serie.seasons.keys()].sort((a, b) => a - b);
   const episodeCount = seasons.reduce((n, s) => n + serie.seasons.get(s).size, 0);
 
-  const imagenes = arte.get(serie.id);
+  const anterior = anteriores.get(serie.id);
 
   titles.push({
+    ...anterior,
     id: serie.id,
     slug: serie.slug,
     name: serie.name,
@@ -266,10 +268,8 @@ for (const serie of [...series.values()].sort((a, b) => Number(a.id.slice(1)) - 
     seasonCount: seasons.length,
     episodeCount,
     score: serie.score,
-    ...(imagenes?.poster ? { poster: imagenes.poster } : {}),
-    ...(imagenes?.backdrop ? { backdrop: imagenes.backdrop } : {}),
-    synopsis: '',
-    genres: GENEROS,
+    synopsis: anterior?.synopsis ?? '',
+    genres: anterior?.genres ?? GENEROS,
     network: serie.network,
   });
 
@@ -283,6 +283,10 @@ for (const serie of [...series.values()].sort((a, b) => Number(a.id.slice(1)) - 
       })),
     },
   });
+}
+
+for (const { file, body } of ficheros) {
+  await preserveEpisodeMetadata(join(EPISODES_DIR, file), body);
 }
 
 // Las series de otra fuente vuelven a su sitio y el conjunto se reordena por

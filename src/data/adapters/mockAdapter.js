@@ -14,7 +14,6 @@
  */
 import { createTitle } from '../models/title.js';
 import { createChannel } from '../models/channel.js';
-import { createProgram } from '../models/program.js';
 import { parseSeasons } from '../models/episode.js';
 import { Festivity } from '../models/festivity.js';
 import * as cache from '../cache.js';
@@ -26,7 +25,7 @@ import { withBase } from '../../core/base.js';
 // cambia la forma del dato: el adaptador guarda el JSON crudo en IndexedDB, y
 // quien ya visito la web seguiria leyendo la version anterior —sin saludo, sin
 // portadas— durante un dia entero. Esta es la tercera vez que pasa.
-const CATALOG_KEY = 'catalog:v8';
+const CATALOG_KEY = 'catalog:v10';
 
 // Y esta es la cuarta, pero en el otro fichero: `episodes:<id>` no llevaba
 // version, asi que el aviso de arriba no protegia a los capitulos. Al cambiar
@@ -37,7 +36,7 @@ const CATALOG_KEY = 'catalog:v8';
 // La version va en la clave, no en un borrado al arrancar: una clave nueva
 // deja la vieja muerta sin tocar nada mas, y `cache.get` ya la descarta a las
 // 24 h por antigüedad.
-const EPISODES_VERSION = 'v3';
+const EPISODES_VERSION = 'v5';
 const episodesKey = (id) => `episodes:${EPISODES_VERSION}:${id}`;
 
 async function fetchJson(path) {
@@ -104,10 +103,8 @@ export const adapter = {
     return raw.map((c, i) => createChannel({ ...c, category: categoria }, i));
   },
 
-  /** Guia de programacion del catalogo propio (distinta de los canales HLS). */
-  async loadSchedule(titleIndex) {
-    const programs = await fetchJson('/data/schedule.json');
-    return programs.map((p) => createProgram(p, titleIndex));
+  loadEpisodeIndex() {
+    return fetchJson('/data/episode-index.json');
   },
 };
 
