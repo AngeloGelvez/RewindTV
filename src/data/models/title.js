@@ -23,6 +23,8 @@ export function createTitle(raw) {
     poster: imageUrl(raw.poster, 'poster'),
     backdrop: imageUrl(raw.backdrop, 'backdrop'),
     synopsis: raw.synopsis,
+    synopsisSource: raw.synopsisSource,
+    tmdbId: Number.isInteger(raw.tmdbId) ? raw.tmdbId : null,
     rating: intern(raw.rating ?? 'NR'),
     adFree: raw.adFree === true,
     score: raw.score ?? null, // 0-10, el "7 estrella" de la tarjeta

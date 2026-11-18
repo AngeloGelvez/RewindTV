@@ -24,7 +24,7 @@ import { withBase } from '../../core/base.js';
 import { el } from '../../core/dom.js';
 import { defineComponent } from '../base/Component.js';
 import { icon } from '../ui/icons.js';
-import { hydrateImage, initials } from '../ui/LazyImage.js';
+import { hydrateImage, resetImage, initials } from '../ui/LazyImage.js';
 import { applyTheme, inkFor, shade } from '../../core/theme.js';
 import { esTv } from '../../core/tv.js';
 
@@ -86,12 +86,8 @@ export const Hero = defineComponent({
 
     const titulo = el('h1', {
       class:
-        'max-w-[15ch] text-balance font-display text-[2.1rem] font-extrabold leading-[1.03] text-white ' +
+        'w-full text-balance font-display text-[2.1rem] font-extrabold leading-[1.03] text-white ' +
         'sm:text-5xl md:text-6xl lg:text-[4.25rem]',
-    });
-
-    const bajada = el('p', {
-      class: 'hidden max-w-[46ch] text-sm leading-relaxed text-white/80 sm:block md:text-base',
     });
 
     const avatar = el('span', {
@@ -154,10 +150,6 @@ export const Hero = defineComponent({
       const color = t.network?.color ?? 'var(--fest)';
 
       titulo.textContent = t.name;
-      bajada.textContent =
-        t.synopsis?.trim() ||
-        festivity?.tagline ||
-        `${t.year} · ${t.kind === 'serie' ? `${t.seasonCount ?? 1} temporada(s), ${t.episodeCount ?? 0} capitulos` : 'Pelicula'}`;
 
       avatar.textContent = initials(t.network?.name ?? t.name);
       avatar.style.background = color;
@@ -187,13 +179,11 @@ export const Hero = defineComponent({
         `radial-gradient(75% 95% at 92% 0%, ${shade(base, 0.52)}, transparent 64%),` +
         'linear-gradient(118deg, #16161d, #0a0a0c)';
 
-      const backdrop = t.backdrop ?? null;
+      resetImage(foto);
+      const backdrop = t.backdrop ?? t.poster;
       if (backdrop) {
         foto.dataset.src = backdrop;
         hydrateImage(foto);
-      } else {
-        foto.removeAttribute('src');
-        foto.style.opacity = '0';
       }
 
       for (let p = 0; p < puntos.length; p++) {
@@ -267,7 +257,6 @@ export const Hero = defineComponent({
           el('div', { class: 'flex flex-wrap items-center gap-2' }, [insignia, dato]),
           titulo,
           firma,
-          bajada,
           el('div', { class: 'flex flex-wrap items-center gap-3 pt-1' }, [ver, ficha]),
           !festivity && upcoming
             ? el(

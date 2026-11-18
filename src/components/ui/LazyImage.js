@@ -21,7 +21,7 @@ export function hydrateImage(img, { onError } = {}) {
       if (!entry.isIntersecting) return;
       observer.unobserve(img);
       write(() => {
-        img.src = src;
+        if (img.dataset.src === src) img.src = src;
       });
     },
     { rootMargin: '300px' },

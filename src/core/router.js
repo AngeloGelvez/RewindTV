@@ -96,6 +96,7 @@ async function render() {
   if (activeView && typeof activeView.unmount === 'function') activeView.unmount();
 
   patch('route', { name: route.name, params, query });
+  outlet.dataset.view = route.name;
   activeView = await mod.default({ outlet, params, query });
 
   emit(EVENTS.ROUTE_CHANGED, { name: route.name, params, query });

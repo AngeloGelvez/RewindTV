@@ -13,6 +13,7 @@ import { idle } from '../core/scheduler.js';
 import { isActive, daysUntil, daysToPeak } from './models/festivity.js';
 import { hydrate as hydrateSourceHealth } from './sourceHealth.js';
 import { createChannel } from './models/channel.js';
+import { imageUrl } from './models/images.js';
 
 let bootstrapped = null;
 
@@ -159,7 +160,7 @@ export function festivityPicks(slug) {
   return entries
     .map((entry) => {
       const title = index.byId.get(entry.t);
-      return title ? { title, season: entry.s, number: entry.n, name: entry.name } : null;
+      return title ? { title, season: entry.s, number: entry.n, name: entry.name, still: imageUrl(entry.st, 'still') } : null;
     })
     .filter(Boolean);
 }
@@ -237,76 +238,80 @@ export const query = memoize(
   { keyOf: (f) => `${f.genre}|${f.decade}|${f.kind}|${f.sort}` },
 );
 
-let searchIndex = null;
+const normalizar = (texto) => texto.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
 
-/**
- * Texto comparable: sin acentos y en minusculas.
- *
- * Es la diferencia entre que el buscador sirva o no. Medio catalogo lleva
- * tilde —"El Capitán Planeta", "Día de Muertos", "Dragón"— y nadie las escribe
- * al buscar: antes, "capitan" encontraba UN titulo de cuatro, y el que no
- * llevaba tilde. La normalizacion va en los dos lados, indice y consulta.
- */
-const normalizar = (texto) =>
-  texto
-    .normalize('NFD')
-    .replace(/[̀-ͯ]/g, '')
-    .toLowerCase();
-
-function buildSearchIndex() {
-  if (searchIndex) return;
-  searchIndex = index.titles.map((title) => ({
-    title,
-    // La cadena entra en el indice: "cartoon network" es una busqueda legitima
-    // y el genero aqui es "animacion" en los 503, asi que no distingue nada.
-    haystack: normalizar(
-      `${title.name} ${title.year} ${title.network?.name ?? ''} ${title.genres.map((g) => g.label).join(' ')}`,
-    ),
-  }));
+function entrada(item, nombre, contexto) {
+  const name = normalizar(nombre);
+  return { item, name, text: name + ' ' + normalizar(contexto) };
 }
 
-export const search = memoize(
-  (term) => {
-    const needle = normalizar(term.trim());
-    if (needle.length < 2) return [];
-    buildSearchIndex();
-    const out = [];
-    for (let i = 0; i < searchIndex.length && out.length < 60; i++) {
-      if (searchIndex[i].haystack.includes(needle)) out.push(searchIndex[i].title);
-    }
-    return out;
-  },
-  { limit: 32 },
-);
+// Prioriza el nombre exacto, seguido por la frase en el nombre. Los términos
+// también pueden repartirse entre el título, la cadena y el número de episodio.
+function buscar(filas, term) {
+  const frase = normalizar(term.trim());
+  if (frase.length < 2) return [];
+  const palabras = frase.split(/\s+/);
+  const exactas = [], nombres = [], otras = [];
+  for (const { item, name, text } of filas) {
+    if (name === frase) exactas.push(item);
+    else if (name.includes(frase)) nombres.push(item);
+    else if (palabras.every((p) => text.includes(p))) otras.push(item);
+  }
+  return exactas.concat(nombres, otras);
+}
 
-/**
- * Busqueda de canales. El buscador prometia "series, pelis o canales" y solo
- * miraba el catalogo: escribir "ESPN" con 1.864 canales dentro no devolvia
- * nada. El indice se arma la primera vez que se busca, no al cargar los
- * canales: quien entra a "En vivo" y no busca no paga ese trabajo.
- */
-let channelSearchIndex = null;
+let searchIndex;
+function buildSearchIndex() {
+  searchIndex ??= index.titles.map((t) => entrada(t, t.name,
+    [t.year, t.network?.name, ...t.genres.map((g) => g.label)].join(' ')));
+}
+export function search(term) {
+  buildSearchIndex();
+  return buscar(searchIndex, term);
+}
 
-export const searchChannels = memoize(
-  (term) => {
-    const needle = normalizar(term.trim());
-    if (needle.length < 2 || !channelIndex.all.length) return [];
-    if (!channelSearchIndex) {
-      channelSearchIndex = channelIndex.all.map((channel) => ({
-        channel,
-        haystack: normalizar(
-          `${channel.name} ${channel.category} ${channel.country ?? ''} ${channel.genres.map((g) => g.label).join(' ')}`,
-        ),
-      }));
+let channelSearchIndex;
+export function searchChannels(term) {
+  channelSearchIndex ??= channelIndex.all.map((c) => entrada(c, c.name,
+    [c.category, c.country, ...c.genres.map((g) => g.label)].join(' ')));
+  return buscar(channelSearchIndex, term);
+}
+
+let episodeDirectory;
+export function loadEpisodeDirectory() {
+  episodeDirectory ??= adapter.loadEpisodeIndex().catch((error) => {
+    episodeDirectory = null;
+    throw error;
+  });
+  return episodeDirectory;
+}
+
+let episodeSearchIndex;
+export async function searchEpisodes(term) {
+  const directory = await loadEpisodeDirectory();
+  if (!episodeSearchIndex) {
+    episodeSearchIndex = [];
+    for (const [id, rows] of Object.entries(directory)) {
+      const title = getTitleById(id);
+      if (!title) continue;
+      for (const [season, number, name, st] of rows) {
+        const episode = { id: `${id}-${season}-${number}`, title, season, number, name,
+          still: imageUrl(st, 'still'), href: `/ver/${title.slug}/t${season}/c${number}` };
+        episodeSearchIndex.push(entrada(episode, name,
+          `${title.name} t${season}e${number} temporada ${season} episodio ${number}`));
+      }
     }
-    const out = [];
-    for (let i = 0; i < channelSearchIndex.length && out.length < 40; i++) {
-      if (channelSearchIndex[i].haystack.includes(needle)) out.push(channelSearchIndex[i].channel);
-    }
-    return out;
-  },
-  { limit: 32 },
-);
+  }
+  // Un número de capítulo es exacto: T1E2 no incluye T1E20. Acepta también
+  // "temporada 1 episodio 2" y las formas independientes T1 o E2.
+  const season = term.match(/\b(?:temporada\s+|t)0*(\d+)(?=e\d|\b)/i);
+  const number = term.match(/(?:\b(?:episodio\s+|e)|t\d+e)0*(\d+)\b/i);
+  const words = term.replace(/\bt\d+e\d+\b|\b(?:temporada\s+|episodio\s+|t|e)\d+\b/gi, ' ').trim();
+  if (!season && !number) return buscar(episodeSearchIndex, term);
+  const rows = episodeSearchIndex.filter(({ item }) =>
+    (!season || item.season === Number(season[1])) && (!number || item.number === Number(number[1])));
+  return words ? buscar(rows, words) : rows.map((row) => row.item);
+}
 
 // -------------------------------------------------------------------- canales
 
@@ -344,6 +349,9 @@ export function loadChannelIndex() {
     indice = raw;
     registrar(raw.destacados.map((c, i) => createChannel(c, i)));
     return raw;
+  }).catch((error) => {
+    indicePromise = null;
+    throw error;
   });
   return indicePromise;
 }
@@ -357,6 +365,9 @@ export async function loadChannelChunk(categoria, fichero) {
     pendiente = adapter.loadChannelChunk(idx.version, categoria, fichero).then((canales) => {
       registrar(canales);
       return canales;
+    }).catch((error) => {
+      trozosCargados.delete(clave);
+      throw error;
     });
     trozosCargados.set(clave, pendiente);
   }

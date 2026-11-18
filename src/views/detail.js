@@ -10,8 +10,8 @@ import { renderEpisode, recycleEpisode } from '../components/media/EpisodeCard.j
 import { sectionTitle } from '../components/ui/SectionTitle.js';
 import { runtime } from '../utils/format.js';
 import { inkFor, shade } from '../core/theme.js';
-import { atSize } from '../data/models/images.js';
 import { initials } from '../components/ui/LazyImage.js';
+import { withBase } from '../core/base.js';
 
 export default async function detailView({ outlet, params }) {
   await bootstrap();
@@ -30,7 +30,7 @@ export default async function detailView({ outlet, params }) {
   const lista = el('div', { class: 'grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-4' });
 
   const cadena = title.network?.color ?? '#6e6e80';
-  const tieneArte = Boolean(title.poster);
+  const portada = title.poster ?? title.backdrop;
 
   const meta = [
     title.year,
@@ -50,24 +50,18 @@ export default async function detailView({ outlet, params }) {
       el('div', { class: 'flex flex-col gap-6 md:flex-row md:items-end' }, [
         // Sin arte propio, la caratula es el color de la cadena con las
         // iniciales: un marcador generico repetido en 503 fichas no dice nada.
-        tieneArte
-          ? el('img', {
-              src: title.poster,
-              alt: '',
-              class: 'aspect-[2/3] w-32 shrink-0 rounded-card object-cover shadow-[var(--shadow-card)] md:w-44',
-              decoding: 'async',
-            })
-          : el(
-              'div',
-              {
-                class:
-                  'grid aspect-[2/3] w-32 shrink-0 place-items-center rounded-card shadow-[var(--shadow-card)] md:w-44',
-                style: `background: linear-gradient(150deg, ${cadena}, ${shade(cadena, 0.7)})`,
-                'aria-hidden': 'true',
-              },
-              [el('span', { class: 'font-display text-4xl font-extrabold text-white/85' }, initials(title.name))],
-            ),
-        el('div', { class: 'max-w-2xl space-y-3' }, [
+        el('div', {
+          class: 'relative grid aspect-[2/3] w-32 shrink-0 place-items-center overflow-hidden rounded-card shadow-[var(--shadow-card)] md:w-44',
+          style: `background: linear-gradient(150deg, ${cadena}, ${shade(cadena, 0.7)})`,
+          'aria-hidden': 'true',
+        }, [
+          el('span', { class: 'font-display text-4xl font-extrabold text-white/85' }, initials(title.name)),
+          portada ? el('img', {
+            src: portada, alt: '', decoding: 'async', class: 'absolute inset-0 size-full object-cover',
+            onError: (event) => { event.target.hidden = true; },
+          }) : null,
+        ]),
+        el('div', { class: 'min-w-0 flex-1 space-y-3' }, [
           title.network
             ? el(
                 'span',
@@ -80,7 +74,6 @@ export default async function detailView({ outlet, params }) {
             : null,
           el('h1', { class: 'font-display text-3xl font-extrabold leading-[1.05] tracking-tight md:text-5xl' }, title.name),
           el('p', { class: 'text-xs uppercase tracking-wider text-ink-2' }, meta.join(' · ')),
-          title.synopsis ? el('p', { class: 'text-sm leading-relaxed text-ink-1' }, title.synopsis) : null,
           el('div', { class: 'flex flex-wrap gap-2 pt-1' }, [
             ...title.genres.map((g) =>
               el('span', { class: 'rounded-pill bg-surface-2 px-3 py-1 text-xs text-ink-1' }, g.label),
@@ -89,10 +82,26 @@ export default async function detailView({ outlet, params }) {
         ]),
       ]),
     ]),
-    el('section', { class: 'space-y-5 px-4 pb-16 md:px-8' }, [
+    el('section', { class: 'w-full space-y-5 px-4 pb-16 md:px-8' }, [
+      title.synopsis ? el('p', { class: 'w-full text-base leading-relaxed text-ink-1' }, title.synopsis) : null,
       sectionTitle('Episodios'),
       tabs,
       lista,
+      el('details', { class: 'text-xs text-ink-2' }, [
+        el('summary', { class: 'cursor-pointer' }, 'Créditos de imágenes y metadatos'),
+        el('div', { class: 'mt-3 space-y-2' }, [
+          el('a', { href: 'https://www.themoviedb.org', target: '_blank', rel: 'noopener' }, [
+            el('img', { src: withBase('/img/tmdb.svg'), alt: 'The Movie Database', width: '80', height: '12' }),
+          ]),
+          el('p', { lang: 'en' }, 'This product uses the TMDB API but is not endorsed or certified by TMDB.'),
+          title.tmdbId ? el('a', { href: `https://www.themoviedb.org/tv/${title.tmdbId}`, target: '_blank',
+            rel: 'noopener', class: 'block underline' }, 'Ficha en TMDB') : null,
+          title.synopsisSource === 'lacartoons' ? el('a', {
+            href: `https://www.lacartoons.com/serie/${title.id.slice(1)}`, target: '_blank',
+            rel: 'noopener', class: 'block underline',
+          }, 'Reseña de LACartoons') : null,
+        ]),
+      ]),
     ]),
   ]);
 
@@ -120,12 +129,9 @@ export default async function detailView({ outlet, params }) {
       const frag = document.createDocumentFragment();
       for (const ep of episodios) {
         // Enlace real: el router lo intercepta, y Enter o el mando lo activan.
-        // Sin fotograma propio —el catalogo aun no los tiene— se usa el fondo
-        // de la serie: un mosaico de recuadros vacios se lee como un error, y
-        // la tarjeta ya distingue el capitulo por su numero y su titulo.
         const n = renderEpisode(ep, {
-          still: ep.still ?? atSize(title.backdrop, 'still'),
-          href: `/ver/${title.slug}/t${ep.season}/c${ep.number}`,
+          title,
+          href: ep.href,
         });
         montados.push(n);
         frag.appendChild(n);

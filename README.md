@@ -1,7 +1,7 @@
 # RewindTv
 
 SPA en JavaScript vanilla (sin framework) + Tailwind, con Vite como bundler.
-Catalogo de titulos retro, reproductor y guia de programacion (EPG) en vivo.
+Catálogo de títulos retro, reproductor, canales en vivo y guía de episodios bajo demanda.
 
 ## Arranque
 
@@ -211,7 +211,8 @@ En un televisor (Tizen, webOS, Android TV, Fire TV, Chromecast, HbbTV...) se
 activa `html.tv`: interfaz de 3 metros con la fuente raiz a 1.25vw (24 px a
 1920), foco de 4 px, la tarjeta enfocada crece, la fila enfocada se centra y
 hay margen de zona segura en los bordes. Para probarlo desde un PC:
-`/?tv=1` (se recuerda; `/?tv=0` lo quita).
+`/?tv=1` fuerza la vista de televisor y `/?tv=0` fuerza la web durante la
+pestaña actual. `/?tv=auto` recupera la detección automática.
 
 **Navegadores soportados en TV:** Chromium 88 o superior, que en la practica
 son televisores de 2022 en adelante (webOS 22, Tizen 7) y cualquier Android TV
@@ -226,8 +227,8 @@ o Fire TV actualizado. Por debajo faltan `aspect-ratio` y `:focus-visible`.
 | `/titulo/:slug` | Ficha con poster, badge de cadena, tabs de temporada y rejilla de episodios |
 | `/ver/:slug/tN/cN` | Reproductor + lista de la temporada con el capitulo activo marcado + Anterior/Siguiente |
 | `/en-vivo` | 1.864 canales verificados, chips por categoria, reproductor HLS. La rejilla crece con el scroll de la pagina en lotes de 50 |
-| `/buscar` | Busqueda con debounce sobre el indice construido en idle |
-| `/guia` | Programacion del canal propio |
+| `/buscar` | Títulos, episodios y canales del catálogo. Admite búsquedas como `Looney T1E2` y abre directamente el capítulo. |
+| `/guia` | Un episodio sugerido por hora local para hoy o mañana, con filtro por cadena. Los horarios son recomendaciones bajo demanda. |
 
 Cambiar de capitulo **no recarga la pagina**: solo se reemplaza el reproductor y
 se mueve la marca de activo. El sitio de referencia hace una recarga completa en
@@ -268,7 +269,14 @@ convierte al esquema del proyecto (una fila por capitulo -> `titles.json` +
 enlace.
 
 - `node scripts/import-lacartoons.mjs <csv>` reimporta el catalogo (`--dry` solo reporta).
-- `npm run data` regenera el indice de festividades (`picks.json`).
+- `node scripts/import-resenas.mjs` completa las descripciones y portadas faltantes desde la ficha original de cada serie.
+- Con `TMDB_READ_ACCESS_TOKEN` en el entorno, `node scripts/import-tmdb.mjs el-show-de-los-looney-tunes --dry`
+  comprueba los datos disponibles en TMDB para una serie. Quita `--dry` para guardar sinopsis,
+  imágenes y duraciones disponibles. Omite el slug para recorrer el catálogo.
+  El proceso conserva los datos existentes y contrasta los nombres de los capítulos con todas las temporadas.
+- `npm run data` regenera los índices de festividades, canales y episodios.
+  El buscador y la guía cargan `episode-index.json` bajo demanda. Cada entrada
+  identifica un capítulo con al menos una fuente reconocida.
 - `npm run channels` revalida los 55 canales en vivo.
 - `node scripts/check-sources.mjs` sondea las fuentes de los capitulos.
 

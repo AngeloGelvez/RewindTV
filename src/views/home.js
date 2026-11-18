@@ -23,7 +23,6 @@ import { Hero, applyFestivityTheme } from '../components/media/Hero.js';
 import { Carousel } from '../components/media/Carousel.js';
 import { renderCard, recycleCard } from '../components/media/TitleCard.js';
 import { renderEpisode, recycleEpisode } from '../components/media/EpisodeCard.js';
-import { atSize } from '../data/models/images.js';
 import { renderChannel, recycleChannel } from '../components/media/ChannelCard.js';
 import { renderNetwork, recycleNetwork, placa } from '../components/media/NetworkCard.js';
 import { renderFestivity, recycleFestivity } from '../components/media/FestivityCard.js';
@@ -150,11 +149,11 @@ export default async function homeView({ outlet }) {
             season: pick.season,
             number: pick.number,
             name: pick.name,
+            still: pick.still,
             runtime: pick.title.runtime,
           },
           {
-            // Sin fotograma propio, el fondo de la serie; ver detail.js.
-            still: atSize(pick.title.backdrop, 'still'),
+            title: pick.title,
             href: `/ver/${pick.title.slug}/t${pick.season}/c${pick.number}`,
             serie: pick.title.name,
           },

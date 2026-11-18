@@ -21,13 +21,14 @@
 import { el } from '../../core/dom.js';
 import { defineComponent } from '../base/Component.js';
 import { icon } from '../ui/icons.js';
-import { embedUrl, isIframe, isHlsUrl, providerLabel, providerPing, providerSandbox } from '../../data/models/embed.js';
+import { embedUrl, isIframe, isHlsUrl, providerLabel, providerPing, providerSandbox, providerGated } from '../../data/models/embed.js';
 import { rank, markOk, markFailed } from '../../data/sourceHealth.js';
 import { emit, EVENTS } from '../../core/eventBus.js';
 
 // Cloudflare tarda mas que esto en devolver su error 522, asi que un servicio
 // caido se detecta por no contestar a tiempo.
 const PLAZO_SONDA = 8000;
+const AVISO_PUBLICIDAD = 20_000;
 
 export const Player = defineComponent({
   setup({ source, sources, poster, label, autoplay = false }, { onDispose }) {
@@ -157,8 +158,28 @@ export const Player = defineComponent({
       // No hay evento fiable que distinga "cargo" de "el proveedor dice que no
       // existe", asi que la decision la toma quien esta mirando.
       if (indice < orden.length - 1) marco.appendChild(botonOtraFuente());
+      if (providerGated(actual)) marco.appendChild(avisoPublicidad());
       vigilarProveedor(actual);
       marco.appendChild(insignia());
+    }
+
+    /**
+     * Estos reproductores cobran en publicidad antes de reproducir, y sin saberlo
+     * parece que estan rotos. No recibe clics ni foco, para no tapar el play, y
+     * se quita solo.
+     */
+    function avisoPublicidad() {
+      const aviso = el(
+        'p',
+        {
+          class:
+            'pointer-events-none absolute inset-x-3 top-3 z-10 rounded-lg bg-surface-0/90 px-3 py-2 text-center text-xs text-ink-0',
+          role: 'note',
+        },
+        'Este reproductor abre publicidad en los primeros clics: ciérrala y pulsa play otra vez. Con un bloqueador de anuncios activo no reproduce.',
+      );
+      setTimeout(() => aviso.remove(), AVISO_PUBLICIDAD);
+      return aviso;
     }
 
     /**

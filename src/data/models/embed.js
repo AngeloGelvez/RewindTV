@@ -22,7 +22,7 @@ import { intern } from '../../patterns/flyweight.js';
 const PROVIDERS = {
   // `sandbox: true`: el Player le corta las ventanas emergentes y las
   // redirecciones. Solo donde se comprobo que el video sigue reproduciendo:
-  // Dhtpre lo detecta y se niega, y Cube sigue en mantenimiento sin poder medirlo.
+  // Dhtpre y Cube lo detectan y se niegan.
   okru: { kind: 'iframe', label: 'OK.ru', sandbox: true, clean: true, build: (id) => `https://ok.ru/videoembed/${id}` },
   vk: { kind: 'iframe', label: 'VK', build: (id) => `https://vk.com/video_ext.php?${id}` },
   dailymotion: {
@@ -38,19 +38,27 @@ const PROVIDERS = {
   //
   // `ping` es la direccion que el Player sondea para avisar si el servicio esta
   // caido: Cube se queda en negro sin decir nada, y un iframe no deja saberlo.
+  //
+  // Cube ya no aloja el video: su pagina redirige a un reproductor de Turbovio
+  // (turboembed.com), que exige publicidad. Los dos primeros clics abren una
+  // ventana cada uno y el tercero reproduce, y se niega a arrancar si detecta un
+  // bloqueador de anuncios o un sandbox. `gated` hace que el Player lo avise,
+  // porque desde fuera parece que el reproductor esta roto.
   rpmvid: {
     kind: 'iframe',
     label: 'Cube',
+    gated: true,
     build: (id) => `https://cubeembed.rpmvid.com/#${id}`,
     ping: 'https://cubeembed.rpmvid.com/',
   },
   cubeembed: {
     kind: 'iframe',
     label: 'Cube',
+    gated: true,
     build: (id) => `https://cubeembed.com/v/${id}`,
     ping: 'https://cubeembed.com/',
   },
-  dhtpre: { kind: 'iframe', label: 'Dhtpre', build: (id) => `https://dhtpre.com/embed/${id}` },
+  dhtpre: { kind: 'iframe', label: 'Dhtpre', gated: true, build: (id) => `https://dhtpre.com/embed/${id}` },
   yourupload: {
     kind: 'iframe',
     label: 'YourUpload',
@@ -147,6 +155,7 @@ export const isHlsUrl = (url) => typeof url === 'string' && HLS.test(url);
 export const providerLabel = (source) =>
   source ? (PROVIDERS[source.provider]?.label ?? source.provider) : '';
 export const providerClean = (provider) => PROVIDERS[provider]?.clean === true;
+export const providerGated = (source) => PROVIDERS[source?.provider]?.gated === true;
 export const providerSandbox = (source) => PROVIDERS[source?.provider]?.sandbox === true;
 export const providerPing = (source) => PROVIDERS[source?.provider]?.ping ?? null;
 export const providerKind = (provider) => PROVIDERS[provider]?.kind ?? null;
