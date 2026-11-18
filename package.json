@@ -6,13 +6,13 @@
   "description": "SPA de catalogo retro, reproductor y guia de programacion en JS vanilla.",
   "scripts": {
     "dev": "vite",
-    "prebuild": "node scripts/build-picks.mjs && node scripts/build-channels.mjs",
+    "prebuild": "npm run data",
     "build": "vite build",
-    "data": "node scripts/build-picks.mjs && node scripts/build-channels.mjs",
+    "data": "node scripts/build-picks.mjs && npm run predev",
     "channels": "node scripts/check-channels.mjs",
     "preview": "vite preview",
     "analyze": "vite build --mode analyze",
-    "predev": "node scripts/build-channels.mjs"
+    "predev": "node scripts/build-channels.mjs && node scripts/build-episode-index.mjs"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.11",

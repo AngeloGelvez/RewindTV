@@ -4,6 +4,7 @@
  *
  *   node scripts/check-sources.mjs           solo reporta
  *   node scripts/check-sources.mjs --prune   ademas borra las fuentes muertas
+ *   node scripts/check-sources.mjs --proveedor=rpmvid,cubeembed   solo esos
  *
  * Aqui SI se puede sondear de verdad: Node no tiene origen cruzado, asi que
  * podemos leer la respuesta de un mp4 o de un playlist HLS. Por eso el
@@ -35,6 +36,11 @@ const prune = process.argv.includes('--prune');
  */
 const solo = process.argv.find((a) => a.startsWith('--solo='))?.slice(7)
   ?? (process.argv.includes('--solo') ? process.argv[process.argv.indexOf('--solo') + 1] : null);
+
+/** `--proveedor rpmvid,cubeembed` sondea solo las fuentes de esos proveedores. */
+const soloProveedor = (process.argv.find((a) => a.startsWith('--proveedor='))?.slice(12) ?? '')
+  .split(',')
+  .filter(Boolean);
 
 const UA = { 'user-agent': 'Mozilla/5.0', accept: '*/*' };
 
@@ -140,13 +146,46 @@ async function probeBlogger(url) {
   }
 }
 
+/**
+ * Cube ya no aloja nada: su pagina pregunta a un resolvedor a que reproductor
+ * de Turbovio corresponde el id y redirige alli. Las dos preguntas se pueden
+ * hacer desde Node, asi que aqui si hay respuesta concluyente en negativo:
+ *
+ *   - el resolvedor dice "not found": la pagina ensena un boton de play falso
+ *     que solo abre publicidad y luego "under maintenance". Muerta.
+ *   - resuelve, pero Turbovio dice "Player not found": muerta tambien.
+ *
+ * Si las dos contestan bien, el video existe. Que reproduzca depende ademas
+ * del navegador: el reproductor se niega con bloqueador de anuncios o sandbox.
+ */
+const CUBE = 'https://cubeembed.rpmvid.com/api/public/resolve?file1=';
+const TURBO = 'https://turboembed.com/api/stream?s=';
+
+async function probeCube(_url, source) {
+  try {
+    const res = await pedir(CUBE + encodeURIComponent(source.id));
+    if (res.status === 404) return { estado: 'muerta', motivo: 'Cube no tiene destino para este id' };
+    if (!res.ok) return { estado: 'indicio', motivo: `resolvedor HTTP ${res.status}` };
+    const { url, file2 } = await res.json();
+    if (!url || !file2) return { estado: 'muerta', motivo: 'Cube no tiene destino para este id' };
+
+    const stream = await pedir(TURBO + encodeURIComponent(file2));
+    if (!stream.ok) return { estado: 'indicio', motivo: `Turbovio HTTP ${stream.status}` };
+    const cuerpo = await stream.json();
+    if (!cuerpo.data) return { estado: 'muerta', motivo: `Turbovio: ${cuerpo.message ?? 'sin video'}` };
+    return { estado: 'indicio', detalle: 'el video existe en Turbovio' };
+  } catch (err) {
+    return { estado: 'indicio', motivo: err.name === 'AbortError' ? 'timeout' : (err.cause?.code ?? err.message) };
+  }
+}
+
 /** Proveedores con un sondeo propio que si es concluyente. */
-const PROBES = { blogger: probeBlogger };
+const PROBES = { blogger: probeBlogger, rpmvid: probeCube, cubeembed: probeCube };
 
 function probe(source) {
   const url = embedUrl(source);
   const propio = PROBES[source.provider];
-  if (propio) return propio(url);
+  if (propio) return propio(url, source);
   if (source.kind === 'iframe') return probeIframe(url);
   if (source.kind === 'hls') return probeHls(url);
   if (url.startsWith('/')) return probeLocal(url);
@@ -180,6 +219,7 @@ for (const nombre of ficheros) {
         continue;
       }
       for (const source of sources) {
+        if (soloProveedor.length && !soloProveedor.includes(source.provider)) continue;
         trabajos.push({ nombre, season: season.number, episode, source });
       }
     }
@@ -253,6 +293,15 @@ const mixtas = vivas.filter((r) => embedUrl(r.source).startsWith('http://'));
 if (mixtas.length) {
   console.log(`\n! ${mixtas.length} vivas por HTTP: el navegador las bloqueara en una web HTTPS`);
   for (const r of mixtas.slice(0, 10)) console.log(`  ${etiqueta(r)}`);
+}
+
+const informe = process.argv.find((a) => a.startsWith('--informe='))?.slice(10);
+if (informe) {
+  await writeFile(
+    informe,
+    JSON.stringify(resultados.map((r) => ({ f: r.nombre, s: r.season, n: r.episode.n, p: r.source.provider, id: r.source.id, e: r.estado, m: r.motivo ?? r.detalle ?? '' }))),
+    'utf8',
+  );
 }
 
 // --------------------------------------------------------------------- prune
