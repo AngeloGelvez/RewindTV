@@ -45,7 +45,7 @@ const AVISO = 7;
 export const Hero = defineComponent({
   setup({ stage, items = [], upcoming }, { onDispose }) {
     // `stage` es la festividad en cartel: la que corre hoy o la que llega en
-    // menos de una semana, con los dias que faltan.
+    // menos de dos semanas, con los dias que faltan.
     const festivity = stage?.festivity ?? null;
     const slides = items.filter(Boolean).slice(0, MAX);
     let i = 0;
@@ -212,8 +212,8 @@ export const Hero = defineComponent({
 
     /**
      * El rotulo cuenta la festividad en cuatro actos segun lo cerca que este
-     * su dia: el nombre a secas mientras dura la temporada, la cuenta atras la
-     * ultima semana, "mañana es" la vispera y el saludo el dia en cuestion.
+     * su dia: el nombre a secas mientras dura la temporada, la cuenta atras las
+     * dos ultimas semanas, "mañana es" la vispera y el saludo el dia en cuestion.
      * Es la misma festividad y el mismo color; solo cambia el texto.
      */
     if (festivity) {

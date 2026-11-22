@@ -116,10 +116,10 @@ export function upcomingFestivity(date = new Date()) {
 
 /**
  * Dias de antelacion con los que la portada empieza a anunciar una festividad.
- * Una semana es lo que tarda alguien en volver a entrar y seguir viendolo como
- * novedad; con un mes, para cuando llega el dia ya cansa.
+ * Dos semanas: quien entra una vez por semana ve la temporada tematica al menos
+ * un par de veces antes del dia, y aun asi no cansa como lo haria un mes.
  */
-export const AVISO_DIAS = 7;
+export const AVISO_DIAS = 14;
 
 /**
  * La festividad que manda HOY en la portada, con lo que hay que decir de ella.

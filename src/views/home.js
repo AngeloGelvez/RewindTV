@@ -50,8 +50,8 @@ function barajar(lista) {
 export default async function homeView({ outlet }) {
   await bootstrap();
 
-  // La festividad "en cartel": la de hoy, o la que llega en menos de una
-  // semana. El tema de color arranca con el aviso, no el dia en punto.
+  // La festividad "en cartel": la de hoy, o la que llega en menos de dos
+  // semanas. El tema de color arranca con el aviso, no el dia en punto.
   const cartel = festivityOnStage();
   const festividad = cartel?.festivity ?? null;
   applyFestivityTheme(festividad);
@@ -120,8 +120,8 @@ export default async function homeView({ outlet }) {
    * que buscaras tu el de Navidad— y una franja de tarjetas de festividad, que
    * es un calendario, no contenido. Esto lleva directo al capitulo.
    *
-   * Solo existe cuando hay festividad en cartel (activa o a menos de una
-   * semana) y con capitulos etiquetados: fuera de temporada no aparece.
+   * Solo existe cuando hay festividad en cartel (activa o a menos de dos
+   * semanas) y con capitulos etiquetados: fuera de temporada no aparece.
    */
   if (picks.length) {
     const titulo = cartel.active
