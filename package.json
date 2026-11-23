@@ -5,6 +5,7 @@
   "type": "module",
   "description": "SPA de catalogo retro, reproductor y guia de programacion en JS vanilla.",
   "scripts": {
+    "start": "node server/start.mjs",
     "dev": "vite",
     "prebuild": "npm run data",
     "build": "vite build",
