@@ -99,12 +99,13 @@ export default async function exploreView({ outlet }) {
     },
   });
 
+  const sugerencias = esTv() ? sorteoDelDia(query({ sort: 'score' }).filter((t) => t.adFree).slice(0, 60)).slice(0, 12) : [];
   const recomendados = esTv()
     ? Carousel({
         title: 'Recomendados de hoy',
-        items: sorteoDelDia(query({ sort: 'score' }).filter((t) => t.adFree).slice(0, 60)).slice(0, 12),
+        items: sugerencias,
         itemWidth: 240,
-        itemHeight: (ancho) => Math.round((ancho * 9) / 16) + 88,
+        itemHeight: (ancho) => Math.round(ancho * (sugerencias.some((item) => item.kind === 'pelicula') ? 3 / 2 : 9 / 16)) + 88,
         render: renderCard,
         recycle: recycleCard,
         onSelect: (id) => {
