@@ -31,7 +31,6 @@ import { renderFestivity, recycleFestivity } from '../components/media/Festivity
    decidir cuantas tarjetas se ven: en un movil de 360 px entra una y media
    —el recorte invita a deslizar— y en un escritorio ancho, seis. */
 const ANCHO_TITULO = (w) => (w < 420 ? 216 : w < 700 ? 240 : w < 1100 ? 262 : 282);
-const ALTO_TITULO = (w) => Math.round((w * 9) / 16) + 88;
 const ANCHO_CANAL = (w) => (w < 420 ? 268 : 340);
 
 /**
@@ -101,7 +100,7 @@ export default async function homeView({ outlet }) {
     const c = Carousel({
       title, items, href, action,
       itemWidth: ANCHO_TITULO,
-      itemHeight: ALTO_TITULO,
+      itemHeight: (w) => Math.round(w * (items.some((item) => item.kind === 'pelicula') ? 3 / 2 : 9 / 16)) + 88,
       render: renderCard,
       recycle: recycleCard,
       onSelect: irATitulo,

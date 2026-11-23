@@ -11,10 +11,7 @@
  * como enlace. Lo decorativo va con aria-hidden para que se lea limpio:
  * "2 Perros Tontos, 1993, 12 capitulos, Cartoon Network".
  *
- * Formato APAISADO (16:9) y no poster vertical: es el formato en el que viene
- * el material de television, llena mejor una fila en pantallas anchas y, con
- * el catalogo aun sin arte, un rectangulo con el color de la cadena se lee
- * mucho mejor que un poster vertical vacio.
+ * Cartel vertical (2:3) para películas y miniatura (16:9) para televisión.
  *
  * El texto va DEBAJO de la imagen, no encima: superponerlo obliga a un
  * degradado que oscurece la foto y aun asi falla con imagenes claras. Solo los
@@ -27,12 +24,14 @@ import { hydrateImage, resetImage, initials } from '../ui/LazyImage.js';
 import { inkFor, shade } from '../../core/theme.js';
 import { atSize } from '../../data/models/images.js';
 
+export const titleArtRatio = (title) => title?.kind === 'pelicula' ? 3 / 2 : 9 / 16;
+
 const cloneCard = template(`
   <a class="card-surface group block select-none">
-    <div class="relative aspect-video overflow-hidden rounded-card bg-surface-2 shadow-[var(--shadow-card)] transition duration-300 ease-[var(--ease-out-quint)] group-hover:-translate-y-1 group-hover:shadow-[var(--shadow-pop)] group-focus-visible:-translate-y-1">
+    <div data-card-frame class="relative overflow-hidden rounded-card bg-surface-2 shadow-[var(--shadow-card)] transition duration-300 ease-[var(--ease-out-quint)] group-hover:-translate-y-1 group-hover:shadow-[var(--shadow-pop)] group-focus-visible:-translate-y-1">
       <span class="absolute inset-0" aria-hidden="true" data-art></span>
       <span class="absolute inset-0 grid place-items-center font-display text-3xl font-bold text-white/70" aria-hidden="true" data-fallback></span>
-      <img class="relative size-full object-cover opacity-0 transition-opacity duration-300"
+      <img class="absolute inset-0 size-full object-cover opacity-0 transition-opacity duration-300"
            loading="lazy" decoding="async" alt="" />
 
       <span class="absolute inset-x-0 bottom-0 h-1/2 scrim opacity-80" aria-hidden="true"></span>
@@ -67,6 +66,7 @@ export const cardPool = createPool({
   create() {
     const node = cloneCard();
     node.__refs = {
+      frame: node.querySelector('[data-card-frame]'),
       img: node.querySelector('img'),
       art: node.querySelector('[data-art]'),
       fallback: node.querySelector('[data-fallback]'),
@@ -105,7 +105,11 @@ export const cardPool = createPool({
 
 /** Rellena un nodo (nuevo o reciclado) con los datos de un titulo. */
 export function fillCard(node, title) {
-  const { img, art, fallback, name, meta, avatar, net, count, score, scoreValue } = node.__refs;
+  const { frame, img, art, fallback, name, meta, avatar, net, count, score, scoreValue } = node.__refs;
+  const movie = title.kind === 'pelicula';
+  frame.style.aspectRatio = movie ? '2 / 3' : '16 / 9';
+  img.classList.toggle('object-contain', movie);
+  img.classList.toggle('object-cover', !movie);
   node.dataset.id = title.id;
   node.href = withBase(`/titulo/${title.slug}`);
 
@@ -117,14 +121,10 @@ export function fillCard(node, title) {
   art.style.background = `linear-gradient(145deg, ${color}, ${shade(color, 0.65)})`;
   fallback.textContent = initials(title.name);
 
-  // La tarjeta es apaisada: manda el fondo horizontal, y la portada vertical
-  // solo entra si no hay fondo (recortada, pero mejor que nada). Sin ninguna
-  // de las dos NO se carga nada: queda el color de la cadena con las
-  // iniciales, que es lo que distingue una tarjeta de otra.
   img.alt = '';
   // La tarjeta mide ~280 px: pedir el fondo de 1280 del hero seria bajar seis
   // veces mas pixeles de los que caben en ella.
-  const arteReal = atSize(title.backdrop ?? title.poster, 'card');
+  const arteReal = atSize(movie ? title.poster ?? title.backdrop : title.backdrop ?? title.poster, 'card');
   if (arteReal) {
     img.dataset.src = arteReal;
     hydrateImage(img);

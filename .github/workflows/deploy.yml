@@ -28,7 +28,21 @@ jobs:
           cache: npm
       - run: npm ci
       # `prebuild` genera los trozos de canales, que no estan en el repositorio.
-      - run: npm run build -- --base=/RewindTV/
+      - name: Compilar RewindTv
+        env:
+          VITE_MOVIE_API_BASE: ${{ vars.VITE_MOVIE_API_BASE }}
+        run: |
+          if [ -z "$VITE_MOVIE_API_BASE" ]; then
+            echo "::warning::Configura VITE_MOVIE_API_BASE con la URL HTTPS del backend para habilitar las películas."
+          else
+            node --input-type=module -e '
+              const url = new URL(process.env.VITE_MOVIE_API_BASE.trim());
+              if (url.protocol !== "https:" || url.origin !== url.href.replace(/\/$/, "") || url.hostname.endsWith(".github.io")) {
+                throw new Error("VITE_MOVIE_API_BASE debe ser el origen HTTPS del backend de películas.");
+              }
+            '
+          fi
+          npm run build -- --base=/RewindTV/
       # Pages no conoce las rutas de la app: al abrir /RewindTV/en-vivo sirve
       # 404.html, que es la misma app y resuelve la ruta en el navegador.
       - run: cp dist/index.html dist/404.html

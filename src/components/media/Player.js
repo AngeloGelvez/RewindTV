@@ -31,7 +31,7 @@ const PLAZO_SONDA = 8000;
 const AVISO_PUBLICIDAD = 20_000;
 
 export const Player = defineComponent({
-  setup({ source, sources, poster, label, autoplay = false }, { onDispose }) {
+  setup({ source, sources, poster, label, autoplay = false, startPosition = 0, onSourceExpired }, { onDispose }) {
     const marco = el('div', {
       class: 'relative aspect-video w-full overflow-hidden rounded-card bg-black ring-fest',
     });
@@ -264,6 +264,9 @@ export const Player = defineComponent({
       marco.appendChild(insignia());
 
       const url = embedUrl(actual);
+      if (startPosition > 0) video.addEventListener('loadedmetadata', () => {
+        if (Number.isFinite(video.duration)) video.currentTime = Math.min(startPosition, video.duration);
+      }, { once: true });
 
       // Primer frame reproducido = la fuente sirve de verdad.
       video.addEventListener('playing', () => markOk(actual), { once: true });
@@ -278,10 +281,11 @@ export const Player = defineComponent({
 
       // Este error si es inequivoco: el navegador no pudo con el recurso.
       video.addEventListener('error', () => {
+        if (!marco.contains(video)) return;
         const code = video.error?.code;
         const motivo = code ? `media error ${code}` : 'media error';
         if (reintento) reintento(motivo);
-        else siguiente(motivo);
+        else if (!onSourceExpired?.(video.currentTime)) siguiente(motivo);
       });
 
       // El `kind` lo calcula `createSource`, pero una fuente construida a mano
@@ -327,7 +331,9 @@ export const Player = defineComponent({
 
       try {
         const { default: Hls } = await import('hls.js');
+        if (!marco.contains(video)) return;
         if (!Hls.isSupported()) {
+          reintento = null;
           video.src = url;
           return;
         }
@@ -335,10 +341,13 @@ export const Player = defineComponent({
         hls.loadSource(url);
         hls.attachMedia(video);
         hls.on(Hls.Events.ERROR, (_e, data) => {
-          if (!data.fatal) return;
+          if (!data.fatal || !marco.contains(video)) return;
+          const status = data.response?.code ?? data.networkDetails?.status;
+          if ([401, 403, 410].includes(status) && onSourceExpired?.(video.currentTime)) return;
           caerANativo(`hls ${data.details ?? data.type}`);
         });
       } catch (err) {
+        if (!marco.contains(video)) return;
         console.error('[player] hls', err);
         caerANativo('hls no disponible');
       }

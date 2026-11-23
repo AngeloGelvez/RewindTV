@@ -25,7 +25,7 @@ import { withBase } from '../../core/base.js';
 // cambia la forma del dato: el adaptador guarda el JSON crudo en IndexedDB, y
 // quien ya visito la web seguiria leyendo la version anterior —sin saludo, sin
 // portadas— durante un dia entero. Esta es la tercera vez que pasa.
-const CATALOG_KEY = 'catalog:v10';
+const CATALOG_KEY = 'catalog:v11';
 
 // Y esta es la cuarta, pero en el otro fichero: `episodes:<id>` no llevaba
 // version, asi que el aviso de arriba no protegia a los capitulos. Al cambiar
@@ -109,10 +109,11 @@ export const adapter = {
 };
 
 async function loadCatalog() {
-  const [titles, festivities, picks] = await Promise.all([
+  const [titles, festivities, picks, movies] = await Promise.all([
     fetchJson('/data/titles.json'),
     fetchJson('/data/festivities.json'),
     fetchJson('/data/picks.json').catch(() => ({})), // aun sin generar: no es fatal
+    fetchJson('/data/imported-movies.json'),
   ]);
-  return { titles, festivities, picks };
+  return { titles: [...titles, ...movies], festivities, picks };
 }
