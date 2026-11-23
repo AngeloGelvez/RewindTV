@@ -20,6 +20,14 @@ function loadingFrame(message) {
 export const MoviePlayer = defineComponent({
   setup({ title }, { onDispose }) {
     const node = el('div', { class: 'relative aspect-video w-full overflow-hidden rounded-card bg-black' });
+    const base = (import.meta.env.VITE_MOVIE_API_BASE || '').trim().replace(/\/$/, '');
+    if (!base && location.hostname.endsWith('.github.io')) {
+      node.appendChild(el('p', {
+        class: 'absolute inset-0 grid place-content-center px-6 text-center text-white',
+        role: 'status',
+      }, 'El servicio de películas aún no está configurado en este sitio.'));
+      return { node };
+    }
     let player;
     let request;
     let disposed = false;
@@ -33,7 +41,6 @@ export const MoviePlayer = defineComponent({
       player?.destroy();
       node.replaceChildren(loadingFrame(position ? 'Reconectando…' : 'Cargando película…'));
       try {
-        const base = (import.meta.env.VITE_MOVIE_API_BASE || '').replace(/\/$/, '');
         const api = `${base}/api/movies/${encodeURIComponent(title.id)}/source`;
         const query = language ? `?idioma=${encodeURIComponent(language)}` : '';
         const response = await fetch(`${api}${query}`, { signal: current.signal, cache: 'no-store' });
