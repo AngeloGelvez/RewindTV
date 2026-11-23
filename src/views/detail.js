@@ -12,6 +12,7 @@ import { runtime } from '../utils/format.js';
 import { inkFor, shade } from '../core/theme.js';
 import { initials } from '../components/ui/LazyImage.js';
 import { withBase } from '../core/base.js';
+import { MoviePlayer } from '../components/media/MoviePlayer.js';
 
 export default async function detailView({ outlet, params }) {
   await bootstrap();
@@ -25,6 +26,7 @@ export default async function detailView({ outlet, params }) {
     return createView(node, outlet);
   }
 
+  const movie = title.id.startsWith('ps-') ? MoviePlayer({ title }) : null;
   let montados = [];
   const tabs = el('div', { class: 'flex flex-wrap gap-2', role: 'group', 'aria-label': 'Temporadas' });
   const lista = el('div', { class: 'grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-4' });
@@ -51,13 +53,13 @@ export default async function detailView({ outlet, params }) {
         // Sin arte propio, la caratula es el color de la cadena con las
         // iniciales: un marcador generico repetido en 503 fichas no dice nada.
         el('div', {
-          class: 'relative grid aspect-[2/3] w-32 shrink-0 place-items-center overflow-hidden rounded-card shadow-[var(--shadow-card)] md:w-44',
+          class: 'relative grid aspect-[2/3] w-32 shrink-0 self-start place-items-center overflow-hidden rounded-card shadow-[var(--shadow-card)] md:w-44',
           style: `background: linear-gradient(150deg, ${cadena}, ${shade(cadena, 0.7)})`,
           'aria-hidden': 'true',
         }, [
           el('span', { class: 'font-display text-4xl font-extrabold text-white/85' }, initials(title.name)),
           portada ? el('img', {
-            src: portada, alt: '', decoding: 'async', class: 'absolute inset-0 size-full object-cover',
+            src: portada, alt: '', decoding: 'async', class: `absolute inset-0 size-full ${movie ? 'object-contain' : 'object-cover'}`,
             onError: (event) => { event.target.hidden = true; },
           }) : null,
         ]),
@@ -83,10 +85,11 @@ export default async function detailView({ outlet, params }) {
       ]),
     ]),
     el('section', { class: 'w-full space-y-5 px-4 pb-16 md:px-8' }, [
+      movie?.node,
       title.synopsis ? el('p', { class: 'w-full text-base leading-relaxed text-ink-1' }, title.synopsis) : null,
-      sectionTitle('Episodios'),
-      tabs,
-      lista,
+      movie ? null : sectionTitle('Episodios'),
+      movie ? null : tabs,
+      movie ? null : lista,
       el('details', { class: 'text-xs text-ink-2' }, [
         el('summary', { class: 'cursor-pointer' }, 'Créditos de imágenes y metadatos'),
         el('div', { class: 'mt-3 space-y-2' }, [
@@ -104,6 +107,8 @@ export default async function detailView({ outlet, params }) {
       ]),
     ]),
   ]);
+
+  if (movie) return createView(node, outlet, () => movie.destroy());
 
   const view = createView(node, outlet, () => {
     quitarTabs();

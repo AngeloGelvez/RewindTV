@@ -1,9 +1,12 @@
 import { defineConfig } from 'vite';
 import tailwindcss from '@tailwindcss/vite';
 import { fileURLToPath, URL } from 'node:url';
+import { movieApi } from './server/movie-api.mjs';
+
+const installMovies = server => { server.middlewares.use(movieApi()); };
 
 export default defineConfig({
-  plugins: [tailwindcss()],
+  plugins: [tailwindcss(), { name: 'rewind-movie-api', configureServer: installMovies, configurePreviewServer: installMovies }],
   resolve: {
     alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) },
   },

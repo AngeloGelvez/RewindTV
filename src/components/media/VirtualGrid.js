@@ -17,7 +17,7 @@ import { el, delegate } from '../../core/dom.js';
 import { read, write } from '../../core/scheduler.js';
 import { observeResize } from '../../patterns/observer.js';
 import { defineComponent } from '../base/Component.js';
-import { renderCard, recycleCard, fillCard } from './TitleCard.js';
+import { renderCard, recycleCard, fillCard, titleArtRatio } from './TitleCard.js';
 import { remScale } from '../../core/tv.js';
 
 /**
@@ -39,7 +39,7 @@ export const VirtualGrid = defineComponent({
       recycle = recycleCard,
       // Alto de la tarjeta a partir del ancho de columna. El de serie es el de
       // TitleCard: miniatura 16:9 mas dos lineas de texto.
-      itemHeight = (ancho, k) => (ancho * 9) / 16 + TEXTO * k,
+      itemHeight = (ancho, k, title) => ancho * titleArtRatio(title) + TEXTO * k,
       // Releer una tarjeta ya montada sin recrearla. Solo lo sabe hacer quien
       // conoce la tarjeta; sin esto, refresh() vuelve a montar la ventana.
       fill = render === renderCard ? fillCard : null,
@@ -49,7 +49,8 @@ export const VirtualGrid = defineComponent({
     // En modo TV la fuente raiz crece y las tarjetas con ella (ver Carousel).
     // Se recalcula en measure(), no solo al montar.
     let k = 0;
-    let ROW_HEIGHT = 300;
+    let rowOffsets = [0];
+    let gridWidth = 0;
     let hueco = HUECO;
     let minColumnWidth = baseColumn;
     const sizer = el('div', { class: 'relative w-full' });
@@ -58,6 +59,29 @@ export const VirtualGrid = defineComponent({
     let columns = 1;
     let data = items;
     const mounted = new Map(); // index -> node
+
+    function measureRows() {
+      rowOffsets = [0];
+      const width = Math.max(0, gridWidth / columns - hueco);
+      for (let start = 0; start < data.length; start += columns) {
+        let height = 0;
+        for (let i = start; i < Math.min(start + columns, data.length); i++) {
+          height = Math.max(height, itemHeight(width, k, data[i]));
+        }
+        rowOffsets.push(rowOffsets[rowOffsets.length - 1] + Math.max(1, Math.ceil(height + hueco)));
+      }
+    }
+
+    function rowAt(offset) {
+      let low = 0;
+      let high = rowOffsets.length - 1;
+      while (low < high) {
+        const middle = Math.ceil((low + high) / 2);
+        if (rowOffsets[middle] <= offset) low = middle;
+        else high = middle - 1;
+      }
+      return low;
+    }
 
     function measure() {
       read(() => {
@@ -72,11 +96,10 @@ export const VirtualGrid = defineComponent({
         const next = Math.max(1, Math.floor(width / minColumnWidth));
         // El alto sale del ancho real de columna, no de una constante: si no,
         // al estrechar la ventana las tarjetas se solapan con la fila de abajo.
-        const alto = Math.round(itemHeight(width / next - hueco, k) + hueco);
-        const cambioAlto = alto !== ROW_HEIGHT;
-        ROW_HEIGHT = alto;
-        if (next !== columns || cambio || cambioAlto) {
+        if (next !== columns || cambio || width !== gridWidth) {
           columns = next;
+          gridWidth = width;
+          measureRows();
           reflow(true);
         } else {
           reflow(false);
@@ -89,14 +112,14 @@ export const VirtualGrid = defineComponent({
       const scrollTop = scroller.scrollTop;
       const viewport = scroller.clientHeight;
 
-      const firstRow = Math.max(0, Math.floor(scrollTop / ROW_HEIGHT) - BUFFER_ROWS);
-      const lastRow = Math.min(rows - 1, Math.ceil((scrollTop + viewport) / ROW_HEIGHT) + BUFFER_ROWS);
+      const firstRow = Math.max(0, rowAt(scrollTop) - BUFFER_ROWS);
+      const lastRow = Math.min(rows - 1, rowAt(scrollTop + viewport) + BUFFER_ROWS);
 
       const from = firstRow * columns;
       const to = Math.min(data.length - 1, lastRow * columns + columns - 1);
 
       write(() => {
-        sizer.style.height = `${rows * ROW_HEIGHT}px`;
+        sizer.style.height = `${rowOffsets[rows] ?? 0}px`;
 
         // 1. Reciclar lo que quedo fuera de la ventana.
         for (const [index, node] of mounted) {
@@ -114,7 +137,7 @@ export const VirtualGrid = defineComponent({
           if (mounted.has(index)) continue;
           const node = render(data[index]);
           node.classList.add('v-item');
-          node.style.top = `${Math.floor(index / columns) * ROW_HEIGHT}px`;
+          node.style.top = `${rowOffsets[Math.floor(index / columns)] ?? 0}px`;
           node.style.left = `${(index % columns) * cellWidth}%`;
           node.style.width = `${cellWidth}%`;
           node.style.right = 'auto';
@@ -152,6 +175,7 @@ export const VirtualGrid = defineComponent({
         if (nextItems === data) return;
         data = nextItems;
         scroller.scrollTop = 0;
+        measureRows();
         reflow(true);
       },
       /** Actualiza en sitio sin recrear nodos (p. ej. tras marcar favoritos). */
